@@ -1,0 +1,7 @@
+> create_model_from_postman_sample "LoginRequest"
+
+Generate a Dart model in `data/model/login_request.dart` using @JsonSerializable() with fields:
+- phone: String
+- password: String
+
+Add `fromJson`/`toJson` and generate `.g.dart`

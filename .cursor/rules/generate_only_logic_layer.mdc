@@ -1,0 +1,10 @@
+> generate_only_logic_layer "forgotPassword"
+
+For `forgotPassword` feature:
+- Create `ForgotPasswordCubit`, `ForgotPasswordState`
+- Create API method in `auth_api.dart`
+- Create request/response model
+- Add method to `auth_repo.dart`
+
+Do NOT create UI.
+Only logic layer + integration points.

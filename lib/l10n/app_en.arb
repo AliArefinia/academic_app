@@ -1,0 +1,25 @@
+{
+	"exampleText" : "Welcome",
+	"getStartedPageText" : "Test Test",
+	"appTitle": "Halal Books",
+	"shareQuote": "Share Quote",
+	"savingQuote": "Saving quote...",
+	"quoteSaved": "Quote saved successfully",
+	"errorSavingQuote": "Error saving quote: {error}",
+	"@errorSavingQuote": {
+		"placeholders": {
+			"error": {
+				"type": "String"
+			}
+		}
+	},
+	"pleaseSelectBirthDate": "Please select birth date",
+	"birthDateMustBeBeforeToday": "Birth date must be before today",
+	"pleaseSelectGender": "Please select gender",
+	"pleaseEnterName": "Please enter name",
+	"pleaseEnterLastName": "Please enter last name",
+	"passwordMustBeAtLeast8Chars": "Password must be at least 8 characters",
+	"profileUpdatedSuccessfully": "Profile updated successfully",
+	"errorUpdatingProfile": "Error updating profile",
+	"validationError": "Validation error"
+}

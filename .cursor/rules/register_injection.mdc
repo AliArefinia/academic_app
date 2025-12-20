@@ -1,0 +1,17 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+> register_injection "AuthApiService"
+
+Add the following to your injection module:
+```dart
+@module
+abstract class ApiModule {
+  @lazySingleton
+  AuthApiService provideAuthApiService(Dio dio) => AuthApiService(dio);
+}
+```
+
+Also ensure the API is included in your `injection.dart` build method if needed.

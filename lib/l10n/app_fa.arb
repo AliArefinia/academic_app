@@ -1,0 +1,25 @@
+{
+	"exampleText" : "خوش آمدید",
+	"getStartedPageText" : "اینجا با هر کلیک، سفری تازه آغاز می‌شود؛ سفری که شما را به دل داستان‌ها، رازها و دنیای پررمز و راز کتاب‌ها می‌برد.",
+	"appTitle": "کتاب‌های حلال",
+	"shareQuote": "اشتراک‌گذاری بریده",
+	"savingQuote": "در حال ذخیره بریده...",
+	"quoteSaved": "بریده با موفقیت ذخیره شد",
+	"errorSavingQuote": "خطا در ذخیره بریده: {error}",
+	"@errorSavingQuote": {
+		"placeholders": {
+			"error": {
+				"type": "String"
+			}
+		}
+	},
+	"pleaseSelectBirthDate": "لطفا تاریخ تولد را انتخاب کنید",
+	"birthDateMustBeBeforeToday": "تاریخ تولد باید قبل از امروز باشد",
+	"pleaseSelectGender": "لطفا جنسیت را انتخاب کنید",
+	"pleaseEnterName": "لطفا نام را وارد کنید",
+	"pleaseEnterLastName": "لطفا نام خانوادگی را وارد کنید",
+	"passwordMustBeAtLeast8Chars": "رمز عبور باید حداقل ۸ کاراکتر باشد",
+	"profileUpdatedSuccessfully": "پروفایل با موفقیت بروزرسانی شد",
+	"errorUpdatingProfile": "خطا در بروزرسانی پروفایل",
+	"validationError": "خطا در اعتبارسنجی"
+}

@@ -1,0 +1,11 @@
+> extend_existing_api_repo "AuthRepo"
+
+Add a method to `auth_repo.dart` that uses `AuthApiService.loginWithPassword()`.
+
+Create a function:
+```dart
+Future<LoginResponse> login(String phone, String password) {
+  return _authApiService.loginWithPassword(LoginRequest(phone: phone, password: password));
+}
+```
+Use `@injectable` if not already present.

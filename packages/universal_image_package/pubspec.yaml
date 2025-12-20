@@ -1,0 +1,29 @@
+name: universal_image_flutter
+description: "A new Flutter package project."
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=3.3.1 <4.0.0'
+  flutter: ">=1.17.0"
+
+dependencies:
+  extended_image: ^8.3.1
+  cross_file: ^0.3.4+2
+  flutter:
+    sdk: flutter
+  flutter_svg: ^2.0.10+1
+  mime: ^2.0.0
+  utils_extension_dart:
+    git: https://github.com/mahdiyami/utils_extension_dart.git
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:

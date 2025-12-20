@@ -1,0 +1,59 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+> generate_apis_from_postman "Halal Book API Documentation.postman_collection.json"
+
+Parse all items from the given Postman collection.
+
+For each endpoint:
+
+1. Identify the group (folder) name of the endpoint in Postman, like `Auth`, `Book`, etc.
+2. For each group, create:
+   - Folder: `data/api/{group_name}/`
+   - File: `{group_name}_api.dart` inside it
+   - Subfolder: `data/api/{group_name}/model/` for models
+
+3. In `{group_name}_api.dart`, define an abstract class annotated with:
+   ```dart
+   @RestApi(baseUrl: ApiConstants.baseUrl)
+   @LazySingleton()
+   abstract class {GroupName}ApiService {
+     @factoryMethod
+     factory {GroupName}ApiService(Dio dio) = _{GroupName}ApiService;
+   }
+   ```
+
+4. For each endpoint:
+   - If it sends form data, use `@FormUrlEncoded()` and `@Field()`
+   - If it sends raw JSON, use `@Body()` and generate a request model class
+   - Generate the Dart method inside `{GroupName}ApiService` accordingly
+   - Use endpoint name to derive a camelCase method name, e.g., `loginWithPhone`
+
+5. For each request/response body:
+   - Generate a Dart class in `data/api/{group_name}/model/`
+   - Use `@JsonSerializable()` annotation
+   - Include a `.g.dart` file generated via `build_runner`
+   - Support `@JsonKey(name: ...)` where needed
+
+6. For each feature group, create or extend a repository:
+   - File: `data/repo/{group_name}_repo.dart`
+   - Class: `{GroupName}Repo`
+   - Annotate with `@injectable`
+   - Implement methods that call corresponding API methods using the ApiService
+
+7. In `core/injection/`, add to the module:
+   ```dart
+   @module
+   abstract class ApiModule {
+     @lazySingleton
+     {GroupName}ApiService provide{GroupName}ApiService(Dio dio) => {GroupName}ApiService(dio);
+   }
+   ```
+
+All names should be generated using PascalCase for classes and camelCase for method names.
+
+Use separate folders for models per group.
+Use Retrofit annotations and avoid using Response or Dio directly.
+Never put everything into a single service file like `book_service.dart`, instead follow clean separation.

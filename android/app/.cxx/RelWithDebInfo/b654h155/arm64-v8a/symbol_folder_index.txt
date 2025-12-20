@@ -1,0 +1,1 @@
+/Users/ghasemnoori/AndroidStudioProjects/halalbooks/build/app/intermediates/cxx/RelWithDebInfo/b654h155/obj/arm64-v8a

@@ -1,0 +1,9 @@
+> generate_feature_page "InviteFriend"
+
+Create a new folder `lib/pages/invite_friend/` containing:
+
+- `invite_friend_page.dart`: A StatefulWidget with phone/message input fields and submit button.
+- `invite_friend_cubit.dart`: A Cubit that handles the sendInvite() method from `InviteFriendRepo`.
+- `invite_friend_state.dart`: With loading, success, and error states.
+
+Wire up UI to Cubit and show snackbar/toast on success/failure.

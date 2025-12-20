@@ -1,0 +1,11 @@
+> inject_existing_api_to_ui "InviteFriendPage"
+
+Update `invite_friend_page.dart` to use:
+- `InviteFriendCubit`
+- `InviteFriendRepo.sendInvite()`
+
+Do not create new UI.
+Just:
+- Inject Cubit with BlocProvider
+- Add Cubit call to existing submit button
+- Listen to states (success/error/loading)

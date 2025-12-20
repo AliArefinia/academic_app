@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هدایت به اپلیکیشن</title>
+    <style>
+        body {
+            font-family: 'Vazir', Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>پرداخت موفق!</h1>
+        <div class="spinner"></div>
+        <p>در حال هدایت به اپلیکیشن...</p>
+        <p id="status">لطفاً صبر کنید...</p>
+        
+        <div style="margin-top: 30px;">
+            <a href="#" id="appLink" class="btn">بازگشت به اپلیکیشن</a>
+            <br><br>
+            <small>اگر اپلیکیشن باز نشد، روی دکمه بالا کلیک کنید</small>
+        </div>
+    </div>
+
+    <script>
+        // دریافت پارامترها از URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const authority = urlParams.get('Authority') || urlParams.get('authority');
+        const status = urlParams.get('Status') || urlParams.get('status');
+        const amount = urlParams.get('amount') || '0';
+        const type = urlParams.get('type') || 'book';
+
+        console.log('Payment callback received:', { authority, status, amount, type });
+
+        if (authority) {
+            // ساخت deep link
+            const deepLink = `academic://payment?status=success&authority=${authority}&amount=${amount}&type=${type}`;
+            console.log('Generated deep link:', deepLink);
+            
+            // تنظیم لینک دکمه
+            document.getElementById('appLink').href = deepLink;
+
+            if ((status === 'OK' || status === 'success') && authority) {
+                document.getElementById('status').textContent = 'پرداخت با موفقیت انجام شد!';
+                
+                // تلاش برای باز کردن اپلیکیشن
+                setTimeout(() => {
+                    console.log('Attempting to open app with deep link');
+                    window.location.href = deepLink;
+                }, 2000);
+                
+                // پشتیبان: تلاش مجدد بعد از 4 ثانیه
+                setTimeout(() => {
+                    console.log('Second attempt to open app');
+                    window.open(deepLink, '_blank');
+                }, 4000);
+                
+            } else {
+                document.getElementById('status').textContent = 'وضعیت پرداخت نامشخص';
+                document.getElementById('status').style.color = '#ff9800';
+                
+                // حتی اگر وضعیت نامشخص باشد، بازم تلاش کن
+                setTimeout(() => {
+                    window.location.href = deepLink;
+                }, 3000);
+            }
+        } else {
+            document.getElementById('status').textContent = 'اطلاعات پرداخت ناقص است';
+            document.getElementById('status').style.color = '#ff6b6b';
+            
+            // در صورت عدم وجود authority، به صفحه اصلی اپ برو
+            const fallbackLink = 'academic://payment?status=unknown';
+            document.getElementById('appLink').href = fallbackLink;
+            
+            setTimeout(() => {
+                window.location.href = fallbackLink;
+            }, 3000);
+        }
+
+        // اگر بعد از 6 ثانیه اپلیکیشن باز نشد، پیام نمایش بده
+        setTimeout(() => {
+            document.getElementById('status').textContent = 'اگر اپلیکیشن باز نشد، روی دکمه زیر کلیک کنید';
+        }, 6000);
+        
+        // اضافه کردن fallback برای دکمه
+        document.getElementById('appLink').addEventListener('click', function(e) {
+            console.log('Button clicked, attempting to open app');
+            // اجازه بده که رفتار پیش‌فرض اجرا شود
+            return true;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+> connect_api_to_existing_ui "login"
+
+Add integration to existing UI for login.
+
+Assume:
+- `lib/pages/auth/login_page.dart` exists
+- We need to create:
+  - `login_cubit.dart`
+  - `login_state.dart`
+  - Use `AuthRepo.login()` method
+
+Do:
+- Generate Cubit and State inside `pages/auth/`
+- Inject Cubit in login_page.dart if not already
+- Add method call like `context.read<LoginCubit>().login(phone, pass);`
+- Add loading/success/error state UI placeholders (optional)
