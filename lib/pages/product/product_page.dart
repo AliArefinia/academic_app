@@ -16,7 +16,7 @@ import 'package:academic/data/model/menu_of_contents_model.dart';
 import 'package:academic/data/model/user_opinions.dart';
 import 'package:academic/widgets/main_button.dart';
 import 'package:academic/widgets/error_state_widget.dart';
-import 'package:academic/widgets/add_note_dialog.dart';
+import 'package:academic/widgets/add_note_bottom_sheet.dart';
 import 'package:path_provider/path_provider.dart';
 import '../../core/theme/const.dart';
 import '../../data/api/home/model/book_model.dart';
@@ -88,7 +88,8 @@ class EpubHandler {
           allowSharing: true,
           onAddNote: (text) {
             if (context.mounted && product != null) {
-              showAddNoteDialog(
+              final parentContext = context; // Save parent context
+              showAddNoteBottomSheet(
                 context: context,
                 excerpt: text,
                 bookId: product.idAsInt ?? 0,
@@ -96,17 +97,55 @@ class EpubHandler {
                 bookImage: product.image ?? '',
                 authorName: product.author?.name,
                 onSave: (chapterIds, userNote) async {
-                  await _productCubit.addNote(
-                    excerpt: text,
-                    chapterIds: chapterIds,
-                    userNote: userNote,
-                    bookId: product.idAsInt ?? 0,
-                    bookName: product.name ?? '',
-                    bookImage: product.image ?? '',
-                    authorName: product.author?.name,
-                  );
+                  // Wait a bit for bottom sheet to close
+                  await Future.delayed(const Duration(milliseconds: 300));
+                  
+                  try {
+                    await _productCubit.addNote(
+                      excerpt: text,
+                      chapterIds: chapterIds,
+                      userNote: userNote,
+                      bookId: product.idAsInt ?? 0,
+                      bookName: product.name ?? '',
+                      bookImage: product.image ?? '',
+                      authorName: product.author?.name,
+                    );
+                    
+                    // Show success message directly if context is still mounted
+                    if (parentContext.mounted) {
+                      ErrorHelper.showSuccessSnackBar(
+                        parentContext,
+                        'یادداشت با موفقیت ذخیره شد',
+                      );
+                    }
+                  } catch (e) {
+                    // Error will be handled by BlocConsumer listener
+                    if (parentContext.mounted) {
+                      ErrorHelper.showErrorSnackBar(
+                        parentContext,
+                        'خطا در ذخیره یادداشت: ${e.toString()}',
+                      );
+                    }
+                  }
                 },
               );
+            }
+          },
+          onAddBookClipping: (bookId, text) async {
+            if (context.mounted) {
+              await _productCubit.addBookClipping(
+                bookId: bookId,
+                text: text,
+              );
+              if (context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text('بریده کتاب با موفقیت ذخیره شد'),
+                    backgroundColor: Colors.green,
+                    duration: const Duration(seconds: 2),
+                  ),
+                );
+              }
             }
           },
         ),
@@ -229,8 +268,14 @@ class _ProductPageState extends State<ProductPage> {
         listener: (context, state) {
           if (state.error != null) {
             ErrorHelper.showErrorSnackBar(context, state.error!);
-          } else if (state.successMessage != null) {
-            ErrorHelper.showSuccessSnackBar(context, state.successMessage!);
+          }
+          // Show success message for all cases except addNote (handled in callback)
+          if (state.successMessage != null) {
+            // For addNote, message is shown in onSave callback after bottom sheet closes
+            // For other actions (bookmark, clipping), show here
+            if (!state.successMessage!.contains('یادداشت')) {
+              ErrorHelper.showSuccessSnackBar(context, state.successMessage!);
+            }
           }
         },
         builder: (context, state) {

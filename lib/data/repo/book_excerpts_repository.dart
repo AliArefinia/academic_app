@@ -18,4 +18,14 @@ class BookExcerptsRepository {
       rethrow;
     }
   }
+
+  Future<BookExcerpt> storeBookExcerpt(int bookId, String text) async {
+    try {
+      return await _apiService.storeBookExcerpt(bookId, text);
+    } catch (e, stackTrace) {
+      print('Error storing book excerpt: $e');
+      print('Stack trace: $stackTrace');
+      rethrow;
+    }
+  }
 } 

@@ -9,6 +9,8 @@ import 'package:academic/gen/assets.gen.dart';
 import 'package:academic/widgets/error_state_widget.dart';
 import 'package:academic/widgets/empty_state_widget.dart';
 import 'package:readmore/readmore.dart';
+import 'package:universal_image_flutter/universal_image_flutter.dart';
+import '../../core/helper/image_ur_handler.dart';
 import 'logic/book_tour_cubit.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -317,11 +319,12 @@ class BookTourWidget extends StatelessWidget {
               Row(
                 spacing: AppSpacing.s8,
                 children: [
-                  Image.network(
-                    bookExcerpt.book.image,
-                    height: context.fullHeight * 0.2,
-                    errorBuilder: (context, error, stackTrace) =>
-                        const Icon(Icons.error),
+                  UniversalImageLoader(
+                    path: buildImageUrl(bookExcerpt.book.image) ?? bookExcerpt.book.image,
+                    option: UniversalImageLoaderOption(
+                      height: context.fullHeight * 0.2,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Expanded(
                     child: Column(
@@ -410,10 +413,15 @@ class ProfileSection extends StatelessWidget {
             backgroundColor: context.colorScheme.background,
             child: CircleAvatar(
               radius: AppRadius.corner20,
-              child: Image.network(
-                image,
-                errorBuilder: (context, error, stackTrace) =>
-                    const Icon(Icons.person),
+              child: ClipOval(
+                child: UniversalImageLoader(
+                  path: buildImageUrl(image) ?? image,
+                  option: UniversalImageLoaderOption(
+                    width: AppRadius.corner20 * 2,
+                    height: AppRadius.corner20 * 2,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
           ),

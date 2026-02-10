@@ -23,7 +23,7 @@ class _MyChaptersPageState extends State<MyChaptersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'سرفصل‌های من',
+        title: 'فیش‌های من',
         icon: Icons.folder_rounded,
       ),
       body: BlocBuilder<MyChaptersCubit, MyChaptersState>(

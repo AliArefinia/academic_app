@@ -174,4 +174,38 @@ class ProductCubit extends Cubit<ProductState> {
       emit(state.copyWith(error: null));
     }
   }
+
+  Future<void> addBookClipping({
+    required int bookId,
+    required String text,
+  }) async {
+    try {
+      emit(state.copyWith(
+        isLoading: true,
+        error: null,
+        successMessage: null,
+      ));
+      
+      await _bookExcerptsRepository.storeBookExcerpt(bookId, text);
+      
+      emit(state.copyWith(
+        isLoading: false,
+        successMessage: 'بریده کتاب با موفقیت ذخیره شد',
+      ));
+      
+      // Clear success message after 3 seconds
+      await Future.delayed(const Duration(seconds: 3));
+      emit(state.copyWith(successMessage: null));
+    } catch (e) {
+      emit(state.copyWith(
+        isLoading: false,
+        error: 'خطا در ذخیره بریده کتاب: ${e.toString()}',
+        successMessage: null,
+      ));
+      
+      // Clear error message after 3 seconds
+      await Future.delayed(const Duration(seconds: 3));
+      emit(state.copyWith(error: null));
+    }
+  }
 }

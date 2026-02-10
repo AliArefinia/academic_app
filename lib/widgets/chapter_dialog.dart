@@ -66,7 +66,7 @@ void showChapterDialog({
                   // Category selector only for create
                   const SizedBox(height: AppSpacing.s16),
                   const Text(
-                    'دسته‌بندی (اختیاری)',
+                    'دسته‌بندی',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -273,8 +273,17 @@ void showChapterDialog({
           ElevatedButton(
             onPressed: () {
               if (chapter == null) {
-                // Create mode - validate title
+                // Create mode - validate title and category
                 if (formKey.currentState!.validate()) {
+                  if (selectedCategory == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('لطفاً دسته‌بندی را انتخاب کنید'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                    return;
+                  }
                   Navigator.pop(context);
                   onSave(
                     titleController.text.trim(),

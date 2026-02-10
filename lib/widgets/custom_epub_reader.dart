@@ -32,6 +32,7 @@ class CustomEpubReader extends StatefulWidget {
   final bool enableTts;
   final bool allowSharing;
   final Function(String text)? onAddNote;
+  final Function(int bookId, String text)? onAddBookClipping;
   final ProductModel? product;
   final int? initialPage;
   final bool isSample;
@@ -44,6 +45,7 @@ class CustomEpubReader extends StatefulWidget {
     this.enableTts = false,
     this.allowSharing = true, // Changed to true by default
     this.onAddNote,
+    this.onAddBookClipping,
     this.product,
     this.initialPage,
     this.isSample = false,
@@ -169,7 +171,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
     if (plainText.isEmpty) {
       return const SizedBox.shrink();
     }
-    // نمایش متن با هایلایت
+    // نمایش متن با برجسته
     final highlights = _highlights
         .where((h) =>
             h.pageIndex == pageIndex &&
@@ -230,19 +232,42 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
               type: ContextMenuButtonType.custom,
               label: '📝 افزودن به فیش‌نویسی',
             ),
+          if (widget.allowSharing && widget.onAddBookClipping != null && widget.product?.idAsInt != null)
+            ContextMenuButtonItem(
+              onPressed: () {
+                final sel = editableTextState.textEditingValue.selection;
+                if (sel.start >= 0 && sel.end > sel.start) {
+                  final selected =
+                      plainText.substring(sel.start, sel.end).trim();
+                  if (selected.isNotEmpty && widget.product?.idAsInt != null) {
+                    widget.onAddBookClipping?.call(widget.product!.idAsInt!, selected);
+                    editableTextState.hideToolbar();
+                  }
+                }
+              },
+              type: ContextMenuButtonType.custom,
+              label: '📑 بریده کتاب',
+            ),
           ContextMenuButtonItem(
             onPressed: () {
               final sel = editableTextState.textEditingValue.selection;
               if (sel.start >= 0 && sel.end > sel.start) {
-                final selected = plainText.substring(sel.start, sel.end).trim();
-                if (selected.isNotEmpty) {
-                  _addHighlight(
-                    selected,
-                    sel.start,
-                    sel.end,
-                    color: Colors.yellow.withOpacity(0.3),
-                    pageIndex: pageIndex,
-                  );
+                // Get selected text from the displayed text (with highlights)
+                final displayedText = editableTextState.textEditingValue.text;
+                final selectedText = displayedText.substring(sel.start, sel.end).trim();
+                
+                if (selectedText.isNotEmpty) {
+                  // Find the actual position in plainText by searching for the selected text
+                  final actualPositions = _findTextInPlainText(plainText, selectedText, pageIndex);
+                  if (actualPositions != null) {
+                    _addHighlight(
+                      selectedText,
+                      actualPositions['start']!,
+                      actualPositions['end']!,
+                      color: Colors.yellow.withOpacity(0.3),
+                      pageIndex: pageIndex,
+                    );
+                  }
                 }
               }
               editableTextState.hideToolbar();
@@ -254,15 +279,22 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
             onPressed: () {
               final sel = editableTextState.textEditingValue.selection;
               if (sel.start >= 0 && sel.end > sel.start) {
-                final selected = plainText.substring(sel.start, sel.end).trim();
-                if (selected.isNotEmpty) {
-                  _addHighlight(
-                    selected,
-                    sel.start,
-                    sel.end,
-                    color: Colors.green.withOpacity(0.3),
-                    pageIndex: pageIndex,
-                  );
+                // Get selected text from the displayed text (with highlights)
+                final displayedText = editableTextState.textEditingValue.text;
+                final selectedText = displayedText.substring(sel.start, sel.end).trim();
+                
+                if (selectedText.isNotEmpty) {
+                  // Find the actual position in plainText by searching for the selected text
+                  final actualPositions = _findTextInPlainText(plainText, selectedText, pageIndex);
+                  if (actualPositions != null) {
+                    _addHighlight(
+                      selectedText,
+                      actualPositions['start']!,
+                      actualPositions['end']!,
+                      color: Colors.green.withOpacity(0.3),
+                      pageIndex: pageIndex,
+                    );
+                  }
                 }
               }
               editableTextState.hideToolbar();
@@ -274,15 +306,22 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
             onPressed: () {
               final sel = editableTextState.textEditingValue.selection;
               if (sel.start >= 0 && sel.end > sel.start) {
-                final selected = plainText.substring(sel.start, sel.end).trim();
-                if (selected.isNotEmpty) {
-                  _addHighlight(
-                    selected,
-                    sel.start,
-                    sel.end,
-                    color: Colors.orange.withOpacity(0.3),
-                    pageIndex: pageIndex,
-                  );
+                // Get selected text from the displayed text (with highlights)
+                final displayedText = editableTextState.textEditingValue.text;
+                final selectedText = displayedText.substring(sel.start, sel.end).trim();
+                
+                if (selectedText.isNotEmpty) {
+                  // Find the actual position in plainText by searching for the selected text
+                  final actualPositions = _findTextInPlainText(plainText, selectedText, pageIndex);
+                  if (actualPositions != null) {
+                    _addHighlight(
+                      selectedText,
+                      actualPositions['start']!,
+                      actualPositions['end']!,
+                      color: Colors.orange.withOpacity(0.3),
+                      pageIndex: pageIndex,
+                    );
+                  }
                 }
               }
               editableTextState.hideToolbar();
@@ -294,15 +333,22 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
             onPressed: () {
               final sel = editableTextState.textEditingValue.selection;
               if (sel.start >= 0 && sel.end > sel.start) {
-                final selected = plainText.substring(sel.start, sel.end).trim();
-                if (selected.isNotEmpty) {
-                  _addHighlight(
-                    selected,
-                    sel.start,
-                    sel.end,
-                    color: Colors.blue.withOpacity(0.3),
-                    pageIndex: pageIndex,
-                  );
+                // Get selected text from the displayed text (with highlights)
+                final displayedText = editableTextState.textEditingValue.text;
+                final selectedText = displayedText.substring(sel.start, sel.end).trim();
+                
+                if (selectedText.isNotEmpty) {
+                  // Find the actual position in plainText by searching for the selected text
+                  final actualPositions = _findTextInPlainText(plainText, selectedText, pageIndex);
+                  if (actualPositions != null) {
+                    _addHighlight(
+                      selectedText,
+                      actualPositions['start']!,
+                      actualPositions['end']!,
+                      color: Colors.blue.withOpacity(0.3),
+                      pageIndex: pageIndex,
+                    );
+                  }
                 }
               }
               editableTextState.hideToolbar();
@@ -340,6 +386,107 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
     );
   }
 
+  /// Find the actual position of selected text in plainText
+  /// This is needed because selection positions from SelectableText.rich
+  /// may not match plainText positions when highlights are already present
+  Map<String, int>? _findTextInPlainText(String plainText, String selectedText, int pageIndex) {
+    if (selectedText.trim().isEmpty) return null;
+    
+    // Normalize the selected text for better matching
+    final normalizedSelected = _normalizeText(selectedText);
+    final normalizedPlainText = _normalizeText(plainText);
+    
+    if (normalizedSelected.isEmpty) return null;
+    
+    // Get existing highlights for this page
+    final pageHighlights = _highlights
+        .where((h) =>
+            h.pageIndex == pageIndex &&
+            (h.bookId == widget.epubPath || h.bookId == widget.product?.id))
+        .toList();
+    
+    // Try to find the text in plainText, avoiding overlaps with existing highlights
+    int searchStart = 0;
+    while (true) {
+      final normalizedIndex = normalizedPlainText.indexOf(normalizedSelected, searchStart);
+      if (normalizedIndex == -1) break;
+      
+      // Convert normalized index to actual plainText index
+      final actualPositions = _normalizedToActualPosition(plainText, normalizedIndex, normalizedSelected.length);
+      if (actualPositions == null) {
+        searchStart = normalizedIndex + 1;
+        continue;
+      }
+      
+      // Check if this position overlaps with any existing highlight
+      final overlaps = pageHighlights.any((h) =>
+          (actualPositions['start']! < h.end && actualPositions['end']! > h.start));
+      
+      if (!overlaps) {
+        return actualPositions;
+      }
+      
+      searchStart = normalizedIndex + 1;
+    }
+    
+    // If no non-overlapping position found, try simple search
+    final simpleIndex = plainText.indexOf(selectedText);
+    if (simpleIndex != -1) {
+      return {'start': simpleIndex, 'end': simpleIndex + selectedText.length};
+    }
+    
+    // Last resort: use normalized search result
+    final firstNormalizedIndex = normalizedPlainText.indexOf(normalizedSelected);
+    if (firstNormalizedIndex != -1) {
+      return _normalizedToActualPosition(plainText, firstNormalizedIndex, normalizedSelected.length);
+    }
+    
+    return null;
+  }
+  
+  /// Convert normalized text index to actual text position
+  Map<String, int>? _normalizedToActualPosition(String originalText, int normalizedIndex, int normalizedLength) {
+    // Build a mapping between normalized and actual positions
+    final normalizedText = _normalizeText(originalText);
+    if (normalizedIndex + normalizedLength > normalizedText.length) return null;
+    
+    // Find start position
+    int actualStart = 0;
+    int normalizedPos = 0;
+    
+    for (int i = 0; i < originalText.length && normalizedPos < normalizedIndex; i++) {
+      final char = originalText[i];
+      // Count this character in normalized text if it's not a special whitespace
+      if (char != '\n' && char != '\r' && char != '\t') {
+        normalizedPos++;
+      }
+      actualStart = i + 1;
+    }
+    
+    // Find end position
+    int actualEnd = actualStart;
+    int normalizedEnd = normalizedIndex + normalizedLength;
+    
+    for (int i = actualStart; i < originalText.length && normalizedPos < normalizedEnd; i++) {
+      final char = originalText[i];
+      if (char != '\n' && char != '\r' && char != '\t') {
+        normalizedPos++;
+      }
+      actualEnd = i + 1;
+    }
+    
+    // Verify the found text
+    if (actualStart < originalText.length && actualEnd <= originalText.length) {
+      final foundText = _normalizeText(originalText.substring(actualStart, actualEnd));
+      final expectedText = normalizedText.substring(normalizedIndex, normalizedIndex + normalizedLength);
+      if (foundText == expectedText) {
+        return {'start': actualStart, 'end': actualEnd};
+      }
+    }
+    
+    return null;
+  }
+
   void _addHighlight(String text, int start, int end,
       {Color? color, int? pageIndex}) {
     if (pageIndex != null && pageIndex >= 0 && pageIndex < _pages.length) {
@@ -373,7 +520,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
             // Show a snackbar to confirm the highlight
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('متن با موفقیت هایلایت شد'),
+                content: Text('متن با موفقیت برجسته شد'),
                 duration: const Duration(seconds: 2),
                 behavior: SnackBarBehavior.floating,
               ),
@@ -484,11 +631,36 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
           showCursor: true,
           toolbarOptions: const ToolbarOptions(copy: true, selectAll: true),
           contextMenuBuilder: (context, editableTextState) {
-            return AdaptiveTextSelectionToolbar.buttonItems(
-              anchors: editableTextState.contextMenuAnchors,
-              buttonItems: <ContextMenuButtonItem>[
-                // 🟡 yellow
+            final List<ContextMenuButtonItem> buttonItems = [];
+            
+            // Add book clipping option if available
+            if (widget.allowSharing && widget.onAddBookClipping != null && widget.product?.idAsInt != null) {
+              buttonItems.add(
                 ContextMenuButtonItem(
+                  onPressed: () {
+                    final sel = editableTextState.textEditingValue.selection;
+                    if (sel.start >= 0 &&
+                        sel.end > sel.start &&
+                        contentPageIndex != null) {
+                      final plain = _displayText[contentPageIndex];
+                      final selected =
+                          plain.substring(sel.start, sel.end).trim();
+                      if (selected.isNotEmpty && widget.product?.idAsInt != null) {
+                        widget.onAddBookClipping?.call(widget.product!.idAsInt!, selected);
+                        editableTextState.hideToolbar();
+                      }
+                    }
+                  },
+                  type: ContextMenuButtonType.custom,
+                  label: '📑 بریده کتاب',
+                ),
+              );
+            }
+            
+            // Add highlight options
+            buttonItems.addAll([
+              // 🟡 yellow
+              ContextMenuButtonItem(
                   onPressed: () {
                     final sel = editableTextState.textEditingValue.selection;
                     if (sel.start >= 0 &&
@@ -612,7 +784,11 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                   type: ContextMenuButtonType.custom,
                   label: '💗',
                 ),
-              ],
+            ]);
+            
+            return AdaptiveTextSelectionToolbar.buttonItems(
+              anchors: editableTextState.contextMenuAnchors,
+              buttonItems: buttonItems,
             );
           },
         ));
@@ -1443,7 +1619,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                   controller: _tabController,
                   tabs: const [
                     Tab(text: 'سرفصل‌ها'),
-                    Tab(text: 'هایلایت‌ها'),
+                    Tab(text: 'برجسته‌ها'),
                     Tab(text: 'ذخیره شده‌ها'),
                   ],
                   indicatorColor:
@@ -1486,7 +1662,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                             padding: const EdgeInsets.all(8.0),
                             child: TextButton.icon(
                               icon: const Icon(Icons.delete_sweep, size: 18),
-                              label: const Text('حذف همه هایلایت‌ها'),
+                              label: const Text('حذف همه برجسته‌ها'),
                               onPressed: () {
                                 setState(() {
                                   _highlights.clear();
@@ -1836,7 +2012,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                     color: _isNightMode ? Colors.white : Colors.black,
                     size: 18),
                 onPressed: _showBottomSheet,
-                tooltip: 'سرفصل‌ها و هایلایت‌ها',
+                tooltip: 'سرفصل‌ها و برجسته‌ها',
               ),
             ),
           ],

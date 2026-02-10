@@ -14,7 +14,7 @@ class _AuthApiService implements AuthApiService {
     this.baseUrl,
     this.errorLogger,
   }) {
-    baseUrl ??= 'https://academic.arefinia.com';
+    baseUrl ??= 'https://academic.halal-books.com';
   }
 
   final Dio _dio;

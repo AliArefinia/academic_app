@@ -41,10 +41,12 @@ class MybooksPage extends StatelessWidget {
                   ? allBooks
                   : allBooks
                   .where((book) {
-                    final bookType = book.type?.toLowerCase() ?? 'text';
+                    final bookType = book.type?.toLowerCase() ?? '';
                     if (selectedCategory == 1) {
-                      return bookType == 'text' || bookType == '5';
+                      // Electronic/Text books: everything except audio
+                      return bookType != 'audio';
                     } else {
+                      // Audio books
                       return bookType == 'audio';
                     }
                   })

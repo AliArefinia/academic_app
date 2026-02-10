@@ -371,14 +371,14 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/api/products/9",
+							"raw": "{{baseUrl}}/api/products/75",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
 								"products",
-								"9"
+								"75"
 							]
 						}
 					},
@@ -753,7 +753,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"amount\": 200000,\r\n    \"discount_code\": \"\",\r\n    \"gateway_name\": \"zarinpal\",\r\n    \"book_ids\": [3, 1],\r\n    \"plan_id\": null,\r\n    \"type\": \"book\"\r\n    // type => gift_card, wallet, book, subscription\r\n    // book_ids => is nullable\r\n    // mobile => is nullable\r\n}",
+							"raw": "{\r\n    \"amount\": 200000,\r\n    \"discount_code\": \"\",\r\n    \"gateway_name\": \"zarinpal\",\r\n    \"book_ids\": [67],\r\n    \"plan_id\": null,\r\n    \"type\": \"book\"\r\n    // type => gift_card, wallet, book, subscription\r\n    // book_ids => is nullable\r\n    // mobile => is nullable\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -852,7 +852,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Authority\": \"S000000000000000000000000000000rxe7d\"\r\n}",
+							"raw": "{\r\n    \"Authority\": \"S000000000000000000000000000000y2w12\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -895,7 +895,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"book_id\": 4\r\n}",
+							"raw": "{\r\n    \"book_id\": 67\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -981,7 +981,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "10|ODXBgghQCK9cW9kQta5JjA3QTPzNGKIvy7KHA7iV31026d82",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -1108,7 +1108,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/books?tag_id=3&query=name",
+							"raw": "{{baseUrl}}/api/books?tag_id=3&query=name&publisher_id=1&speaker_id=1&author_id=1&translator_id=1",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1135,6 +1135,22 @@
 								{
 									"key": "query",
 									"value": "name"
+								},
+								{
+									"key": "publisher_id",
+									"value": "1"
+								},
+								{
+									"key": "speaker_id",
+									"value": "1"
+								},
+								{
+									"key": "author_id",
+									"value": "1"
+								},
+								{
+									"key": "translator_id",
+									"value": "1"
 								}
 							]
 						}
@@ -1607,18 +1623,23 @@
 									"key": "text",
 									"value": "asfdfsadsafdsafd fsad",
 									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "fadsfdsa",
+									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/headlines/3/add-note",
+							"raw": "{{baseUrl}}/api/headlines/6/add-note",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
 								"headlines",
-								"3",
+								"6",
 								"add-note"
 							]
 						}
@@ -1669,24 +1690,24 @@
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
+							"mode": "urlencoded",
+							"urlencoded": [
 								{
-									"key": "description",
-									"value": "test tsetste",
+									"key": "text",
+									"value": "afsdfasd 32323",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "{{baseUrl}}/api/notes/24",
+							"raw": "{{baseUrl}}/api/notes/28",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
 								"notes",
-								"24"
+								"28"
 							]
 						}
 					},
@@ -1805,13 +1826,263 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/api/headlines/1",
+							"raw": "{{baseUrl}}/api/headlines/6",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"api",
 								"headlines",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BookMetaData",
+			"item": [
+				{
+					"name": "get speakers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/book-meta/speakers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"book-meta",
+								"speakers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get translators",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/book-meta/translators",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"book-meta",
+								"translators"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get authors",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "10|ODXBgghQCK9cW9kQta5JjA3QTPzNGKIvy7KHA7iV31026d82",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/book-meta/authors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"book-meta",
+								"authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get publishers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "10|ODXBgghQCK9cW9kQta5JjA3QTPzNGKIvy7KHA7iV31026d82",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/book-meta/publishers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"book-meta",
+								"publishers"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "BookExcerpt",
+			"item": [
+				{
+					"name": "store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"book_id\": 75,\r\n    \"text\": \"لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/book-clipping/store",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"book-clipping",
+								"store"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "my book excerpts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/my-book-clipping",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"my-book-clipping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/book-clipping",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"book-clipping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "my book excerpts comments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/my-book-clipping/comments/1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"my-book-clipping",
+								"comments",
 								"1"
 							]
 						}

@@ -70,15 +70,24 @@ class MyApp extends StatelessWidget {
                 Locale('fa', 'IR'),
               ],
               builder: (context, child) {
-                return Directionality(
-                  textDirection: TextDirection.rtl,
-                  child: Navigator(
-                    onGenerateRoute: (settings) {
-                      return MaterialPageRoute(
-                        settings: settings,
-                        builder: (context) => _PlayerScaffold(child: child),
-                      );
-                    },
+                // Limit text scale factor to prevent layout breaking
+                final mediaQuery = MediaQuery.of(context);
+                final limitedMediaQuery = mediaQuery.copyWith(
+                  textScaleFactor: mediaQuery.textScaleFactor.clamp(1.0, 1.2),
+                );
+                
+                return MediaQuery(
+                  data: limitedMediaQuery,
+                  child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Navigator(
+                      onGenerateRoute: (settings) {
+                        return MaterialPageRoute(
+                          settings: settings,
+                          builder: (context) => _PlayerScaffold(child: child),
+                        );
+                      },
+                    ),
                   ),
                 );
               },

@@ -11,7 +11,7 @@ class MyBookExcerptsApiService {
 
   Future<List<MyBookExcerpt>> getMyBookExcerpts() async {
     try {
-      final response = await _dio.get('/api/my-book-excerpts');
+      final response = await _dio.get('/api/my-book-clipping');
       final List<dynamic> data = response.data['data']['list'];
       return data.map((json) => MyBookExcerpt.fromJson(json)).toList();
     } catch (e) {
@@ -19,10 +19,24 @@ class MyBookExcerptsApiService {
     }
   }
 
+  Future<MyBookExcerpt> storeBookExcerpt(int bookId, String text) async {
+    try {
+      final response = await _dio.post(
+        '/api/book-clipping/store',
+        data: {
+          'book_id': bookId,
+          'text': text,
+        },
+      );
+      return MyBookExcerpt.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
 
   Future<List<MyBookExcerptComment>> getMyBookExcerptComments(int excerptId) async {
     try {
-      final response = await _dio.get('/api/my-book-excerpts/comments/$excerptId');
+      final response = await _dio.get('/api/my-book-clipping/comments/$excerptId');
       final List<dynamic> data = response.data['data']['list'];
       return data.map((json) => MyBookExcerptComment.fromJson(json)).toList();
     } catch (e) {

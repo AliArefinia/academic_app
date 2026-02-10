@@ -13,6 +13,9 @@ class MyBookExcerptsRepository {
     return _apiService.getMyBookExcerpts();
   }
 
+  Future<MyBookExcerpt> storeBookExcerpt(int bookId, String text) {
+    return _apiService.storeBookExcerpt(bookId, text);
+  }
 
   Future<List<MyBookExcerptComment>> getMyBookExcerptComments(int excerptId) {
     return _apiService.getMyBookExcerptComments(excerptId);

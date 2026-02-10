@@ -110,15 +110,22 @@ class UserprofilePage extends StatelessWidget {
                           text: "سیر مطالعاتی",
                           iconPath: Assets.icBookId,
                         ),
-                        // ReusableDropdownMenu(
-                        //   text: "بریده های من",
-                        //   iconPath: Assets.icSave,
-                        //   onTap: () {
-                        //     const MyClippingsRoute().push(context);
-                        //   },
-                        // ),
                         ReusableDropdownMenu(
-                          text: "سرفصل‌های من",
+                          text: "بریده های من",
+                          iconPath: Assets.icSave,
+                          onTap: () {
+                            const MyClippingsRoute().push(context);
+                          },
+                        ),
+                        ReusableDropdownMenu(
+                          text: "کتاب گردی",
+                          iconPath: Assets.icBooks,
+                          onTap: () {
+                            const BooktourRoute().push(context);
+                          },
+                        ),
+                        ReusableDropdownMenu(
+                          text: "فیش‌های من",
                           iconPath: Assets.icFolder,
                           onTap: () {
                             const MychaptersRoute().push(context);

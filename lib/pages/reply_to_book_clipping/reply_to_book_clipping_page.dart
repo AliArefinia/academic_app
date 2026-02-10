@@ -4,8 +4,13 @@ import 'package:academic/core/helper/ui_extention.dart';
 import 'package:academic/core/router/router.dart';
 import 'package:academic/core/theme/const.dart';
 import 'package:academic/widgets/main_button.dart';
+import 'package:universal_image_flutter/universal_image_flutter.dart';
 import '../../core/helper/app_helper.dart';
+import '../../core/helper/image_ur_handler.dart';
 import 'logic/reply_to_book_clipping_cubit.dart';
+import 'package:academic/core/storage/local_storage.dart';
+import 'package:get_it/get_it.dart';
+import 'package:academic/data/api/auth/model/auth_response_model.dart';
 
 class ReplytobookclippingPage extends StatelessWidget {
   final String bookImage;
@@ -25,6 +30,16 @@ class ReplytobookclippingPage extends StatelessWidget {
       this.numOfLike,
       this.numOfComment,
       required this.userDescription});
+
+  String _getUserFullName(UserModel? user) {
+    if (user == null) return 'کاربر';
+    final name = user.name?.trim() ?? '';
+    final lastName = user.lastName?.trim() ?? '';
+    if (name.isEmpty && lastName.isEmpty) {
+      return user.phone ?? 'کاربر';
+    }
+    return [name, lastName].where((s) => s.isNotEmpty).join(' ');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,17 +73,21 @@ class ReplytobookclippingPage extends StatelessWidget {
                       text: 'ارسال',
                       textColor: context.colorScheme.secondary,
                       backgroundColor: context.colorScheme.primary,
-                      onPressed: () => ShareviewRoute(
-                        userNameAndFamily: userNameAndFamily,
-                        userImage: userImage,
-                        userDescription: userDescription,
-                        date: date,
-                        opinion: cubit.textEditingController.text,
-                        numOfComment: numOfComment,
-                        numOfLike: numOfLike,
-                        todayDate: '12 آبان 1403',
-                        personNameAndFamily: 'تینا یاوری',
-                      ).pushReplacement(context),
+                      onPressed: () {
+                        final user = GetIt.I<LocalStorage>().getUser();
+                        final personNameAndFamily = _getUserFullName(user);
+                        ShareviewRoute(
+                          userNameAndFamily: userNameAndFamily,
+                          userImage: userImage,
+                          userDescription: userDescription,
+                          date: date,
+                          opinion: cubit.textEditingController.text,
+                          numOfComment: numOfComment,
+                          numOfLike: numOfLike,
+                          todayDate: '12 آبان 1403',
+                          personNameAndFamily: personNameAndFamily,
+                        ).pushReplacement(context);
+                      },
                     )
                   ],
                 ),
@@ -152,7 +171,16 @@ class ProfileSection extends StatelessWidget {
             backgroundColor: context.colorScheme.background,
             child: CircleAvatar(
               radius: AppRadius.corner25,
-              child: Image.asset(userImage),
+              child: ClipOval(
+                child: UniversalImageLoader(
+                  path: buildImageUrl(userImage) ?? userImage,
+                  option: UniversalImageLoaderOption(
+                    width: AppRadius.corner25 * 2,
+                    height: AppRadius.corner25 * 2,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
             ),
           ),
         ),
@@ -188,11 +216,17 @@ class BookImageSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: AppSpacing.s16),
-      child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(AppRadius.corner8),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(AppRadius.corner8),
+        child: UniversalImageLoader(
+          path: buildImageUrl(image) ?? image,
+          option: UniversalImageLoaderOption(
+            width: 80,
+            height: 100,
+            fit: BoxFit.cover,
           ),
-          child: Image.asset(image)),
+        ),
+      ),
     );
   }
 }

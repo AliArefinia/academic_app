@@ -1,6 +1,6 @@
 /// Constants for API configuration
 class ApiConstants {
-  static const String baseUrl = 'https://academic.arefinia.com';
+  static const String baseUrl = 'https://academic.halal-books.com';
   static const Duration connectTimeout = Duration(seconds: 5);
   static const Duration receiveTimeout = Duration(seconds: 5);
   static const Map<String, String> headers = {

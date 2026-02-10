@@ -96,8 +96,17 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
 
   void _handleSave() {
     if (widget.chapter == null) {
-      // Create mode - validate title
+      // Create mode - validate title and category
       if (_formKey.currentState!.validate()) {
+        if (_selectedCategory == null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('لطفاً دسته‌بندی را انتخاب کنید'),
+              backgroundColor: Colors.red,
+            ),
+          );
+          return;
+        }
         Navigator.pop(context);
         widget.onSave(
           _titleController.text.trim(),
@@ -232,7 +241,7 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
 
                       // Category selector
                       const Text(
-                        'دسته‌بندی (اختیاری)',
+                        'دسته‌بندی',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -295,20 +304,6 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                                   ),
                                 ),
                               ),
-                              if (_selectedCategory != null)
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.clear_rounded,
-                                    color: context.colorScheme.onSurfaceVariant,
-                                    size: 20,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _selectedCategory = null;
-                                    });
-                                  },
-                                  tooltip: 'حذف انتخاب',
-                                ),
                               Icon(
                                 Icons.keyboard_arrow_down_rounded,
                                 color: context.colorScheme.onSurfaceVariant,

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/helper/ui_extention.dart';
-import 'package:academic/core/router/router.dart';
 import 'package:academic/core/theme/const.dart';
 import 'package:academic/data/model/my_book_excerpt_comment.dart';
+import 'package:universal_image_flutter/universal_image_flutter.dart';
+import '../../core/helper/image_ur_handler.dart';
 import 'logic/my_book_excerpt_comments_cubit.dart';
 
 class MyBookExcerptCommentsPage extends StatelessWidget {
@@ -50,16 +51,12 @@ class MyBookExcerptCommentsPage extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(AppRadius.corner8),
-                      child: Image.network(
-                        bookImage,
-                        width: 60,
-                        height: 80,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Container(
+                      child: UniversalImageLoader(
+                        path: buildImageUrl(bookImage) ?? bookImage,
+                        option: UniversalImageLoaderOption(
                           width: 60,
                           height: 80,
-                          color: Colors.grey[300],
-                          child: const Icon(Icons.book),
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -189,14 +186,12 @@ class CommentItem extends StatelessWidget {
             radius: 20,
             backgroundColor: context.colorScheme.primary.withOpacity(0.1),
             child: ClipOval(
-              child: Image.network(
-                comment.avatar,
-                width: 40,
-                height: 40,
-                fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => const Icon(
-                  Icons.person,
-                  size: 20,
+              child: UniversalImageLoader(
+                path: buildImageUrl(comment.avatar) ?? comment.avatar,
+                option: UniversalImageLoaderOption(
+                  width: 40,
+                  height: 40,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
