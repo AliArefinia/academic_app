@@ -6,6 +6,8 @@
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>دانشگاه امام صادق (ع)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,8 +15,6 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>دانشگاه امام صادق (ع)</string>
-	<key>CFBundleDisplayName</key>
 	<string>دانشگاه امام صادق (ع)</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
@@ -46,6 +46,27 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneClassName</key>
+					<string>UIWindowScene</string>
+					<key>UISceneConfigurationName</key>
+					<string>flutter</string>
+					<key>UISceneDelegateClassName</key>
+					<string>FlutterSceneDelegate</string>
+					<key>UISceneStoryboardFile</key>
+					<string>Main</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

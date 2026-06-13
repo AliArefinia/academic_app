@@ -1,5 +1,13 @@
 import 'package:dio/dio.dart';
 
+String _dioUnknownRootMessage(DioException error) {
+  final parts = <String>[
+    if (error.message != null && error.message!.trim().isNotEmpty) error.message!.trim(),
+    if (error.error != null) error.error.toString().trim(),
+  ];
+  return parts.join(' — ');
+}
+
 /// Maps technical error messages to user-friendly Persian messages
 class ErrorMessageMapper {
   static const String _defaultErrorMessage = 'مشکلی پیش آمده است. لطفا دوباره تلاش کنید';
@@ -48,7 +56,9 @@ class ErrorMessageMapper {
         return 'عملیات لغو شد';
 
       case DioExceptionType.unknown:
-        return _mapStringError(error.message ?? error.toString());
+        final combined = _dioUnknownRootMessage(error);
+        if (combined.isEmpty) return _defaultErrorMessage;
+        return _mapStringError(combined);
 
       default:
         return _defaultErrorMessage;

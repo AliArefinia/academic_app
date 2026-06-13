@@ -12,14 +12,51 @@ allprojects {
     }
 }
 
-rootProject.buildDir = '../build'
+rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 subprojects {
-    project.evaluationDependsOn(':app')
+    project.evaluationDependsOn(":app")
+}
+
+def inferManifestPackage = { Project project ->
+    def manifestFile = new File(project.projectDir, "src/main/AndroidManifest.xml")
+    if (!manifestFile.exists()) {
+        return null
+    }
+    def manifestText = manifestFile.getText("UTF-8")
+    def matcher = manifestText =~ /package\s*=\s*"([^"]+)"/
+    return matcher.find() ? matcher.group(1) : null
+}
+
+subprojects { subproject ->
+    subproject.plugins.withId("com.android.library") {
+        def androidExt = subproject.extensions.findByName("android")
+        if (androidExt == null) {
+            return
+        }
+
+        def currentNamespace = null
+        try {
+            currentNamespace = androidExt.namespace
+        } catch (ignored) {
+            currentNamespace = null
+        }
+        if (currentNamespace != null && currentNamespace.toString().trim()) {
+            return
+        }
+
+        def manifestPackage = inferManifestPackage(subproject)
+        if (manifestPackage == null || !manifestPackage.trim()) {
+            return
+        }
+
+        androidExt.namespace = manifestPackage
+        println("Set missing namespace for ${subproject.name}: ${manifestPackage}")
+    }
 }
 
 tasks.register("clean", Delete) {
-    delete rootProject.layout.buildDirectory
+    delete rootProject.buildDir
 }
