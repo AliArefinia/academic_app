@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:academic/core/error/error_message_mapper.dart';
@@ -103,7 +104,7 @@ class VerificationCubit extends Cubit<VerificationState> {
     required int categoryId,
   }) async {
     if (_phone == null || _otp == null) {
-      emit(const VerificationState.error('خطا در اطلاعات ورودی'));
+      emit(VerificationState.error(l10n.errorInInputData));
       return;
     }
 

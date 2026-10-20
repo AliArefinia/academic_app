@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/data/api/people/model/person_model.dart';
@@ -79,7 +80,7 @@ class _PeopleMultiSelectSheetState<T extends Cubit<S>, S> extends State<PeopleMu
                 controller: _searchController,
                 onChanged: _onSearchChanged,
                 decoration: InputDecoration(
-                  hintText: 'جستجو در ${widget.title}...',
+                  hintText: l10n.searchInWithValue(widget.title.toString()),
                   prefixIcon: const Icon(Icons.search),
                   border: const OutlineInputBorder(),
                 ),
@@ -98,7 +99,7 @@ class _PeopleMultiSelectSheetState<T extends Cubit<S>, S> extends State<PeopleMu
                     }
                     final people = widget.getPeopleFromState(state);
                     if (people.isEmpty) {
-                      return Center(child: Text('${widget.title}ی یافت نشد.'));
+                      return Center(child: Text(l10n.noneFoundWithValue(widget.title.toString())));
                     }
                     return ListView.builder(
                       itemCount: people.length,
@@ -132,7 +133,7 @@ class _PeopleMultiSelectSheetState<T extends Cubit<S>, S> extends State<PeopleMu
                         widget.onConfirm(_selected);
                         Navigator.of(context).pop();
                       },
-                      child: const Text('تایید'),
+                      child: Text(l10n.confirm),
                     ),
                   ),
                 ],

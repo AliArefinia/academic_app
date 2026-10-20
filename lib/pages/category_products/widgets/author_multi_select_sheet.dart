@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/data/api/people/model/person_model.dart';
@@ -47,15 +48,15 @@ class _AuthorMultiSelectSheetState extends State<AuthorMultiSelectSheet> {
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 const SizedBox(width: 8),
-                const Text('انتخاب نویسنده', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                Text(l10n.selectAuthor, style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ],
             ),
             const SizedBox(height: 12),
             TextField(
               controller: _searchController,
               onChanged: _onSearchChanged,
-              decoration: const InputDecoration(
-                hintText: 'جستجو در نویسنده‌ها...',
+              decoration: InputDecoration(
+                hintText: l10n.searchAuthors,
                 prefixIcon: Icon(Icons.search),
                 border: OutlineInputBorder(),
               ),
@@ -70,7 +71,7 @@ class _AuthorMultiSelectSheetState extends State<AuthorMultiSelectSheet> {
                     error: (msg) => Center(child: Text(msg)),
                     success: (authors) {
                       if (authors.isEmpty) {
-                        return const Center(child: Text('نویسنده‌ای یافت نشد.'));
+                        return Center(child: Text(l10n.noAuthorFound));
                       }
                       return ListView.builder(
                         itemCount: authors.length,
@@ -106,7 +107,7 @@ class _AuthorMultiSelectSheetState extends State<AuthorMultiSelectSheet> {
                       widget.onConfirm(_selected);
                       Navigator.of(context).pop();
                     },
-                    child: const Text('تایید'),
+                    child: Text(l10n.confirm),
                   ),
                 ),
               ],

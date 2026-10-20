@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -86,7 +87,7 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('خطا در انتخاب تصویر: ${e.toString()}'),
+            content: Text(l10n.errorSelectingImageWithMessage(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -100,8 +101,8 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
       if (_formKey.currentState!.validate()) {
         if (_selectedCategory == null) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('لطفاً دسته‌بندی را انتخاب کنید'),
+            SnackBar(
+              content: Text(l10n.pleaseSelectCategoryFormal),
               backgroundColor: Colors.red,
             ),
           );
@@ -171,7 +172,7 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                 const SizedBox(width: AppSpacing.s12),
                 Expanded(
                   child: Text(
-                    isCreateMode ? 'ایجاد سرفصل جدید' : 'ویرایش سرفصل',
+                    isCreateMode ? l10n.createNewChapter : l10n.editChapter,
                     style: context.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -180,7 +181,7 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                 IconButton(
                   icon: const Icon(Icons.close_rounded),
                   onPressed: () => Navigator.pop(context),
-                  tooltip: 'بستن',
+                  tooltip: l10n.close,
                 ),
               ],
             ),
@@ -202,18 +203,18 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                       // Title field only for create
                       TextFormField(
                         controller: _titleController,
-                        decoration: const InputDecoration(
-                          labelText: 'عنوان سرفصل',
-                          hintText: 'مثلاً: هوش مصنوعی',
+                        decoration: InputDecoration(
+                          labelText: l10n.chapterTitle,
+                          hintText: l10n.chapterTitleExample,
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.title_rounded),
                         ),
                         validator: (value) {
                           if (value == null || value.trim().isEmpty) {
-                            return 'عنوان الزامی است';
+                            return l10n.titleRequired;
                           }
                           if (value.trim().length < 3) {
-                            return 'عنوان باید حداقل ۳ کاراکتر باشد';
+                            return l10n.titleMinLength;
                           }
                           return null;
                         },
@@ -227,8 +228,8 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                     TextFormField(
                       controller: _descriptionController,
                       decoration: InputDecoration(
-                        labelText: isCreateMode ? 'توضیحات (اختیاری)' : 'توضیحات',
-                        hintText: 'توضیح کوتاه درباره این سرفصل',
+                        labelText: isCreateMode ? l10n.descriptionOptional : l10n.description,
+                        hintText: l10n.chapterDescriptionHint,
                         border: const OutlineInputBorder(),
                         prefixIcon: const Icon(Icons.description_outlined),
                       ),
@@ -240,8 +241,8 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                       const SizedBox(height: AppSpacing.s20),
 
                       // Category selector
-                      const Text(
-                        'دسته‌بندی',
+                      Text(
+                        l10n.category,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -293,7 +294,7 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                               const SizedBox(width: AppSpacing.s12),
                               Expanded(
                                 child: Text(
-                                  _selectedCategory?.name ?? 'انتخاب دسته‌بندی',
+                                  _selectedCategory?.name ?? l10n.selectCategory,
                                   style: context.textTheme.bodyLarge?.copyWith(
                                     color: _selectedCategory != null
                                         ? context.colorScheme.primary
@@ -317,8 +318,8 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                       const SizedBox(height: AppSpacing.s20),
 
                       // Image picker
-                      const Text(
-                        'تصویر (اختیاری)',
+                      Text(
+                        l10n.imageOptional,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -354,7 +355,7 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                                         TextButton.icon(
                                           onPressed: _pickImage,
                                           icon: const Icon(Icons.edit),
-                                          label: const Text('تغییر تصویر'),
+                                          label: Text(l10n.changeImage),
                                         ),
                                         const SizedBox(width: AppSpacing.s16),
                                         TextButton.icon(
@@ -364,7 +365,7 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                                             });
                                           },
                                           icon: const Icon(Icons.delete),
-                                          label: const Text('حذف'),
+                                          label: Text(l10n.delete),
                                           style: TextButton.styleFrom(
                                             foregroundColor: Colors.red,
                                           ),
@@ -383,7 +384,7 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                                     ),
                                     const SizedBox(width: AppSpacing.s8),
                                     Text(
-                                      'انتخاب تصویر',
+                                      l10n.selectImage,
                                       style: TextStyle(
                                         color: context.colorScheme.onSurfaceVariant,
                                         fontSize: 16,
@@ -425,7 +426,7 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                           borderRadius: BorderRadius.circular(AppRadius.corner12),
                         ),
                       ),
-                      child: const Text('انصراف'),
+                      child: Text(l10n.cancel),
                     ),
                   ),
                   const SizedBox(width: AppSpacing.s12),
@@ -439,7 +440,7 @@ class _CreateChapterBottomSheetContentState extends State<_CreateChapterBottomSh
                           borderRadius: BorderRadius.circular(AppRadius.corner12),
                         ),
                       ),
-                      child: const Text('ذخیره'),
+                      child: Text(l10n.save),
                     ),
                   ),
                 ],

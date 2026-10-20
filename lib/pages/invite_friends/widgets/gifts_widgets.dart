@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:academic/core/helper/ui_extention.dart';
 import 'package:academic/core/theme/const.dart';
@@ -45,7 +46,7 @@ class NoGiftsSection extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.s16),
             Text(
-              'هنوز جایزه‌ای دریافت نکرده‌اید',
+              l10n.noRewardsReceivedYet,
               style: context.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: context.colorScheme.onSurface,
@@ -54,7 +55,7 @@ class NoGiftsSection extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.s8),
             Text(
-              'با دعوت از دوستانتان و استفاده از کد دعوت، جوایز ارزشمندی دریافت خواهید کرد!',
+              l10n.inviteFriendsGetRewards,
               style: context.textTheme.bodyMedium?.copyWith(
                 color: context.colorScheme.onSurfaceVariant,
                 height: 1.5,
@@ -81,7 +82,7 @@ class NoGiftsSection extends StatelessWidget {
                   ),
                   const SizedBox(width: AppSpacing.s8),
                   Text(
-                    'کد دعوت خود را به اشتراک بگذارید',
+                    l10n.shareYourInviteCode,
                     style: context.textTheme.labelMedium?.copyWith(
                       color: context.colorScheme.onPrimary,
                       fontWeight: FontWeight.w600,
@@ -117,7 +118,7 @@ class GiftsSection extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                'جوایز دریافتی',
+                l10n.receivedRewards,
                 style: context.textTheme.headlineSmall?.copyWith(
                   color: context.colorScheme.onPrimaryContainer,
                   fontWeight: FontWeight.bold,
@@ -125,7 +126,7 @@ class GiftsSection extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.s8),
               Text(
-                'تعداد کل: ${gifts.length} جایزه',
+                l10n.totalRewardsCount(gifts.length),
                 style: context.textTheme.titleMedium?.copyWith(
                   color: context.colorScheme.onPrimaryContainer,
                 ),
@@ -217,7 +218,7 @@ class GiftWidget extends StatelessWidget {
                       ),
                       const SizedBox(height: AppSpacing.s4),
                       Text(
-                        'کد پیگیری: ${giftModel.tracking_code}',
+                        l10n.trackingCodeWithValue(giftModel.tracking_code.toString()),
                         style: context.textTheme.bodySmall?.copyWith(
                           color: context.colorScheme.onSurfaceVariant,
                         ),
@@ -257,7 +258,7 @@ class GiftWidget extends StatelessWidget {
                 ),
                 const SizedBox(width: AppSpacing.s4),
                 Text(
-                  'تاریخ دریافت: ${giftModel.created_at}',
+                  l10n.receivedDateWithValue(giftModel.created_at.toString()),
                   style: context.textTheme.bodySmall?.copyWith(
                     color: context.colorScheme.onSurfaceVariant,
                   ),

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,7 +8,7 @@ import 'package:academic/core/router/router.dart';
 import 'package:academic/core/theme/const.dart';
 import 'package:academic/data/model/language_model.dart';
 import 'package:academic/gen/assets.gen.dart';
-import 'package:academic/pages/select_language_page/bloc/language_bloc.dart';
+import 'package:academic/core/settings/app_settings.dart';
 import 'package:universal_image_flutter/universal_image_flutter.dart';
 import '../reviews_and_rating/logic/reviews_and_rating_cubit.dart';
 import 'logic/get_started_cubit.dart';
@@ -17,8 +18,6 @@ class GetStartedPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var langController = context.read<LanguageBloc>();
-
     return BlocBuilder<GetStartedCubit, GetStartedState>(
       builder: (context, state) {
         return Directionality(
@@ -70,9 +69,8 @@ class GetStartedPage extends StatelessWidget {
                       children: Language.languageList
                           .map(
                             (e) => GestureDetector(
-                              onTap: () => langController.add(
-                                  LanguageEvent.changeLanguage(
-                                      selectedLanguage: e)),
+                              onTap: () =>
+                                  AppSettings.instance.setLocale(e.locale),
                               child: Container(
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -101,7 +99,7 @@ class GetStartedPage extends StatelessWidget {
                                 WidgetStatePropertyAll(Colors.white),
                             foregroundColor:
                                 WidgetStatePropertyAll(Colors.white)),
-                        child: Text('ورود به برنامه')),
+                        child: Text(l10n.enterApp)),
                   ],
                 ),
               ),

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:injectable/injectable.dart';
 import '../api/payment/payment_api.dart';
 import '../api/payment/model/payment_model.dart';
@@ -61,9 +62,9 @@ class PaymentRepository implements IPaymentRepository {
       print('❌ Payment verification error: $e');
       // Check if error is due to List response instead of Map
       if (e.toString().contains('List<dynamic>') && e.toString().contains('Map<String, dynamic>')) {
-        throw Exception('خطا در پاسخ سرور: سرور یک خطا بازگشت داده است');
+        throw Exception(l10n.errorServerReturnedError);
       }
-      throw Exception('خطا در تایید پرداخت: ${e.toString()}');
+      throw Exception(l10n.errorVerifyingPaymentWithMessage(e.toString()));
     }
   }
 }

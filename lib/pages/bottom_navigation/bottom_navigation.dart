@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:academic/core/helper/ui_extention.dart';
 
@@ -39,7 +40,7 @@ class BottomNavigationWidget extends StatelessWidget {
             Icons.home_outlined,
             color: context.theme.colorScheme.outlineVariant,
           ),
-          label: 'خانه',
+          label: l10n.home,
         ),
         BottomNavigationBarItem(
           activeIcon: Icon(
@@ -50,7 +51,7 @@ class BottomNavigationWidget extends StatelessWidget {
             Icons.person_outline,
             color: context.theme.colorScheme.outlineVariant,
           ),
-          label: 'پروفایل',
+          label: l10n.profile,
         ),
         BottomNavigationBarItem(
           activeIcon: Icon(
@@ -61,7 +62,7 @@ class BottomNavigationWidget extends StatelessWidget {
             Icons.shopping_bag_outlined,
             color: context.theme.colorScheme.outlineVariant,
           ),
-          label: 'بازارچه',
+          label: l10n.marketplace,
         ),
         BottomNavigationBarItem(
           activeIcon: Icon(
@@ -72,7 +73,7 @@ class BottomNavigationWidget extends StatelessWidget {
             Icons.category_outlined,
             color: context.theme.colorScheme.outlineVariant,
           ),
-          label: 'دسته ها',
+          label: l10n.categoriesTab,
         ),
         BottomNavigationBarItem(
           activeIcon: Icon(
@@ -83,7 +84,7 @@ class BottomNavigationWidget extends StatelessWidget {
             Icons.book_outlined,
             color: context.theme.colorScheme.outlineVariant,
           ),
-          label: 'کتاب های من',
+          label: l10n.myBooks,
         ),
       ],
     );

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:academic/core/theme/const.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -95,8 +96,8 @@ class _AddNoteBottomSheetContentState extends State<_AddNoteBottomSheetContent> 
   void _handleSave() {
     if (_selectedChapters.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('لطفاً حداقل یک سرفصل انتخاب کنید'),
+        SnackBar(
+          content: Text(l10n.pleaseSelectAtLeastOneChapter),
           backgroundColor: Colors.orange,
         ),
       );
@@ -148,7 +149,7 @@ class _AddNoteBottomSheetContentState extends State<_AddNoteBottomSheetContent> 
                 const SizedBox(width: AppSpacing.s12),
                 Expanded(
                   child: Text(
-                    'افزودن به فیش‌نویسی',
+                    l10n.addToNoteCards,
                     style: context.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -157,7 +158,7 @@ class _AddNoteBottomSheetContentState extends State<_AddNoteBottomSheetContent> 
                 IconButton(
                   icon: const Icon(Icons.close_rounded),
                   onPressed: () => Navigator.pop(context),
-                  tooltip: 'بستن',
+                  tooltip: l10n.close,
                 ),
               ],
             ),
@@ -194,7 +195,7 @@ class _AddNoteBottomSheetContentState extends State<_AddNoteBottomSheetContent> 
                                         ),
                                         const SizedBox(width: AppSpacing.s8),
                                         Text(
-                                          'بریده انتخاب شده',
+                                          l10n.selectedClipping,
                                           style: context.textTheme.labelMedium?.copyWith(
                                             fontWeight: FontWeight.bold,
                                             color: context.colorScheme.primary,
@@ -245,7 +246,7 @@ class _AddNoteBottomSheetContentState extends State<_AddNoteBottomSheetContent> 
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'انتخاب سرفصل',
+                                              l10n.selectChapter,
                                               style: context.textTheme.bodyLarge?.copyWith(
                                                 fontWeight: FontWeight.w600,
                                               ),
@@ -253,7 +254,7 @@ class _AddNoteBottomSheetContentState extends State<_AddNoteBottomSheetContent> 
                                             if (_selectedChapters.isNotEmpty) ...[
                                               const SizedBox(height: AppSpacing.s4),
                                               Text(
-                                                '${_selectedChapters.length} سرفصل انتخاب شده',
+                                                l10n.chaptersSelectedCount(_selectedChapters.length),
                                                 style: context.textTheme.bodySmall?.copyWith(
                                                   color: context.colorScheme.primary,
                                                 ),
@@ -276,7 +277,7 @@ class _AddNoteBottomSheetContentState extends State<_AddNoteBottomSheetContent> 
 
                               // User note field - simplified
                               Text(
-                                'یادداشت (اختیاری)',
+                                l10n.noteOptional,
                                 style: context.textTheme.titleSmall?.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -285,7 +286,7 @@ class _AddNoteBottomSheetContentState extends State<_AddNoteBottomSheetContent> 
                               TextFormField(
                                 controller: noteController,
                                 decoration: InputDecoration(
-                                  hintText: 'یادداشت یا توضیحی درباره این بریده...',
+                                  hintText: l10n.noteAboutClippingHint,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(AppRadius.corner12),
                                   ),
@@ -327,7 +328,7 @@ class _AddNoteBottomSheetContentState extends State<_AddNoteBottomSheetContent> 
                           borderRadius: BorderRadius.circular(AppRadius.corner12),
                         ),
                       ),
-                      child: const Text('انصراف'),
+                      child: Text(l10n.cancel),
                     ),
                   ),
                   const SizedBox(width: AppSpacing.s12),
@@ -341,7 +342,7 @@ class _AddNoteBottomSheetContentState extends State<_AddNoteBottomSheetContent> 
                           borderRadius: BorderRadius.circular(AppRadius.corner12),
                         ),
                       ),
-                      child: const Text('ذخیره'),
+                      child: Text(l10n.save),
                     ),
                   ),
                 ],
@@ -420,7 +421,7 @@ class _ChapterSelectionBottomSheetContentState extends State<_ChapterSelectionBo
         setState(() => _isLoading = false);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('خطا در بارگذاری سرفصل‌ها: ${e.toString()}'),
+            content: Text(l10n.errorLoadingChaptersWithMessage(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -462,7 +463,7 @@ class _ChapterSelectionBottomSheetContentState extends State<_ChapterSelectionBo
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('خطا در ایجاد سرفصل: ${e.toString()}'),
+                content: Text(l10n.errorCreatingChapterWithMessage(e.toString())),
                 backgroundColor: Colors.red,
               ),
             );
@@ -524,7 +525,7 @@ class _ChapterSelectionBottomSheetContentState extends State<_ChapterSelectionBo
                 const SizedBox(width: AppSpacing.s12),
                 Expanded(
                   child: Text(
-                    'انتخاب سرفصل',
+                    l10n.selectChapter,
                     style: context.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -533,7 +534,7 @@ class _ChapterSelectionBottomSheetContentState extends State<_ChapterSelectionBo
                 IconButton(
                   icon: const Icon(Icons.close_rounded),
                   onPressed: () => Navigator.pop(context),
-                  tooltip: 'بستن',
+                  tooltip: l10n.close,
                 ),
               ],
             ),
@@ -555,7 +556,7 @@ class _ChapterSelectionBottomSheetContentState extends State<_ChapterSelectionBo
                             child: OutlinedButton.icon(
                               onPressed: _createNewChapter,
                               icon: const Icon(Icons.add_circle_outline),
-                              label: const Text('ایجاد سرفصل جدید'),
+                              label: Text(l10n.createNewChapter),
                               style: OutlinedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
                                   horizontal: AppSpacing.s16,
@@ -687,7 +688,7 @@ class _ChapterSelectionBottomSheetContentState extends State<_ChapterSelectionBo
                           borderRadius: BorderRadius.circular(AppRadius.corner12),
                         ),
                       ),
-                      child: const Text('انصراف'),
+                      child: Text(l10n.cancel),
                     ),
                   ),
                   const SizedBox(width: AppSpacing.s12),
@@ -701,7 +702,7 @@ class _ChapterSelectionBottomSheetContentState extends State<_ChapterSelectionBo
                           borderRadius: BorderRadius.circular(AppRadius.corner12),
                         ),
                       ),
-                      child: Text(_selectedChapters.isEmpty ? 'تأیید' : 'تأیید (${_selectedChapters.length})'),
+                      child: Text(_selectedChapters.isEmpty ? l10n.confirmFormal : l10n.confirmWithCount(_selectedChapters.length)),
                     ),
                   ),
                 ],
@@ -726,14 +727,14 @@ class _ChapterSelectionBottomSheetContentState extends State<_ChapterSelectionBo
           ),
           const SizedBox(height: AppSpacing.s16),
           Text(
-            'سرفصلی وجود ندارد',
+            l10n.noChapters,
             style: context.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: AppSpacing.s8),
           Text(
-            'برای افزودن یادداشت، ابتدا باید یک سرفصل ایجاد کنید.',
+            l10n.createChapterFirstToAddNote,
             style: context.textTheme.bodyMedium,
             textAlign: TextAlign.center,
           ),
@@ -741,7 +742,7 @@ class _ChapterSelectionBottomSheetContentState extends State<_ChapterSelectionBo
           ElevatedButton.icon(
             onPressed: _createNewChapter,
             icon: const Icon(Icons.add_circle_outline),
-            label: const Text('ایجاد سرفصل جدید'),
+            label: Text(l10n.createNewChapter),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.s24,

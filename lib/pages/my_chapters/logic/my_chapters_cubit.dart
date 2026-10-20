@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -22,7 +23,7 @@ class MyChaptersCubit extends Cubit<MyChaptersState> {
       final chapters = await _chaptersRepository.getMyChapters();
       emit(MyChaptersState.loaded(chapters));
     } catch (e) {
-      emit(MyChaptersState.error('خطا در بارگذاری سرفصل‌ها: ${e.toString()}'));
+      emit(MyChaptersState.error(l10n.errorLoadingChaptersWithMessage(e.toString())));
     }
   }
 
@@ -34,7 +35,7 @@ class MyChaptersCubit extends Cubit<MyChaptersState> {
   }) async {
     try {
       if (title.trim().length < 3) {
-        emit(const MyChaptersState.error('عنوان باید حداقل ۳ کاراکتر باشد'));
+        emit(MyChaptersState.error(l10n.titleMinLength));
         return;
       }
 
@@ -47,7 +48,7 @@ class MyChaptersCubit extends Cubit<MyChaptersState> {
       );
       await loadChapters();
     } catch (e) {
-      emit(MyChaptersState.error('خطا در ایجاد سرفصل: ${e.toString()}'));
+      emit(MyChaptersState.error(l10n.errorCreatingChapterWithMessage(e.toString())));
     }
   }
 
@@ -63,7 +64,7 @@ class MyChaptersCubit extends Cubit<MyChaptersState> {
       );
       await loadChapters();
     } catch (e) {
-      emit(MyChaptersState.error('خطا در به‌روزرسانی سرفصل: ${e.toString()}'));
+      emit(MyChaptersState.error(l10n.errorUpdatingChapterWithMessage(e.toString())));
     }
   }
 
@@ -73,7 +74,7 @@ class MyChaptersCubit extends Cubit<MyChaptersState> {
       await _chaptersRepository.deleteChapter(chapterId);
       await loadChapters();
     } catch (e) {
-      emit(MyChaptersState.error('خطا در حذف سرفصل: ${e.toString()}'));
+      emit(MyChaptersState.error(l10n.errorDeletingChapterWithMessage(e.toString())));
     }
   }
 }

@@ -31,9 +31,9 @@ class InvitefriendsCubit extends Cubit<InvitefriendsState> {
 
   void onTabTap(String tabName) {
     emit(state.copyWith(currentTab: tabName));
-    if (tabName == 'دعوت') {
+    if (tabName == 'invite') {
       loadInvitedFriends();
-    } else if (tabName == 'جوایز') {
+    } else if (tabName == 'rewards') {
       loadGifts();
     }
   }

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -21,7 +22,7 @@ class PublicChaptersCubit extends Cubit<PublicChaptersState> {
       final chapters = await _chaptersRepository.getAllChapters();
       emit(PublicChaptersState.loaded(chapters));
     } catch (e) {
-      emit(PublicChaptersState.error('خطا در بارگذاری سرفصل‌ها: ${e.toString()}'));
+      emit(PublicChaptersState.error(l10n.errorLoadingChaptersWithMessage(e.toString())));
     }
   }
 }

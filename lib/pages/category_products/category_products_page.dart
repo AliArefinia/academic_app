@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -96,7 +97,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                                 }
                               },
                               decoration: InputDecoration(
-                                hintText: "جستجو در دانشگاه امام صادق (ع)",
+                                hintText: l10n.searchInApp,
                                 hintStyle: context.textTheme.bodyMedium,
                                 border: InputBorder.none,
                                 enabledBorder: InputBorder.none,
@@ -156,14 +157,14 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                                 children: [
                                   SvgPicture.asset(Assets.icFilter),
                                   const SizedBox(width: AppSpacing.s8),
-                                  Text("فیلتر", style: context.textTheme.titleMedium?.copyWith(fontSize: 15)),
+                                  Text(l10n.filterLabel, style: context.textTheme.titleMedium?.copyWith(fontSize: 15)),
                                 ],
                               ),
                             ),
                             const SizedBox(width: AppSpacing.s32),
                             SvgPicture.asset(Assets.icBest),
                             const SizedBox(width: AppSpacing.s8),
-                            Text("پر فروش ترین", style: context.textTheme.titleMedium?.copyWith(fontSize: 15)),
+                            Text(l10n.bestSelling, style: context.textTheme.titleMedium?.copyWith(fontSize: 15)),
                             const Spacer(),
                             GestureDetector(
                               onTap: () => setState(() => isGridView = false),
@@ -190,7 +191,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                         error: (message) => Center(child: Text(message)),
                         success: (products) {
                           if (products.isEmpty) {
-                            return Center(child: Text('محصولی یافت نشد.'));
+                            return Center(child: Text(l10n.noProductsFound));
                           }
                           if (isGridView) {
                             return GridView.builder(
@@ -259,7 +260,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "فیلتر",
+                          l10n.filterLabel,
                           style: context.textTheme.titleLarge,
                         ),
                         GestureDetector(
@@ -276,7 +277,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                         children: [
                           filterItem(
                             context,
-                            title: "کتاب متنی",
+                            title: l10n.textBook,
                             isActive: cubit.isText,
                             onTap: () {
                               setModalState(() {
@@ -286,7 +287,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                           ),
                           filterItem(
                             context,
-                            title: "کتاب صوتی",
+                            title: l10n.audioBook,
                             isActive: cubit.isAudio,
                             onTap: () {
                               setModalState(() {
@@ -297,8 +298,8 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                           navigationItem(
                             context,
                             title: selectedAuthorsList.isNotEmpty
-                                ? "نویسنده: ${selectedAuthorsList.map((a) => a.name ?? '').join(', ')}"
-                                : "نویسنده",
+                                ? l10n.authorWithValue(selectedAuthorsList.map((a) => a.name ?? '').join(', '))
+                                : l10n.author,
                             hasDivider: true,
                             onTap: () async {
                               final authorsCubit = AuthorsCubit()..fetchAuthors();
@@ -309,7 +310,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                                   return BlocProvider.value(
                                     value: authorsCubit,
                                     child: PeopleMultiSelectSheet<AuthorsCubit, AuthorsState>(
-                                      title: 'نویسنده',
+                                      title: l10n.author,
                                       cubit: authorsCubit,
                                       initiallySelected: selectedAuthorsList,
                                       onConfirm: (selected) {
@@ -330,8 +331,8 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                           navigationItem(
                             context,
                             title: selectedTranslatorsList.isNotEmpty
-                                ? "مترجم: ${selectedTranslatorsList.map((a) => a.name ?? '').join(', ')}"
-                                : "مترجم",
+                                ? l10n.translatorWithValue(selectedTranslatorsList.map((a) => a.name ?? '').join(', '))
+                                : l10n.translator,
                             hasDivider: true,
                             onTap: () async {
                               final translatorsCubit = TranslatorsCubit()..fetchTranslators();
@@ -342,7 +343,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                                   return BlocProvider.value(
                                     value: translatorsCubit,
                                     child: PeopleMultiSelectSheet<TranslatorsCubit, TranslatorsState>(
-                                      title: 'مترجم',
+                                      title: l10n.translator,
                                       cubit: translatorsCubit,
                                       initiallySelected: selectedTranslatorsList,
                                       onConfirm: (selected) {
@@ -363,8 +364,8 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                           navigationItem(
                             context,
                             title: selectedSpeakersList.isNotEmpty
-                                ? "گوینده: ${selectedSpeakersList.map((a) => a.name ?? '').join(', ')}"
-                                : "گوینده",
+                                ? l10n.narratorWithValue(selectedSpeakersList.map((a) => a.name ?? '').join(', '))
+                                : l10n.speaker,
                             hasDivider: true,
                             onTap: () async {
                               final speakersCubit = SpeakersCubit()..fetchSpeakers();
@@ -375,7 +376,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                                   return BlocProvider.value(
                                     value: speakersCubit,
                                     child: PeopleMultiSelectSheet<SpeakersCubit, SpeakersState>(
-                                      title: 'گوینده',
+                                      title: l10n.speaker,
                                       cubit: speakersCubit,
                                       initiallySelected: selectedSpeakersList,
                                       onConfirm: (selected) {
@@ -396,8 +397,8 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                           navigationItem(
                             context,
                             title: selectedPublishersList.isNotEmpty
-                                ? "ناشر: ${selectedPublishersList.map((a) => a.name ?? '').join(', ')}"
-                                : "ناشر",
+                                ? l10n.publisherWithValue(selectedPublishersList.map((a) => a.name ?? '').join(', '))
+                                : l10n.publisher,
                             hasDivider: true,
                             onTap: () async {
                               final publishersCubit = PublishersCubit()..fetchPublishers();
@@ -408,7 +409,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                                   return BlocProvider.value(
                                     value: publishersCubit,
                                     child: PeopleMultiSelectSheet<PublishersCubit, PublishersState>(
-                                      title: 'ناشر',
+                                      title: l10n.publisher,
                                       cubit: publishersCubit,
                                       initiallySelected: selectedPublishersList,
                                       onConfirm: (selected) {
@@ -443,7 +444,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                               backgroundColor: context.colorScheme.surface,
                               foregroundColor: context.colorScheme.onSurface,
                             ),
-                            child: const Text("انصراف"),
+                            child: Text(l10n.cancel),
                           ),
                         ),
                         const SizedBox(width: AppSpacing.s16),
@@ -452,7 +453,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text("اعمال فیلتر"),
+                            child: Text(l10n.applyFilter),
                           ),
                         ),
                       ],

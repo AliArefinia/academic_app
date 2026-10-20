@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -57,7 +58,7 @@ class PaymentSuccessPage extends StatelessWidget {
 
               // Success Title
               Text(
-                'پرداخت با موفقیت انجام شد',
+                l10n.paymentDone,
                 style: context.textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.green,
@@ -82,20 +83,20 @@ class PaymentSuccessPage extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    _buildDetailRow(context, 'نوع پرداخت', _getPaymentTypeText()),
+                    _buildDetailRow(context, l10n.paymentType, _getPaymentTypeText()),
                     const Divider(),
-                    _buildDetailRow(context, 'مبلغ', '${amount} تومان'),
+                    _buildDetailRow(context, l10n.amount, l10n.amountToman(amount.toString())),
                     if (orderNumber != null) ...[
                       const Divider(),
-                      _buildDetailRow(context, 'شماره سفارش', orderNumber!),
+                      _buildDetailRow(context, l10n.orderNumber, orderNumber!),
                     ],
                     if (transactionId != null) ...[
                       const Divider(),
-                      _buildDetailRow(context, 'شناسه تراکنش', transactionId!),
+                      _buildDetailRow(context, l10n.transactionId, transactionId!),
                     ],
                     if (trackingCode != null) ...[
                       const Divider(),
-                      _buildDetailRow(context, 'کد پیگیری', trackingCode!),
+                      _buildDetailRow(context, l10n.trackingCode, trackingCode!),
                     ],
                     if (items != null && items!.isNotEmpty) ...[
                       const Divider(),
@@ -110,7 +111,7 @@ class PaymentSuccessPage extends StatelessWidget {
               Column(
                 children: [
                   MainButton(
-                    text: 'بازگشت به صفحه اصلی',
+                    text: l10n.backToHome,
                     backgroundColor: context.colorScheme.primary,
                     textColor: context.colorScheme.onPrimary,
                     onPressed: () => _navigateToHome(context),
@@ -195,7 +196,7 @@ class PaymentSuccessPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'اقلام خریداری شده',
+                    l10n.purchasedItems,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -204,7 +205,7 @@ class PaymentSuccessPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '${items!.length} مورد - برای مشاهده کلیک کنید',
+                    l10n.itemsCountTapToView(items!.length),
                     style: TextStyle(
                       fontSize: 14,
                       color: context.colorScheme.onSurfaceVariant,
@@ -262,7 +263,7 @@ class PaymentSuccessPage extends StatelessWidget {
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    'اقلام خریداری شده',
+                    l10n.purchasedItems,
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -323,7 +324,7 @@ class PaymentSuccessPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'محصول ${item['product_id'] ?? 'نامشخص'}',
+                                l10n.productWithValue(item['product_id'] ?? l10n.unknown),
                                 style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -331,7 +332,7 @@ class PaymentSuccessPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                'شناسه محصول: ${item['product_id'] ?? 'نامشخص'}',
+                                l10n.productIdWithValue(item['product_id'] ?? l10n.unknown),
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: context.colorScheme.onSurfaceVariant,
@@ -344,7 +345,7 @@ class PaymentSuccessPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              '${item['price'] ?? 0} تومان',
+                              l10n.amountToman(item['price'] ?? 0),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -361,8 +362,8 @@ class PaymentSuccessPage extends StatelessWidget {
                                 color: Colors.green.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Text(
-                                'خریداری شده',
+                              child: Text(
+                                l10n.purchased,
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
@@ -396,14 +397,14 @@ class PaymentSuccessPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'مجموع پرداخت',
+                          l10n.totalPayment,
                           style: TextStyle(
                             fontSize: 14,
                             color: context.colorScheme.onSurfaceVariant,
                           ),
                         ),
                         Text(
-                          '${amount} تومان',
+                          l10n.amountToman(amount.toString()),
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
@@ -422,7 +423,7 @@ class PaymentSuccessPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      '${items!.length} مورد',
+                      l10n.itemsCount(items!.length),
                       style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
@@ -442,17 +443,17 @@ class PaymentSuccessPage extends StatelessWidget {
   String _getPaymentTypeText() {
     switch (paymentType) {
       case 'book':
-        return 'خرید کتاب';
+        return l10n.bookPurchase;
       case 'subscription':
-        return 'خرید اشتراک';
+        return l10n.buySubscription;
       case 'gift_card':
-        return 'خرید کارت هدیه';
+        return l10n.giftCardPurchase;
       case 'wallet':
-        return 'شارژ کیف پول';
+        return l10n.walletCharge;
       case 'unknown':
-        return 'پرداخت';
+        return l10n.pay;
       default:
-        return 'پرداخت';
+        return l10n.pay;
     }
   }
 
@@ -460,18 +461,18 @@ class PaymentSuccessPage extends StatelessWidget {
     print('DEBUG: PaymentSuccessPage paymentType: $paymentType');
     switch (paymentType) {
       case 'book':
-        return 'مشاهده کتاب های من';
+        return l10n.viewMyBooks;
       case 'subscription':
-        return 'مشاهده اشتراک های من';
+        return l10n.viewMySubscriptions;
       case 'gift_card':
-        return 'مشاهده کارت های هدیه';
+        return l10n.viewGiftCards;
       case 'wallet':
-        return 'مشاهده کیف پول';
+        return l10n.viewWallet;
       case 'unknown':
-        return 'مشاهده سوابق پرداخت';
+        return l10n.viewPaymentHistory;
       default:
         print('DEBUG: Unknown paymentType: $paymentType, using default');
-        return 'مشاهده سوابق پرداخت';
+        return l10n.viewPaymentHistory;
     }
   }
 

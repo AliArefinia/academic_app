@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:injectable/injectable.dart';
 import '../api/shop/shop_api_service.dart';
 import '../api/shop/model/shop_response.dart';
@@ -19,10 +20,10 @@ class ShopRepository {
     } on DioException catch (e) {
       final message = e.response?.data['message']?.toString() ?? 
           e.message ?? 
-          'خطا در دریافت اطلاعات بازارچه';
+          l10n.errorFetchingShop;
       throw Exception(message);
     } catch (e) {
-      throw Exception('خطای غیرمنتظره: ${e.toString()}');
+      throw Exception(l10n.unexpectedErrorWithMessage(e.toString()));
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -26,7 +27,7 @@ class BookidPage extends StatelessWidget {
       return '...';
     }
     final sizeInMB = sizeInBytes / (1024 * 1024);
-    return '${sizeInMB.toStringAsFixed(1)} مگابایت';
+    return l10n.sizeInMegabytes(sizeInMB.toStringAsFixed(1));
   }
 
   String _formatTime(String? time) {
@@ -75,7 +76,7 @@ class BookidPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            title: 'شناسه',
+            title: l10n.identifier,
             icon: Icons.info_outline_rounded,
           ),
           body: SingleChildScrollView(
@@ -85,77 +86,77 @@ class BookidPage extends StatelessWidget {
                 // format
                 if (product.type != null)
                   RowInfo(
-                    rightText: 'فرمت',
+                    rightText: l10n.format,
                     leftText: _getFormatText(product),
                   ),
                 
                 // volume
                 if (product.fileSize != null)
                   RowInfo(
-                    rightText: 'حجم',
+                    rightText: l10n.size,
                     leftText: _formatFileSize(product.fileSize),
                   ),
 
                 // duration - only for audio books
                 if (isAudio && product.time != null)
                   RowInfo(
-                    rightText: 'مدت زمان',
+                    rightText: l10n.duration,
                     leftText: _formatTime(product.time),
                   ),
 
                 // author
                 if (product.authors != null && product.authors!.isNotEmpty)
                   RowInfo(
-                    rightText: 'نویسنده',
-                    leftText: product.authors!.map((a) => a.name).join('، '),
+                    rightText: l10n.author,
+                    leftText: product.authors!.map((a) => a.name).join(l10n.listSeparator),
                   ),
 
                 // translator
                 if (product.translator != null && product.translator!.isNotEmpty)
                   RowInfo(
-                    rightText: 'مترجم',
+                    rightText: l10n.translator,
                     leftText: product.translator!,
                   ),
 
                 // speaker - only for audio books
                 if (isAudio && product.speaker != null && product.speaker!.isNotEmpty)
                   RowInfo(
-                    rightText: 'راوی',
+                    rightText: l10n.narrator,
                     leftText: product.speaker!,
                   ),
 
                 // publisher
                 if (product.publisher != null && product.publisher!.isNotEmpty)
                   RowInfo(
-                    rightText: 'ناشر',
+                    rightText: l10n.publisher,
                     leftText: product.publisher!,
                   ),
 
                 // language
-                const RowInfo(
-                  rightText: 'زبان',
-                  leftText: 'فارسی',
+                RowInfo(
+                  rightText: l10n.language,
+                  leftText: l10n.persian,
                 ),
 
                 // publication date
                 if (product.publishYear != null)
                   RowInfo(
-                    rightText: 'تاریخ انتشار',
+                    rightText: l10n.publishDate,
                     leftText: product.publishYear.toString(),
                   ),
 
                 // price
                 if (product.price != null && product.price! > 0)
                   RowInfo(
-                    rightText: 'قیمت',
-                    leftText: '${PriceParser.formatPrice(product.price)} تومان',
+                    rightText: l10n.price,
+                    leftText: l10n.amountToman(PriceParser.formatPrice(product.price)),
                   ),
 
                 // Read and download the file
-                const RowInfo(
+                RowInfo(
                   isDividerHide: true,
-                  rightText: 'مطالعه و دانلود فایل',
-                  leftText: 'در برنامه دانشگاه امام صادق (ع)',
+                  rightText: l10n.readAndDownloadFile,
+                  leftText: l10n.inTheAppName,
                 ),
               ],
             ),

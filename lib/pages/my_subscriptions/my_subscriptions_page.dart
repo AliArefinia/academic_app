@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,7 +19,7 @@ class MysubscriptionsPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            title: "سابقه اشتراک",
+            title: l10n.subscriptionHistory,
             icon: Icons.subscriptions_rounded,
             leading: IconButton(
               onPressed: () {
@@ -39,8 +40,8 @@ class MysubscriptionsPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _buildTabButton(context, "اشتراک فعال", 0, selectedIndex),
-                      _buildTabButton(context, "منقضی شده", 1, selectedIndex),
+                      _buildTabButton(context, l10n.activeSubscription, 0, selectedIndex),
+                      _buildTabButton(context, l10n.expiredStatus, 1, selectedIndex),
                     ],
                   ),
                 ),
@@ -54,13 +55,13 @@ class MysubscriptionsPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('خطا: $message'),
+                  Text(l10n.errorWithMessage(message.toString())),
                   const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () => context
                         .read<MysubscriptionsCubit>()
                         .fetchUserSubscriptions(),
-                    child: const Text('تلاش مجدد'),
+                    child: Text(l10n.retry),
                   ),
                 ],
               ),
@@ -113,9 +114,9 @@ class MysubscriptionsPage extends StatelessWidget {
             .toList();
         if (activeSubscriptions.isEmpty) {
           return Activesubscription(
-            title: "اشتراک دانشگاه امام صادق (ع)",
+            title: l10n.appSubscription,
             description:
-                "با خرید اشتراک کتاب‌خوان، به دنیایی از کتاب‌های الکترونیکی و صوتی دسترسی پیدا کنید. تجربه‌ای بی‌نظیر برای عاشقان کتاب، هرجا و هرزمان!",
+                l10n.subscriptionDescription,
           );
         } else {
           return ActiveSubscriptionsList(subscriptions: activeSubscriptions);
@@ -148,7 +149,7 @@ class ActiveSubscriptionsList extends StatelessWidget {
         children: [
           const SizedBox(height: AppSpacing.s24),
           Text(
-            "اشتراک‌های فعال",
+            l10n.activeSubscriptions,
             style: context.textTheme.headlineSmall,
           ),
           const SizedBox(height: AppSpacing.s16),
@@ -221,7 +222,7 @@ class ActiveSubscriptionCard extends StatelessWidget {
                     ),
                     const SizedBox(height: AppSpacing.s4),
                     Text(
-                      "اشتراک فعال",
+                      l10n.activeSubscription,
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: Colors.green,
                         fontWeight: FontWeight.bold,
@@ -235,7 +236,7 @@ class ActiveSubscriptionCard extends StatelessWidget {
           const SizedBox(height: AppSpacing.s12),
           Row(
             children: [
-              Text("تاریخ شروع:", style: context.textTheme.bodySmall),
+              Text(l10n.startDate, style: context.textTheme.bodySmall),
               const SizedBox(width: AppSpacing.s36),
               Text(subscription.purchaseDate,
                   style: context.textTheme.bodySmall),
@@ -244,7 +245,7 @@ class ActiveSubscriptionCard extends StatelessWidget {
           const SizedBox(height: AppSpacing.s8),
           Row(
             children: [
-              Text("تاریخ انقضا:", style: context.textTheme.bodySmall),
+              Text(l10n.expiryDate, style: context.textTheme.bodySmall),
               const SizedBox(width: AppSpacing.s36),
               Text(subscription.expiryDate, style: context.textTheme.bodySmall),
             ],
@@ -260,7 +261,7 @@ class ActiveSubscriptionCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(AppRadius.corner16),
             ),
             child: Text(
-              "فعال",
+              l10n.active,
               style: context.textTheme.labelLarge?.copyWith(
                 color: Colors.white,
               ),
@@ -323,7 +324,7 @@ class Activesubscription extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: AppSpacing.s12),
               ),
               child: Text(
-                "خرید اشتراک ویژه",
+                l10n.buyPremiumSubscription,
                 style: context.textTheme.headlineSmall,
               ),
             ),
@@ -351,7 +352,7 @@ class ExpiredSubscriptions extends StatelessWidget {
         children: [
           const SizedBox(height: AppSpacing.s24),
           Text(
-            "اشتراک‌های منقضی شده",
+            l10n.expiredSubscriptions,
             style: context.textTheme.headlineSmall,
           ),
           const SizedBox(height: AppSpacing.s16),
@@ -368,7 +369,7 @@ class ExpiredSubscriptions extends StatelessWidget {
                     ),
                     const SizedBox(height: AppSpacing.s16),
                     Text(
-                      "اشتراک منقضی شده‌ای ندارید",
+                      l10n.noExpiredSubscriptions,
                       style: context.textTheme.titleMedium?.copyWith(
                         color: Colors.grey.shade600,
                       ),
@@ -410,7 +411,7 @@ class ExpiredSubscriptionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: context.colorScheme.surface,
         borderRadius: BorderRadius.circular(AppRadius.corner16),
-        border: Border.all(color: Colors.grey.shade300),
+        border: Border.all(color: context.subtleBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -424,7 +425,7 @@ class ExpiredSubscriptionCard extends StatelessWidget {
           const SizedBox(height: AppSpacing.s12),
           Row(
             children: [
-              Text("تاریخ شروع:", style: context.textTheme.bodySmall),
+              Text(l10n.startDate, style: context.textTheme.bodySmall),
               const SizedBox(width: AppSpacing.s36),
               Text(subscription.purchaseDate,
                   style: context.textTheme.bodySmall),
@@ -433,7 +434,7 @@ class ExpiredSubscriptionCard extends StatelessWidget {
           const SizedBox(height: AppSpacing.s8),
           Row(
             children: [
-              Text("تاریخ انقضا:", style: context.textTheme.bodySmall),
+              Text(l10n.expiryDate, style: context.textTheme.bodySmall),
               const SizedBox(width: AppSpacing.s36),
               Text(subscription.expiryDate, style: context.textTheme.bodySmall),
             ],
@@ -449,7 +450,7 @@ class ExpiredSubscriptionCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(AppRadius.corner16),
             ),
             child: Text(
-              "منقضی شده",
+              l10n.expiredStatus,
               style: context.textTheme.labelLarge?.copyWith(
                 color: context.colorScheme.onPrimary,
               ),

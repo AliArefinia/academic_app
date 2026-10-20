@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,8 +26,8 @@ class GifttoothersPage extends StatelessWidget {
           processing: () {},
           success: () {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('هدیه با موفقیت ارسال شد!'),
+              SnackBar(
+                content: Text(l10n.giftSentSuccessfully),
                 backgroundColor: Colors.green,
               ),
             );
@@ -36,7 +37,7 @@ class GifttoothersPage extends StatelessWidget {
           error: (message) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('خطا در پردازش پرداخت: $message'),
+                content: Text(l10n.errorProcessingPaymentWithMessage(message.toString())),
                 backgroundColor: Colors.red,
               ),
             );
@@ -49,7 +50,7 @@ class GifttoothersPage extends StatelessWidget {
           onTap: () => MyAppHelper().hideKeyboard(context),
           child: Scaffold(
             appBar: AppBar(
-              title: const Text('هدیه به دیگران'),
+              title: Text(l10n.giftToOthers),
             ),
             body: Padding(
               padding: const EdgeInsets.all(AppSpacing.s20),
@@ -58,12 +59,12 @@ class GifttoothersPage extends StatelessWidget {
                 children: [
                   if (product != null)
                     MainTopContainer(
-                      bookName: product!.name ?? 'نام کتاب',
-                      author: product!.authors?.isNotEmpty == true ? product!.authors!.first.name ?? 'نویسنده' : 'نویسنده',
-                      publisher: product!.publisher ?? 'ناشر',
+                      bookName: product!.name ?? l10n.bookName,
+                      author: product!.authors?.isNotEmpty == true ? product!.authors!.first.name ?? l10n.author : l10n.author,
+                      publisher: product!.publisher ?? l10n.publisher,
                       bookImage: product!.image ?? Assets.pcAsarmorakab.path,
-                      subject: 'موضوع',
-                      bookClassification: 'رده‌بندی',
+                      subject: l10n.subject,
+                      bookClassification: l10n.classification,
                       price: (product!.price ?? 0).toInt(),
                       discount: product!.discountPrice != null && product!.price != null 
                         ? ((product!.price! - product!.discountPrice!) / product!.price! * 100).round()
@@ -75,7 +76,7 @@ class GifttoothersPage extends StatelessWidget {
                         ? const SizedBox()
                         : state.when(
                             initial: () => MainButton(
-                              text: 'پرداخت',
+                              text: l10n.pay,
                               backgroundColor: context.colorScheme.primary,
                               onPressed: () {
                                 if (product != null) {
@@ -84,17 +85,17 @@ class GifttoothersPage extends StatelessWidget {
                               },
                             ),
                             processing: () => MainButton(
-                              text: 'در حال پردازش...',
+                              text: l10n.processing,
                               backgroundColor: context.colorScheme.outline,
                               onPressed: null,
                             ),
                             success: () => MainButton(
-                              text: 'موفق',
+                              text: l10n.successful,
                               backgroundColor: Colors.green,
                               onPressed: null,
                             ),
                             error: (_) => MainButton(
-                              text: 'تلاش مجدد',
+                              text: l10n.retry,
                               backgroundColor: context.colorScheme.primary,
                               onPressed: () {
                                 if (product != null) {
@@ -176,7 +177,7 @@ class MainTopContainer extends StatelessWidget {
                         height: context.fullHeight * 0.2,
                         width: 120,
                         decoration: BoxDecoration(
-                          color: Colors.grey[200],
+                          color: context.mutedFill,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Icon(Icons.book, size: 50),
@@ -190,19 +191,19 @@ class MainTopContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "کتاب $bookName اثر $author انتشارات $publisher",
+                        l10n.bookByAuthorPublisher(bookName.toString(), author.toString(), publisher.toString()),
                         style: context.textTheme.headlineSmall,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        "موضوع: $subject",
+                        l10n.subjectWithValue(subject.toString()),
                         style: context.textTheme.labelMedium?.copyWith(
                           fontWeight: FontWeight.w600
                         ),
                       ),
                       Text(
-                        "رده‌بندی کتاب: $bookClassification",
+                        l10n.bookClassificationWithValue(bookClassification.toString()),
                         style: context.textTheme.labelMedium?.copyWith(
                             fontWeight: FontWeight.w600
                         ),
@@ -223,7 +224,7 @@ class MainTopContainer extends StatelessWidget {
                               size: 15,
                             ),
                             Text(
-                              'کتاب صوتی',
+                              l10n.audioBook,
                               style: context.textTheme.bodySmall,
                             )
                           ],
@@ -257,7 +258,7 @@ class MainTopContainer extends StatelessWidget {
                         size: 20,
                       ),
                       Text(
-                        'حذف',
+                        l10n.delete,
                         style: context.textTheme.bodySmall,
                       )
                     ],
@@ -302,7 +303,7 @@ class MainTopContainer extends StatelessWidget {
                                 ?.copyWith(fontWeight: FontWeight.w700),
                           ),
                           TextSpan(
-                            text: ' تومان',
+                            text: l10n.tomanWithSpace,
                             style: context.textTheme.bodySmall?.copyWith(
                                 fontWeight: FontWeight.w600,
                                 color: context.colorScheme.secondary),
@@ -332,13 +333,13 @@ class PhoneNumberTextField extends StatelessWidget {
     return TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'لطفا شماره تلفن را وارد کنید';
+          return l10n.pleaseEnterPhoneNumber;
         }
         if (!value.startsWith('09')) {
-          return 'شماره باید با 09 شروع شود';
+          return l10n.phoneMustStartWith09;
         }
         if (value.length < 11 && value.length > 11) {
-          return 'شماره مورد نظر معتبر نمی باشد';
+          return l10n.phoneNumberInvalid;
         }
         return null;
       },
@@ -357,7 +358,7 @@ class PhoneNumberTextField extends StatelessWidget {
             color: Colors.grey,
           ),
         ),
-        hintText: 'شماره موبایل دوستتان',
+        hintText: l10n.friendMobileNumber,
       ),
     );
   }

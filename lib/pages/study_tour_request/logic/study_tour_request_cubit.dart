@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:academic/core/error/error_message_mapper.dart';
@@ -37,7 +38,7 @@ class StudyTourRequestCubit extends Cubit<StudyTourRequestState> {
       emit(StudyTourRequestState.categoriesLoaded(response.featured));
     } catch (e) {
       print('❌ Error loading categories: $e');
-      emit(StudyTourRequestState.error('خطا در بارگذاری دسته‌بندی‌ها'));
+      emit(StudyTourRequestState.error(l10n.errorLoadingCategories));
     }
   }
 

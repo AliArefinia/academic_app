@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:academic/data/api/product_request/product_request_api.dart';
@@ -68,10 +69,10 @@ class ProductRequestRepository implements IProductRequestRepository {
     } on DioException catch (e) {
       final message = e.response?.data['message']?.toString() ??
           e.message ??
-          'خطا در آپلود محصول';
+          l10n.errorUploadingProduct;
       throw Exception(message);
     } catch (e) {
-      throw Exception('خطای غیرمنتظره: ${e.toString()}');
+      throw Exception(l10n.unexpectedErrorWithMessage(e.toString()));
     }
   }
 }

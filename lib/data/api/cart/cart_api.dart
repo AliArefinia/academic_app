@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
@@ -22,7 +23,7 @@ class DiscountResponseModel {
     this.data,
   });
 
-  String get displayMessage => message ?? error ?? 'خطای نامشخص';
+  String get displayMessage => message ?? error ?? l10n.unknownError;
 
   factory DiscountResponseModel.fromJson(Map<String, dynamic> json) =>
       _$DiscountResponseModelFromJson(json);

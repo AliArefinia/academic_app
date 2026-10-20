@@ -1,3 +1,5 @@
+import 'package:academic/core/helper/ui_extention.dart';
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/theme/const.dart';
@@ -27,8 +29,8 @@ class AddToShelfBottomSheet extends StatelessWidget {
               bookAdded: () {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('کتاب با موفقیت به قفسه اضافه شد'),
+                  SnackBar(
+                    content: Text(l10n.bookAddedToShelf),
                     backgroundColor: Colors.green,
                   ),
                 );
@@ -61,7 +63,7 @@ class AddToShelfBottomSheet extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'افزودن به قفسه',
+                        l10n.addToShelf,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       IconButton(
@@ -130,7 +132,7 @@ class _ShelfItem extends StatelessWidget {
         ),
         margin: const EdgeInsets.only(bottom: AppSpacing.s8),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.shade300),
+          border: Border.all(color: context.subtleBorder),
           borderRadius: BorderRadius.circular(AppRadius.corner12),
         ),
         child: Row(
@@ -141,7 +143,7 @@ class _ShelfItem extends StatelessWidget {
               style: Theme.of(context).textTheme.titleMedium,
             ),
             Text(
-              '${shelf.booksCount} کتاب',
+              l10n.booksCount(shelf.booksCount.toString()),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Colors.grey,
                   ),
@@ -186,7 +188,7 @@ class _CreateNewShelfButton extends StatelessWidget {
             Icon(Icons.add, color: Theme.of(context).colorScheme.primary),
             const SizedBox(width: AppSpacing.s8),
             Text(
-              'ایجاد قفسه جدید',
+              l10n.createNewShelfTitle,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(
                     color: Theme.of(context).colorScheme.primary,
                   ),
@@ -221,17 +223,17 @@ class _CreateShelfDialogState extends State<_CreateShelfDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('ایجاد قفسه جدید'),
+      title: Text(l10n.createNewShelfTitle),
       content: TextField(
         controller: _controller,
-        decoration: const InputDecoration(
-          hintText: 'نام قفسه را وارد کنید',
+        decoration: InputDecoration(
+          hintText: l10n.enterShelfName,
         ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('انصراف'),
+          child: Text(l10n.cancel),
         ),
         TextButton(
           onPressed: () {
@@ -240,7 +242,7 @@ class _CreateShelfDialogState extends State<_CreateShelfDialog> {
               Navigator.pop(context);
             }
           },
-          child: const Text('ایجاد'),
+          child: Text(l10n.create),
         ),
       ],
     );

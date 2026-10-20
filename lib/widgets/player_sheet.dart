@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:academic/pages/player/player_page.dart';
 import 'package:academic/data/api/product/model/product_model.dart';
@@ -36,10 +37,10 @@ Future<void> showPlayerSheet(BuildContext context, ProductModel product) async {
             cover: product.image ?? '',
             title: product.name ?? '',
             publisher: product.publisher ?? '',
-            subject: 'Audio Book',
+            subject: l10n.audioBook,
             category: (product.categories?.isNotEmpty == true)
-                ? (product.categories!.first.name ?? 'Uncategorized')
-                : 'Uncategorized',
+                ? (product.categories!.first.name ?? l10n.uncategorized)
+                : l10n.uncategorized,
             audioUrl: product.sampleAudio,
             product: product,
           );

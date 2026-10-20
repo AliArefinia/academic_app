@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/helper/app_helper.dart';
@@ -93,18 +94,18 @@ class _LoginPageState extends State<LoginPage> {
                 authHeaderWidget(context),
                 const SizedBox(height: AppSpacing.s12),
                 Text(
-                  'ورود به دانشگاه امام صادق (ع)',
+                  l10n.loginToApp,
                   style: context.textTheme.titleLarge,
                 ).addVerticalSpacing(AppSpacing.s12),
                 Text(
-                  _isEmailMode ? 'با ایمیل خود وارد شوید:' : 'با شماره موبایل خود وارد شوید:',
+                  _isEmailMode ? l10n.loginWithEmail : l10n.loginWithPhone,
                   style: context.textTheme.bodyLarge,
                 ).addVerticalSpacing(AppSpacing.s24),
                 // Display input field based on the current mode.
                 _isEmailMode ? _emailInput(context) : _phoneInput(context),
                 // Login button calls the cubit's submitPhoneLogin method.
                 CustomButton(
-                  child: const Text('ورود'),
+                  child: Text(l10n.login),
                   onPressed: _isSubmitting ? null : () async {
                     if (_isSubmitting) return;
                     
@@ -143,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s12),
                       child: Text(
-                        'یا',
+                        l10n.or,
                         style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
                       ),
                     ),
@@ -155,12 +156,12 @@ class _LoginPageState extends State<LoginPage> {
                 // Terms and conditions.
                 Text.rich(
                   TextSpan(
-                    text: 'قوانین',
+                    text: l10n.terms,
                     style: context.textTheme.bodyMedium
                         ?.copyWith(color: Theme.of(context).colorScheme.primary),
                     children: [
                       TextSpan(
-                        text: ' استفاده از دانشگاه امام صادق (ع)',
+                        text: l10n.ofUsingApp,
                         style: context.textTheme.bodyMedium
                             ?.copyWith(color: Theme.of(context).colorScheme.onSurface),
                       )
@@ -229,7 +230,7 @@ class _LoginPageState extends State<LoginPage> {
         TextField(
           controller: _emailController,
           decoration: InputDecoration(
-            labelText: 'ایمیل',
+            labelText: l10n.email,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(AppRadius.corner8)),
             ),
@@ -239,7 +240,7 @@ class _LoginPageState extends State<LoginPage> {
         TextField(
           controller: _passwordController,
           decoration: InputDecoration(
-            labelText: 'رمز عبور',
+            labelText: l10n.password,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(AppRadius.corner8)),
             ),
@@ -281,7 +282,7 @@ class _LoginPageState extends State<LoginPage> {
               }
             },
             label: Text(
-              _isEmailMode ? 'با شماره همراه' : 'با ایمیل',
+              _isEmailMode ? l10n.withPhoneNumber : l10n.withEmail,
             ),
             icon: UniversalImageLoader(
               path: _isEmailMode ? Assets.phone : Assets.email,
@@ -306,7 +307,7 @@ class _LoginPageState extends State<LoginPage> {
             onPressed: () {
               // TODO: Implement Google sign-in action.
             },
-            label: const Text('با حساب گوگل'),
+            label: Text(l10n.withGoogleAccount),
             icon: const UniversalImageLoader(
               path: Assets.google,
             ),
@@ -329,7 +330,7 @@ class InputPhoneField extends StatelessWidget {
       textDirection: TextDirection.ltr,
       child: IntlPhoneField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        invalidNumberMessage: 'شماره وارد شده صحیح نمیباشد',
+        invalidNumberMessage: l10n.enteredNumberIncorrect,
         showCursor: true,
         decoration: const InputDecoration(
           labelText: '',
@@ -349,11 +350,11 @@ class InputPhoneField extends StatelessWidget {
         // Add validation to ensure correct phone format.
         validator: (phone) {
           if (phone == null || phone.number.isEmpty) {
-            return 'شماره وارد نشده است';
+            return l10n.numberNotEntered;
           }
           // For Iranian mobile numbers, the local number (without country code) should be 10 digits.
           if (phone.number.length != 10) {
-            return 'فرمت شماره صحیح نمی باشد';
+            return l10n.numberFormatIncorrect;
           }
           return null;
         },
@@ -381,7 +382,7 @@ class InputEmailField extends StatelessWidget {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
-        labelText: 'ایمیل',
+        labelText: l10n.email,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(AppRadius.corner8)),
         ),
@@ -401,7 +402,7 @@ class InputPasswordField extends StatelessWidget {
     return TextField(
        controller: controller,
        decoration: InputDecoration(
-         labelText: 'رمز عبور',
+         labelText: l10n.password,
          border: OutlineInputBorder(
            borderRadius: BorderRadius.all(Radius.circular(AppRadius.corner8)),
          ),
@@ -417,9 +418,9 @@ class InputCodeField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const TextField(
+    return TextField(
       decoration: InputDecoration(
-        labelText: 'کد تایید',
+        labelText: l10n.verificationCode,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(AppRadius.corner8)),
         ),

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:dio/dio.dart';
 import 'package:academic/data/api/notes/notes_api.dart';
 import 'package:academic/data/model/note.dart';
@@ -39,7 +40,7 @@ class NotesRepository {
     }
     
     // If we reach here, API didn't return success status
-    throw Exception(message?.toString() ?? 'خطا در ذخیره یادداشت');
+    throw Exception(message?.toString() ?? l10n.errorSavingNote);
     
     // Note: We don't enrich with product data here - it will be fetched when needed
     // All data comes from API only

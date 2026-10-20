@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'dart:io';
 
 import 'package:academic/core/storage/local_storage.dart';
@@ -120,7 +121,7 @@ class ApiClient {
               response.requestOptions.path.contains('/api/pay/verify')) {
             final errorList = response.data as List;
             final errorMessage =
-                errorList.isNotEmpty ? errorList.first.toString() : 'خطای نامشخص';
+                errorList.isNotEmpty ? errorList.first.toString() : l10n.unknownError;
             response.data = {
               'status': 500,
               'message': errorMessage,

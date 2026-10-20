@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -67,12 +68,12 @@ class _CustomPdfViewerState extends State<CustomPdfViewer> {
           _isLoading = false;
         });
       } else {
-        throw Exception('فایل PDF پیدا نشد');
+        throw Exception(l10n.pdfFileNotFound);
       }
     } catch (e) {
       setState(() {
         _isLoading = false;
-        _error = 'خطا در بارگذاری PDF: ${e.toString()}';
+        _error = l10n.errorLoadingPdfWithMessage(e.toString());
       });
     }
   }
@@ -97,7 +98,7 @@ class _CustomPdfViewerState extends State<CustomPdfViewer> {
           _isDownloading = false;
         });
       } else {
-        throw Exception('خطا در دانلود فایل: ${response.statusCode}');
+        throw Exception(l10n.errorDownloadingFileWithMessage(response.statusCode.toString()));
       }
     } catch (e) {
       setState(() {
@@ -152,7 +153,7 @@ class _CustomPdfViewerState extends State<CustomPdfViewer> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('خطا در اشتراک‌گذاری: ${e.toString()}'),
+              content: Text(l10n.errorSharingWithMessage(e.toString())),
               backgroundColor: Theme.of(context).colorScheme.error,
             ),
           );
@@ -196,7 +197,7 @@ class _CustomPdfViewerState extends State<CustomPdfViewer> {
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            'در حال دانلود...',
+                            l10n.downloading,
                             style: context.textTheme.bodyLarge,
                           ),
                         ],
@@ -236,7 +237,7 @@ class _CustomPdfViewerState extends State<CustomPdfViewer> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: widget.themeColor,
                         ),
-                        child: const Text('تلاش مجدد'),
+                        child: Text(l10n.retry),
                       ),
                     ],
                   ),
@@ -308,7 +309,7 @@ class _CustomPdfViewerState extends State<CustomPdfViewer> {
                                   ),
                                 if (_totalPages > 0)
                                   Text(
-                                    'صفحه ${_currentPage + 1} از $_totalPages',
+                                    l10n.pageOfTotal(_currentPage + 1, _totalPages.toString()),
                                     style: const TextStyle(
                                       color: Colors.white70,
                                       fontSize: 12,

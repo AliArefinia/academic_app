@@ -1,3 +1,4 @@
+import 'package:academic/core/helper/ui_extention.dart';
 import 'package:flutter/material.dart';
 
 class FadeInNetworkImage extends StatefulWidget {
@@ -80,7 +81,7 @@ class _FadeInNetworkImageState extends State<FadeInNetworkImage> with SingleTick
           return Container(
             width: widget.width,
             height: widget.height,
-            color: Colors.grey[200],
+            color: context.mutedFill,
             child: Center(
               child: CircularProgressIndicator(
                 value: loadingProgress.expectedTotalBytes != null
@@ -96,7 +97,7 @@ class _FadeInNetworkImageState extends State<FadeInNetworkImage> with SingleTick
           return Container(
             width: widget.width,
             height: widget.height,
-            color: Colors.grey[200],
+            color: context.mutedFill,
             child: const Icon(Icons.error),
           );
         },

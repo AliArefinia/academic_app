@@ -28,7 +28,7 @@ List<RouteBase> get $appRoutes => [
       $mycommentsRoute,
       $productRoute,
       $booktourRoute,
-      $selectprogramlanguageRoute,
+      $settingsRoute,
       $mypurchasesRoute,
       $invitefriendsRoute,
       $personaldevelopmentbooksRoute,
@@ -56,7 +56,6 @@ List<RouteBase> get $appRoutes => [
       $introRoute,
       $buysubscriptionRoute,
       $loginRoute,
-      $langRoute,
       $mainShellRouteData,
       $uploadproductRoute,
     ];
@@ -627,17 +626,17 @@ extension $BooktourRouteExtension on BooktourRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-RouteBase get $selectprogramlanguageRoute => GoRouteData.$route(
-      path: '/selectProgramLanguage',
-      factory: $SelectprogramlanguageRouteExtension._fromState,
+RouteBase get $settingsRoute => GoRouteData.$route(
+      path: '/settings',
+      factory: $SettingsRouteExtension._fromState,
     );
 
-extension $SelectprogramlanguageRouteExtension on SelectprogramlanguageRoute {
-  static SelectprogramlanguageRoute _fromState(GoRouterState state) =>
-      const SelectprogramlanguageRoute();
+extension $SettingsRouteExtension on SettingsRoute {
+  static SettingsRoute _fromState(GoRouterState state) =>
+      const SettingsRoute();
 
   String get location => GoRouteData.$location(
-        '/selectProgramLanguage',
+        '/settings',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -1355,28 +1354,6 @@ extension $LoginRouteExtension on LoginRoute {
 
   String get location => GoRouteData.$location(
         '/loginRoute',
-      );
-
-  void go(BuildContext context) => context.go(location);
-
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  void replace(BuildContext context) => context.replace(location);
-}
-
-RouteBase get $langRoute => GoRouteData.$route(
-      path: '/langRoute',
-      factory: $LangRouteExtension._fromState,
-    );
-
-extension $LangRouteExtension on LangRoute {
-  static LangRoute _fromState(GoRouterState state) => const LangRoute();
-
-  String get location => GoRouteData.$location(
-        '/langRoute',
       );
 
   void go(BuildContext context) => context.go(location);

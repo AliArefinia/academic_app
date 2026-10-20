@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:academic/core/theme/const.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -27,16 +28,16 @@ Future<void> showAddNoteDialog({
       final shouldCreate = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('سرفصلی وجود ندارد'),
-          content: const Text('برای افزودن یادداشت، ابتدا باید یک سرفصل ایجاد کنید.'),
+          title: Text(l10n.noChapters),
+          content: Text(l10n.createChapterFirstToAddNote),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false),
-              child: const Text('انصراف'),
+              child: Text(l10n.cancel),
             ),
             ElevatedButton(
               onPressed: () => Navigator.pop(context, true),
-              child: const Text('ایجاد سرفصل جدید'),
+              child: Text(l10n.createNewChapter),
             ),
           ],
         ),
@@ -84,7 +85,7 @@ Future<void> showAddNoteDialog({
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) => AlertDialog(
-          title: const Text('افزودن به فیش‌نویسی'),
+          title: Text(l10n.addToNoteCards),
           content: SizedBox(
             width: double.maxFinite,
             child: SingleChildScrollView(
@@ -105,7 +106,7 @@ Future<void> showAddNoteDialog({
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'بریده انتخاب شده:',
+                            l10n.selectedClippingColon,
                             style: context.textTheme.labelMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -126,7 +127,7 @@ Future<void> showAddNoteDialog({
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'انتخاب سرفصل:',
+                          l10n.selectChapterColon,
                           style: context.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
@@ -169,7 +170,7 @@ Future<void> showAddNoteDialog({
                             );
                           },
                           icon: const Icon(Icons.add_circle_outline, size: 20),
-                          label: const Text('ایجاد سرفصل جدید'),
+                          label: Text(l10n.createNewChapter),
                         ),
                       ],
                     ),
@@ -201,9 +202,9 @@ Future<void> showAddNoteDialog({
                     // User note field
                     TextFormField(
                       controller: noteController,
-                      decoration: const InputDecoration(
-                        labelText: 'یادداشت شما (اختیاری)',
-                        hintText: 'یادداشت یا توضیحی درباره این بریده...',
+                      decoration: InputDecoration(
+                        labelText: l10n.yourNoteOptional,
+                        hintText: l10n.noteAboutClippingHint,
                         border: OutlineInputBorder(),
                       ),
                       maxLines: 3,
@@ -216,14 +217,14 @@ Future<void> showAddNoteDialog({
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text('انصراف'),
+              child: Text(l10n.cancel),
             ),
             ElevatedButton(
               onPressed: () {
                 if (selectedChapters.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('لطفاً حداقل یک سرفصل انتخاب کنید'),
+                    SnackBar(
+                      content: Text(l10n.pleaseSelectAtLeastOneChapter),
                     ),
                   );
                   return;
@@ -236,7 +237,7 @@ Future<void> showAddNoteDialog({
                       : noteController.text.trim(),
                 );
               },
-              child: const Text('ذخیره'),
+              child: Text(l10n.save),
             ),
           ],
         ),

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,7 +26,7 @@ class MyClippingsPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            title: 'بریده‌های من',
+            title: l10n.myClippings,
             icon: Icons.content_copy_rounded,
           ),
           body: state.isLoading
@@ -37,8 +38,8 @@ class MyClippingsPage extends StatelessWidget {
                     )
                   : state.myBookExcerpts.isEmpty
                       ? EmptyStateWidget(
-                          title: 'بریده‌ای وجود ندارد',
-                          message: 'هنوز هیچ بریده‌ای از کتاب‌ها ذخیره نکرده‌اید',
+                          title: l10n.noClippings,
+                          message: l10n.noClippingsSavedYet,
                           iconAsset: Assets.icBooks,
                         )
                       : ListView.builder(
@@ -117,8 +118,8 @@ class BookExcerptWidget extends StatelessWidget {
                     ?.copyWith(fontWeight: FontWeight.w400),
                 trimMode: TrimMode.Line,
                 trimLines: 4,
-                trimCollapsedText: 'بیشتر',
-                trimExpandedText: 'کمتر',
+                trimCollapsedText: l10n.more,
+                trimExpandedText: l10n.less,
                 moreStyle: context.textTheme.bodyMedium
                     ?.copyWith(fontWeight: FontWeight.w700),
               ),
@@ -129,7 +130,7 @@ class BookExcerptWidget extends StatelessWidget {
                     image: excerpt.author.avatar,
                     userName: excerpt.author.name,
                     userFamily: '',
-                    date: excerpt.date ?? 'تازه',
+                    date: excerpt.date ?? l10n.newLabel,
                   ),
                   const Spacer(),
                   ActionRowIcons(
@@ -139,7 +140,7 @@ class BookExcerptWidget extends StatelessWidget {
                       numOfComment: excerpt.commentsCount,
                       bookImage: excerpt.book.image,
                       userNameAndFamily: excerpt.author.name,
-                      date: excerpt.date ?? 'تازه',
+                      date: excerpt.date ?? l10n.newLabel,
                       userImage: excerpt.author.avatar,
                       userDescription: excerpt.text,
                     ).push(context),
@@ -516,7 +517,7 @@ class MembersWhoLiked extends StatelessWidget {
         child: Row(
           spacing: AppSpacing.s4,
           children: [
-            Text('  پسندیده شده توسط کاربر',
+            Text(l10n.likedByUser,
                 style: context.textTheme.labelLarge
                     ?.copyWith(fontWeight: FontWeight.w600)),
             Text(

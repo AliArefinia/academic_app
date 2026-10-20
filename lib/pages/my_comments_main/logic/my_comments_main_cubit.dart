@@ -19,7 +19,7 @@ class MycommentsmainCubit extends Cubit<MycommentsmainState> {
 
   void onTabTap(String tabName) {
     emit(state.copyWith(currentTab: tabName));
-    if (tabName == 'نظرهای ثبت شده') {
+    if (tabName == 'submitted') {
       fetchUserReviews();
     }
   }

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -61,13 +62,13 @@ class _BooktourPageState extends State<BooktourPage> {
     try {
       await Share.share(
         shareText,
-        subject: 'بریده‌ای از کتاب ${excerpt.book.name ?? ''}',
+        subject: l10n.clippingFromBook(excerpt.book.name ?? ''),
       );
     } catch (e) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('خطا در اشتراک‌گذاری: ${e.toString()}'),
+            content: Text(l10n.errorSharingWithMessage(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -96,7 +97,7 @@ class _BooktourPageState extends State<BooktourPage> {
                   children: [
                     Icon(Icons.share, color: context.colorScheme.primary),
                     const SizedBox(width: 8),
-                    Text('اشتراک‌گذاری بریده',
+                    Text(l10n.shareQuote,
                         style: context.textTheme.titleLarge),
                   ],
                 ),
@@ -124,7 +125,7 @@ class _BooktourPageState extends State<BooktourPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: Text('انصراف'),
+                        child: Text(l10n.cancel),
                       ),
                     ),
                     Padding(
@@ -138,7 +139,7 @@ class _BooktourPageState extends State<BooktourPage> {
                             padding: WidgetStatePropertyAll(
                                 EdgeInsets.symmetric(horizontal: 12))),
                         icon: Icon(Icons.share),
-                        label: Text('اشتراک‌گذاری'),
+                        label: Text(l10n.share),
                       ),
                     ),
                   ],
@@ -156,18 +157,18 @@ class _BooktourPageState extends State<BooktourPage> {
     return BlocBuilder<BooktourCubit, BooktourState>(
       builder: (context, state) {
         final List<String> chipLabels = [
-          'همه',
-          'محبوبترین ها',
-          '#موفقیت',
-          '#روانشناسی'
+          l10n.all,
+          l10n.mostPopular,
+          l10n.hashtagSuccess,
+          l10n.hashtagPsychology
         ];
         final cubit = context.read<BooktourCubit>();
         return Scaffold(
           body: CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
-              const SliverAppBar(
-                title: Text('کتاب گردی'),
+              SliverAppBar(
+                title: Text(l10n.bookTour),
               ),
               // SliverToBoxAdapter(
               //   child: Padding(
@@ -201,8 +202,8 @@ class _BooktourPageState extends State<BooktourPage> {
               else if (state.bookExcerpts.isEmpty)
                 SliverFillRemaining(
                   child: EmptyStateWidget(
-                    title: 'بریده‌ای وجود ندارد',
-                    message: 'در حال حاضر بریده‌ای برای نمایش وجود ندارد',
+                    title: l10n.noClippings,
+                    message: l10n.noClippingsToShow,
                     iconAsset: Assets.icBooks,
                   ),
                 )
@@ -221,7 +222,7 @@ class _BooktourPageState extends State<BooktourPage> {
                         numOfComment: excerpt.commentsCount,
                         bookImage: excerpt.book.image,
                         userNameAndFamily: excerpt.author.name,
-                        date: excerpt.date ?? 'تازه',
+                        date: excerpt.date ?? l10n.newLabel,
                         userImage: excerpt.author.avatar,
                         userDescription: excerpt.text,
                       ).push(context),
@@ -332,7 +333,7 @@ class BookTourWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "کتاب ${bookExcerpt.book.name}",
+                          l10n.bookWithName(bookExcerpt.book.name.toString()),
                           style: context.textTheme.headlineSmall,
                           softWrap: true,
                         ),
@@ -347,8 +348,8 @@ class BookTourWidget extends StatelessWidget {
                     ?.copyWith(fontWeight: FontWeight.w400),
                 trimMode: TrimMode.Line,
                 trimLines: 4,
-                trimCollapsedText: 'بیشتر',
-                trimExpandedText: 'کمتر',
+                trimCollapsedText: l10n.more,
+                trimExpandedText: l10n.less,
                 moreStyle: context.textTheme.bodyMedium
                     ?.copyWith(fontWeight: FontWeight.w700),
               ),
@@ -359,7 +360,7 @@ class BookTourWidget extends StatelessWidget {
                     image: bookExcerpt.author.avatar,
                     userName: bookExcerpt.author.name,
                     userFamily: '',
-                    date: bookExcerpt.date ?? 'تازه',
+                    date: bookExcerpt.date ?? l10n.newLabel,
                   ),
                   const Spacer(),
                   ActionRowIcons(

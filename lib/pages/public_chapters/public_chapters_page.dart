@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -23,8 +24,8 @@ class PublicChaptersPage extends StatelessWidget {
               loaded: (chapters) {
                 if (chapters.isEmpty) {
                   return EmptyStateWidget(
-                    title: 'سرفصلی وجود ندارد',
-                    message: 'هنوز هیچ سرفصل عمومی‌ای ایجاد نشده است',
+                    title: l10n.noChapters,
+                    message: l10n.noPublicChaptersYet,
                     iconAsset: Assets.icFolder,
                   );
                 }
@@ -96,7 +97,7 @@ class PublicChapterCard extends StatelessWidget {
                           Text(
                             chapter.description!,
                             style: context.textTheme.bodyMedium?.copyWith(
-                              color: Colors.grey[600],
+                              color: context.secondaryText,
                             ),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -136,13 +137,13 @@ class PublicChapterCard extends StatelessWidget {
                   Icon(
                     Icons.note_outlined,
                     size: 16,
-                    color: Colors.grey[600],
+                    color: context.secondaryText,
                   ),
                   const SizedBox(width: AppSpacing.s4),
                   Text(
-                    '${chapter.notesCount ?? 0} یادداشت',
+                    l10n.notesCount(chapter.notesCount ?? 0),
                     style: context.textTheme.bodySmall?.copyWith(
-                      color: Colors.grey[600],
+                      color: context.secondaryText,
                     ),
                   ),
                 ],

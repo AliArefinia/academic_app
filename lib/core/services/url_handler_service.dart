@@ -1,3 +1,4 @@
+import 'package:academic/core/api_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -26,7 +27,7 @@ class UrlHandlerService {
   /// Check if we should intercept this URL
   bool _shouldInterceptUrl(String url) {
     // Handle payment callback URLs
-    if (url.contains('demo.halalread.ir/api/callback')) {
+    if (url.contains('${ApiConstants.host}/api/callback')) {
       return true;
     }
     

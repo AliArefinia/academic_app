@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -77,7 +78,7 @@ class _ShopPageState extends State<ShopPage> {
             ),
           ),
           const SizedBox(width: AppSpacing.s12),
-          Text('بازارچه', style: context.textTheme.headlineMedium),
+          Text(l10n.marketplace, style: context.textTheme.headlineMedium),
         ],
       ),
       elevation: 0,
@@ -101,7 +102,7 @@ class _ShopPageState extends State<ShopPage> {
                 color: context.colorScheme.onPrimary,
               ),
               label: Text(
-                'آپلود محصول',
+                l10n.uploadProduct,
                 style: TextStyle(
                   color: context.colorScheme.onPrimary,
                   fontWeight: FontWeight.bold,
@@ -144,7 +145,7 @@ class _ShopPageState extends State<ShopPage> {
                                     }
                                   },
                                   decoration: InputDecoration(
-                                    hintText: "جستجو در بازارچه",
+                                    hintText: l10n.searchMarketplace,
                                     hintStyle: context.textTheme.bodyMedium,
                                     border: InputBorder.none,
                                     enabledBorder: InputBorder.none,
@@ -196,9 +197,9 @@ class _ShopPageState extends State<ShopPage> {
                     child: state.when(
                       initial: () => const SizedBox.shrink(),
                       loading: () => _buildLoadingState(context),
-                      empty: () => const EmptyStateWidget(
-                        title: 'محتوایی وجود ندارد',
-                        message: 'در حال حاضر محصولی در بازارچه موجود نیست',
+                      empty: () => EmptyStateWidget(
+                        title: l10n.noContent,
+                        message: l10n.noProductsInMarketplace,
                         iconAsset: Assets.icShop,
                       ),
                       error: (message) => ErrorStateWidget(
@@ -223,7 +224,7 @@ class _ShopPageState extends State<ShopPage> {
                         curve: Curves.easeOutCubic,
                         offset: 40,
                         isVisible: _showContent,
-                        child: _buildSection(context, "جزوات", pamphlets),
+                        child: _buildSection(context, l10n.handouts, pamphlets),
                       ),
                     if (educational.isNotEmpty)
                       AnimatedSection(
@@ -231,7 +232,7 @@ class _ShopPageState extends State<ShopPage> {
                         curve: Curves.easeOutCubic,
                         offset: 35,
                         isVisible: _showContent,
-                        child: _buildSection(context, "محتوای آموزشی", educational),
+                        child: _buildSection(context, l10n.educationalContent, educational),
                       ),
                     if (questionBank.isNotEmpty)
                       AnimatedSection(
@@ -239,7 +240,7 @@ class _ShopPageState extends State<ShopPage> {
                         curve: Curves.easeOutCubic,
                         offset: 30,
                         isVisible: _showContent,
-                        child: _buildSection(context, "بانک سوالات", questionBank),
+                        child: _buildSection(context, l10n.questionBank, questionBank),
                       ),
                     if (periodical.isNotEmpty)
                       AnimatedSection(
@@ -247,7 +248,7 @@ class _ShopPageState extends State<ShopPage> {
                         curve: Curves.easeOutCubic,
                         offset: 25,
                         isVisible: _showContent,
-                        child: _buildSection(context, "گاهنامه", periodical),
+                        child: _buildSection(context, l10n.periodical, periodical),
                       ),
                     if (quarterly.isNotEmpty)
                       AnimatedSection(
@@ -255,7 +256,7 @@ class _ShopPageState extends State<ShopPage> {
                         curve: Curves.easeOutCubic,
                         offset: 20,
                         isVisible: _showContent,
-                        child: _buildSection(context, "فصلنامه", quarterly),
+                        child: _buildSection(context, l10n.quarterly, quarterly),
                       ),
                     if (monthly.isNotEmpty)
                       AnimatedSection(
@@ -263,7 +264,7 @@ class _ShopPageState extends State<ShopPage> {
                         curve: Curves.easeOutCubic,
                         offset: 15,
                         isVisible: _showContent,
-                        child: _buildSection(context, "ماهنامه", monthly),
+                        child: _buildSection(context, l10n.monthlyMagazine, monthly),
                       ),
                     if (yearbook.isNotEmpty)
                       AnimatedSection(
@@ -271,7 +272,7 @@ class _ShopPageState extends State<ShopPage> {
                         curve: Curves.easeOutCubic,
                         offset: 10,
                         isVisible: _showContent,
-                        child: _buildSection(context, "سالنامه", yearbook),
+                        child: _buildSection(context, l10n.yearbook, yearbook),
                       ),
                           ],
                         );
@@ -388,7 +389,7 @@ class _ShopPageState extends State<ShopPage> {
                 ),
                 const Spacer(),
                 Text(
-                  '${products.length} محصول',
+                  l10n.productsCount(products.length),
                   style: context.textTheme.bodySmall?.copyWith(
                     color: context.colorScheme.onSurface.withOpacity(0.6),
                   ),

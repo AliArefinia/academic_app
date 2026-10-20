@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -45,7 +46,7 @@ class StudyTourListCubit extends Cubit<StudyTourListState> {
         emit(StudyTourListState.loaded(studyTours));
       }
     } catch (e) {
-      emit(StudyTourListState.error('خطا در بارگذاری سیر مطالعاتی‌ها: ${e.toString()}'));
+      emit(StudyTourListState.error(l10n.errorLoadingStudyToursWithMessage(e.toString())));
     }
   }
 }

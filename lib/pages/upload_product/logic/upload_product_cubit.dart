@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:academic/data/repository/product_request_repository.dart';
@@ -63,13 +64,13 @@ class UploadProductCubit extends Cubit<UploadProductState> {
         emit(UploadProductState.success(
           response.message.isNotEmpty
               ? response.message
-              : 'محصول با موفقیت آپلود شد',
+              : l10n.productUploadedSuccessfully,
         ));
       } else {
         emit(UploadProductState.error(
           response.message.isNotEmpty
               ? response.message
-              : 'خطا در آپلود محصول',
+              : l10n.errorUploadingProduct,
         ));
       }
     } catch (e) {

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -34,7 +35,7 @@ class _CartPageState extends State<CartPage> {
       child: Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: CustomAppBar(
-          title: 'سبد خرید',
+          title: l10n.cart,
           icon: Icons.shopping_cart_rounded,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -77,7 +78,7 @@ class _CartPageState extends State<CartPage> {
                   success: (response) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: const Text('درگاه پرداخت با موفقیت باز شد'),
+                        content: Text(l10n.paymentGatewayOpened),
                         backgroundColor: Colors.green,
                       ),
                     );
@@ -124,14 +125,14 @@ class _CartPageState extends State<CartPage> {
             ),
             const SizedBox(height: 16),
             Text(
-              'سبد خرید شما خالی است',
+              l10n.cartEmpty,
               style: context.textTheme.titleLarge?.copyWith(
                 color: context.colorScheme.onSurface,
               ),
             ),
             const SizedBox(height: 8),
             Text(
-              'برای خرید کتاب به صفحه اصلی بروید',
+              l10n.goHomeToBuyBooks,
               style: context.textTheme.bodyMedium?.copyWith(
                 color: context.colorScheme.onSurfaceVariant,
               ),
@@ -140,7 +141,7 @@ class _CartPageState extends State<CartPage> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: MainButton(
-                text: 'برو به صفحه اصلی',
+                text: l10n.goToHome,
                 onPressed: () => context.go('/home'),
               ),
             ),
@@ -184,7 +185,7 @@ class _CartPageState extends State<CartPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'شیوه پرداخت',
+                        l10n.paymentMethod,
                         style: context.textTheme.titleMedium,
                       ),
                       const SizedBox(height: 12),
@@ -210,11 +211,11 @@ class _CartPageState extends State<CartPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'درگاه پرداخت آنلاین',
+                                  l10n.onlinePaymentGateway,
                                   style: context.textTheme.titleSmall,
                                 ),
                                 Text(
-                                  'پرداخت با همه کارت های عضو شتاب',
+                                  l10n.payWithShetabCards,
                                   style: context.textTheme.bodySmall?.copyWith(
                                     color: context.colorScheme.onSurfaceVariant,
                                   ),
@@ -244,7 +245,7 @@ class _CartPageState extends State<CartPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'فاکتور خرید',
+                        l10n.invoice,
                         style: context.textTheme.titleMedium,
                       ),
                       const SizedBox(height: 16),
@@ -252,13 +253,13 @@ class _CartPageState extends State<CartPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'جمع کل',
+                            l10n.total,
                             style: context.textTheme.titleMedium?.copyWith(
                               color: context.colorScheme.onSurfaceVariant,
                             ),
                           ),
                           Text(
-                            '${meta.formattedTotalAmount} تومان',
+                            l10n.amountToman(meta.formattedTotalAmount.toString()),
                             style: context.textTheme.titleMedium?.copyWith(
                               color: context.colorScheme.onSurfaceVariant,
                             ),
@@ -270,13 +271,13 @@ class _CartPageState extends State<CartPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'سود شما در این خرید',
+                            l10n.yourSavings,
                             style: context.textTheme.titleMedium?.copyWith(
                               color: context.colorScheme.onSurfaceVariant,
                             ),
                           ),
                           Text(
-                            '${meta.formattedTotalDiscount} تومان',
+                            l10n.amountToman(meta.formattedTotalDiscount.toString()),
                             style: context.textTheme.titleMedium?.copyWith(
                               color: context.colorScheme.onSurfaceVariant,
                             ),
@@ -291,13 +292,13 @@ class _CartPageState extends State<CartPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'مبلغ قابل پرداخت',
+                            l10n.payableAmount,
                             style: context.textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Text(
-                            '${meta.total} تومان',
+                            l10n.amountToman(meta.total.toString()),
                             style: context.textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -343,8 +344,8 @@ class _CartPageState extends State<CartPage> {
                 builder: (context, paymentState) {
                   return MainButton(
                     text: paymentState.maybeWhen(
-                      loading: () => 'در حال پردازش...',
-                      orElse: () => 'پرداخت - ${meta.total} تومان',
+                      loading: () => l10n.processing,
+                      orElse: () => l10n.payAmountToman(meta.total.toString()),
                     ),
                     backgroundColor: context.colorScheme.primary,
                     textColor: context.colorScheme.onPrimary,
@@ -396,7 +397,7 @@ class _CartPageState extends State<CartPage> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('خطا در پردازش پرداخت: $e'),
+          content: Text(l10n.errorProcessingPaymentWithMessage(e.toString())),
           backgroundColor: Colors.red,
         ),
       );
@@ -416,11 +417,11 @@ class _CartItemCard extends StatelessWidget {
   String _getBookTypeText(String? type) {
     switch (type?.toLowerCase()) {
       case 'audio':
-        return 'کتاب صوتی';
+        return l10n.audioBook;
       case 'epub':
-        return 'کتاب متنی';
+        return l10n.textBook;
       default:
-        return 'کتاب متنی';
+        return l10n.textBook;
     }
   }
 
@@ -492,7 +493,7 @@ class _CartItemCard extends StatelessWidget {
                   ],
                   if (item.categories.isNotEmpty) ...[
                     Text(
-                      'موضوع: ${item.categories.first.join(' - ')}',
+                      l10n.subjectWithValue(item.categories.first.join(' - ')),
                       style: context.textTheme.bodySmall?.copyWith(
                         color: context.colorScheme.onSurfaceVariant,
                       ),
@@ -572,7 +573,7 @@ class _DiscountSectionState extends State<_DiscountSection> {
                 child: Row(
                   children: [
                     Text(
-                      'استفاده از کد تخفیف',
+                      l10n.useDiscountCode,
                       style: context.textTheme.titleMedium,
                     ),
                     const Spacer(),
@@ -615,7 +616,7 @@ class _DiscountSectionState extends State<_DiscountSection> {
                                 orElse: () => false,
                               ),
                               decoration: InputDecoration(
-                                hintText: 'کد تخفیف خود را وارد کنید',
+                                hintText: l10n.enterDiscountCode,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8),
                                 ),
@@ -662,7 +663,7 @@ class _DiscountSectionState extends State<_DiscountSection> {
                                     ),
                                   ),
                                 ),
-                                orElse: () => const Text('اعمال'),
+                                orElse: () => Text(l10n.apply),
                               ),
                             ),
                           ),

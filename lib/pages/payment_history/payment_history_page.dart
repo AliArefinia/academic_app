@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -29,7 +30,7 @@ class _PaymenthistoryPageState extends State<PaymenthistoryPage> {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            title: 'تاریخچه پرداخت ها',
+            title: l10n.paymentHistory,
             icon: Icons.history_rounded,
           ),
           body: state.when(
@@ -92,13 +93,13 @@ class PaymentHistoryWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             WidgetsInCards(
-                rightText: 'تاریخ:', leftText: paymentHistoryModel.date ?? ''),
+                rightText: l10n.dateLabel, leftText: paymentHistoryModel.date ?? ''),
             WidgetsInCards(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'خرید:',
+                    l10n.purchaseLabel,
                     style: context.textTheme.titleSmall,
                   ),
                   Column(
@@ -161,10 +162,10 @@ class PaymentHistoryWidget extends StatelessWidget {
               ),
             ),
             WidgetsInCards(
-                rightText: 'مبلغ:',
-                leftText: "${paymentHistoryModel.paidAmount ?? ''} تومان "),
+                rightText: l10n.amountLabel,
+                leftText: l10n.amountTomanTrailing(paymentHistoryModel.paidAmount ?? '')),
             WidgetsInCards(
-                rightText: 'از طریق:',
+                rightText: l10n.viaLabel,
                 leftText: paymentHistoryModel.gatewayName ?? ''),
             WidgetsInCards(
                 child: Column(
@@ -173,29 +174,29 @@ class PaymentHistoryWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'وضعیت:',
+                      l10n.statusLabel,
                       style: context.textTheme.titleSmall,
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          paymentHistoryModel.status == "موفق"
+                          paymentHistoryModel.status == 'موفق'
                               ? Icons.check_circle
                               : Icons.cancel,
-                          color: paymentHistoryModel.status == "موفق"
+                          color: paymentHistoryModel.status == 'موفق'
                               ? Colors.green
                               : Colors.red,
                           size: 20,
                         ),
                         const SizedBox(width: AppSpacing.s4),
                         Text(
-                          paymentHistoryModel.status ?? "نامشخص",
+                          paymentHistoryModel.status ?? l10n.unknown,
                           style: context.textTheme.titleSmall?.copyWith(
                             fontWeight: FontWeight.w400,
-                            color: paymentHistoryModel.status == "موفق"
+                            color: paymentHistoryModel.status == 'موفق'
                                 ? Colors.green
-                                : paymentHistoryModel.status == "ناموفق"
+                                : paymentHistoryModel.status == 'ناموفق'
                                     ? Colors.red
                                     : null,
                           ),
@@ -221,7 +222,7 @@ class PaymentHistoryWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'کد پیگیری:',
+                        l10n.trackingCodeLabel,
                         style: context.textTheme.titleSmall,
                       ),
                       Expanded(
@@ -247,7 +248,7 @@ class PaymentHistoryWidget extends StatelessWidget {
             ),
             WidgetsInCards(
                 isDividerVisible: false,
-                rightText: 'تخفیف:',
+                rightText: l10n.discountLabel,
                 leftText: "${paymentHistoryModel.discountPercent ?? ''}%"),
           ],
         ),
@@ -329,7 +330,7 @@ class PaymentHistoryIsEmpty extends StatelessWidget {
               const MidTexts(),
               MainButton(
                 radius: AppSpacing.s20,
-                text: 'فروشگاه',
+                text: l10n.store,
                 backgroundColor: context.colorScheme.primary,
                 onPressed: () {},
               )
@@ -385,11 +386,11 @@ class MidTexts extends StatelessWidget {
       spacing: AppSpacing.s20,
       children: [
         Text(
-          'تا به حال هیچ خریدی نکرده‌ای.',
+          l10n.noPurchasesYet,
           style: context.textTheme.bodyLarge,
         ),
         Text(
-          'در اینجا می‌توانی تاریخچه‌ی تراکنش هات رو ببینی',
+          l10n.paymentHistoryHint,
           style: context.textTheme.bodyMedium,
         )
       ],

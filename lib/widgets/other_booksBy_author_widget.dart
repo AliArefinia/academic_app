@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:academic/core/helper/image_ur_handler.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -148,7 +149,7 @@ class OtherBooksByAuthorWidget extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: ' تومان',
+                  text: l10n.tomanWithSpace,
                   style: context.textTheme.labelSmall?.copyWith(
                     fontWeight: FontWeight.w600,
                     fontSize: 8,

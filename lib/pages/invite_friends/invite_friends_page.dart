@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,7 +53,7 @@ class InvitefriendsPage extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'دعوت شده',
+                  l10n.invited,
                   style: context.textTheme.bodySmall?.copyWith(
                     color: context.colorScheme.primary,
                     fontWeight: FontWeight.w600,
@@ -78,7 +79,7 @@ class InvitefriendsPage extends StatelessWidget {
         final cubit = context.read<InvitefriendsCubit>();
         return Scaffold(
           appBar: CustomAppBar(
-            title: 'دعوت از دوستان',
+            title: l10n.inviteFriends,
             icon: Icons.person_add_rounded,
           ),
           body: SingleChildScrollView(
@@ -100,24 +101,24 @@ class InvitefriendsPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         _TabButton(
-                          tabName: 'دعوت',
-                          isActive: state.currentTab == 'دعوت',
-                          onTap: () => cubit.onTabTap('دعوت'),
+                          tabName: l10n.invite,
+                          isActive: state.currentTab == 'invite',
+                          onTap: () => cubit.onTabTap('invite'),
                         ),
                         _TabButton(
-                          tabName: 'جوایز',
-                          isActive: state.currentTab == 'جوایز',
-                          onTap: () => cubit.onTabTap('جوایز'),
+                          tabName: l10n.rewards,
+                          isActive: state.currentTab == 'rewards',
+                          onTap: () => cubit.onTabTap('rewards'),
                         ),
                       ],
                     ),
                   ),
-                  if (state.currentTab == 'دعوت')
+                  if (state.currentTab == 'invite')
                     Column(
                       children: [
                         const MidSection(),
                         BottomInviteCodeContainer(
-                          inviteCode: state.inviteCode ?? 'کد دعوت در دسترس نیست',
+                          inviteCode: state.inviteCode ?? l10n.inviteCodeUnavailable,
                         ),
                         const SizedBox(height: AppSpacing.s24),
                         // عنوان بخش لیست دعوت‌ها
@@ -131,7 +132,7 @@ class InvitefriendsPage extends StatelessWidget {
                           child: Column(
                             children: [
                               Text(
-                                'لیست دوستان دعوت شده',
+                                l10n.invitedFriendsList,
                                 style: context.textTheme.headlineSmall?.copyWith(
                                   color: context.colorScheme.onPrimaryContainer,
                                   fontWeight: FontWeight.bold,
@@ -140,7 +141,7 @@ class InvitefriendsPage extends StatelessWidget {
                               ),
                               if (!state.isLoading && state.errorMessage == null)
                                 Text(
-                                  'تعداد کل: ${state.invitedFriends.length} نفر',
+                                  l10n.totalPeopleCount(state.invitedFriends.length),
                                   style: context.textTheme.titleMedium?.copyWith(
                                     color: context.colorScheme.onPrimaryContainer,
                                   ),
@@ -160,8 +161,8 @@ class InvitefriendsPage extends StatelessWidget {
                           )
                         else if (state.invitedFriends.isEmpty)
                           EmptyStateWidget(
-                            title: 'دعوتی ثبت نشده',
-                            message: 'هنوز هیچ دوستی را دعوت نکرده‌اید',
+                            title: l10n.noInvitations,
+                            message: l10n.noFriendsInvitedYet,
                             iconAsset: Assets.icInviteFriends,
                             compact: true,
                           )
@@ -177,7 +178,7 @@ class InvitefriendsPage extends StatelessWidget {
                           ),
                       ],
                     )
-                  else if (state.currentTab == 'جوایز')
+                  else if (state.currentTab == 'rewards')
                     if (state.isGiftsLoading)
                       const Center(child: CircularProgressIndicator())
                     else if (state.giftsErrorMessage != null)
@@ -188,8 +189,8 @@ class InvitefriendsPage extends StatelessWidget {
                       )
                     else if (state.gifts.isEmpty)
                       EmptyStateWidget(
-                        title: 'جایزه‌ای وجود ندارد',
-                        message: 'هنوز جایزه‌ای برای نمایش وجود ندارد',
+                        title: l10n.noRewards,
+                        message: l10n.noRewardsToShow,
                         iconAsset: Assets.icGift,
                         compact: true,
                       )
@@ -249,7 +250,7 @@ class MidSection extends StatelessWidget {
       children: [
         const SizedBox(height: AppSpacing.s16),
         Text(
-          '📚 دوستانت رو دعوت کن و\n یک ماه رایگان بخون!',
+          l10n.inviteFriendsReadFree,
           style: context.textTheme.headlineSmall,
           textAlign: TextAlign.center,
         ),
@@ -257,7 +258,7 @@ class MidSection extends StatelessWidget {
         SvgPicture.asset(Assets.pcPersonInvite),
         const SizedBox(height: AppSpacing.s16),
         Text(
-          'با دعوت از دوستانت به اپلیکیشن کتاب‌خوان، شما و دوستتون هر کدوم یک ماه اشتراک رایگان هدیه می‌گیرین! فقط کافیه کد دعوت رو برای اون‌ها بفرستی، تا به دنیای جذاب کتاب‌ها وارد بشن.',
+          l10n.inviteFriendsDescription,
           style: context.textTheme.titleSmall
               ?.copyWith(fontWeight: FontWeight.w400),
           textAlign: TextAlign.center,
@@ -323,7 +324,7 @@ class CopyInviteCodeButton extends StatelessWidget {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             backgroundColor: colorScheme.primary,
-            content: const Text('کد دعوت کپی شد!'),
+            content: Text(l10n.inviteCodeCopied),
           ),
         );
       },
@@ -342,7 +343,7 @@ class CopyInviteCodeButton extends StatelessWidget {
             SvgPicture.asset(Assets.icCopy),
             const SizedBox(width: AppSpacing.s8),
             Text(
-              'کپی کن',
+              l10n.copy,
               style: context.textTheme.titleSmall?.copyWith(
                 color: colorScheme.onPrimary,
                 fontWeight: FontWeight.w600,
@@ -397,7 +398,7 @@ class NotInvitedFriendSection extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.s16),
             Text(
-              'هنوز دوستی دعوت نکرده‌اید',
+              l10n.noFriendInvitedYet,
               style: context.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: context.colorScheme.onSurface,
@@ -406,7 +407,7 @@ class NotInvitedFriendSection extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.s8),
             Text(
-              'با دعوت از دوستانتان، هر دو نفر یک ماه اشتراک رایگان دریافت خواهید کرد!',
+              l10n.inviteFriendsBothGetFreeMonth,
               style: context.textTheme.bodyMedium?.copyWith(
                 color: context.colorScheme.onSurfaceVariant,
                 height: 1.5,
@@ -433,7 +434,7 @@ class NotInvitedFriendSection extends StatelessWidget {
                   ),
                   const SizedBox(width: AppSpacing.s8),
                   Text(
-                    'کد دعوت خود را به اشتراک بگذارید',
+                    l10n.shareYourInviteCode,
                     style: context.textTheme.labelMedium?.copyWith(
                       color: context.colorScheme.onPrimary,
                       fontWeight: FontWeight.w600,
@@ -533,7 +534,7 @@ class InvitedFriendsWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSpacing.s4),
                   Text(
-                    'تاریخ دعوت: ${invitedFriendsModel.created_at}',
+                    l10n.invitationDateWithValue(invitedFriendsModel.created_at.toString()),
                     style: context.textTheme.bodySmall?.copyWith(
                       color: context.colorScheme.onSurfaceVariant,
                     ),

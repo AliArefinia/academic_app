@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -20,7 +21,7 @@ class BuysubscriptionPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            title: "خرید اشتراک",
+            title: l10n.buySubscription,
             icon: Icons.credit_card_rounded,
           ),
           body: state.when(
@@ -73,24 +74,24 @@ class BuysubscriptionPage extends StatelessWidget {
             child: Column(
               children: [
                 CustomExpandableTile(
-                  text: "سوالات متداول",
-                  expandedText: "پاسخ سوالات متداول در اینجا قرار می‌گیرد...",
+                  text: l10n.faq,
+                  expandedText: l10n.faqPlaceholder,
                   index: 0,
                   isExpanded: expandedItems[0] ?? false,
                 ),
                 const SizedBox(height: AppSpacing.s16),
                 CustomExpandableTile(
-                  text: "قوانین و مقررات",
+                  text: l10n.termsAndConditions,
                   expandedText:
-                      "قوانین و مقررات اشتراک در اینجا قرار می‌گیرد...",
+                      l10n.subscriptionTermsPlaceholder,
                   index: 1,
                   isExpanded: expandedItems[1] ?? false,
                 ),
                 const SizedBox(height: AppSpacing.s16),
                 CustomExpandableTile(
-                  text: "شرایط استفاده",
+                  text: l10n.termsOfUse,
                   expandedText:
-                      "شرایط استفاده از اشتراک در اینجا قرار می‌گیرد...",
+                      l10n.subscriptionTermsOfUsePlaceholder,
                   index: 2,
                   isExpanded: expandedItems[2] ?? false,
                 ),
@@ -114,7 +115,7 @@ class BuysubscriptionPage extends StatelessWidget {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('خطا در پردازش پرداخت: $e'),
+          content: Text(l10n.errorProcessingPaymentWithMessage(e.toString())),
           backgroundColor: Colors.red,
         ),
       );
@@ -250,7 +251,7 @@ class SubscriptionCard extends StatelessWidget {
                           style: context.textTheme.headlineMedium
                               ?.copyWith(fontSize: 20, fontWeight: FontWeight.bold)),
                       TextSpan(
-                          text: "تومان",
+                          text: l10n.toman,
                           style: context.textTheme.bodySmall
                               ?.copyWith(fontWeight: FontWeight.w600)),
                     ],
@@ -270,7 +271,7 @@ class SubscriptionCard extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 8),
                       ),
-                      child: Text("خرید اشتراک",
+                      child: Text(l10n.buySubscription,
                           style: context.textTheme.labelMedium?.copyWith(
                             color: context.colorScheme.onPrimary,
                             fontWeight: FontWeight.bold,
@@ -297,7 +298,7 @@ class SubscriptionCard extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    "${plan.days} روز",
+                    l10n.daysCount(plan.days.toString()),
                     style: context.textTheme.headlineMedium?.copyWith(
                       color: context.colorScheme.onPrimary,
                       fontWeight: FontWeight.bold,

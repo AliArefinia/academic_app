@@ -1,25 +1,1279 @@
 {
-	"exampleText" : "Welcome",
-	"getStartedPageText" : "Test Test",
-	"appTitle": "Halal Books",
-	"shareQuote": "Share Quote",
-	"savingQuote": "Saving quote...",
-	"quoteSaved": "Quote saved successfully",
-	"errorSavingQuote": "Error saving quote: {error}",
-	"@errorSavingQuote": {
-		"placeholders": {
-			"error": {
-				"type": "String"
-			}
-		}
-	},
-	"pleaseSelectBirthDate": "Please select birth date",
-	"birthDateMustBeBeforeToday": "Birth date must be before today",
-	"pleaseSelectGender": "Please select gender",
-	"pleaseEnterName": "Please enter name",
-	"pleaseEnterLastName": "Please enter last name",
-	"passwordMustBeAtLeast8Chars": "Password must be at least 8 characters",
-	"profileUpdatedSuccessfully": "Profile updated successfully",
-	"errorUpdatingProfile": "Error updating profile",
-	"validationError": "Validation error"
+  "@@locale": "en",
+  "exampleText": "Welcome",
+  "getStartedPageText": "Here, every click begins a new journey; a journey that takes you into the heart of stories, secrets and the mysterious world of books.",
+  "appTitle": "Imam Sadiq University",
+  "shareQuote": "Share Quote",
+  "savingQuote": "Saving quote...",
+  "quoteSaved": "Quote saved successfully",
+  "errorSavingQuote": "Error saving quote: {error}",
+  "@errorSavingQuote": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "pleaseSelectBirthDate": "Please select birth date",
+  "birthDateMustBeBeforeToday": "Birth date must be before today",
+  "pleaseSelectGender": "Please select gender",
+  "pleaseEnterName": "Please enter name",
+  "pleaseEnterLastName": "Please enter last name",
+  "passwordMustBeAtLeast8Chars": "Password must be at least 8 characters",
+  "profileUpdatedSuccessfully": "Profile updated successfully",
+  "errorUpdatingProfile": "Error updating profile",
+  "validationError": "Validation error",
+  "errorSomethingWentWrong": "Something went wrong. Please try again",
+  "errorNoInternet": "No internet connection",
+  "errorServerTryAgain": "A server error occurred. Please try again",
+  "errorConnectionTimeout": "Connection timed out. Please try again",
+  "errorPleaseLoginAgain": "Please log in again",
+  "errorUnauthorized": "Unauthorized access",
+  "errorNotFound": "The requested information was not found",
+  "errorInvalidInput": "The entered information is invalid",
+  "errorServiceUnavailable": "Service unavailable. Please try again later",
+  "errorOperationCancelled": "Operation cancelled",
+  "errorInvalidRequestData": "The submitted data is invalid. Please try again",
+  "errorFileTooLarge": "The file is too large",
+  "errorUnsupportedFileFormat": "File format is not supported",
+  "errorTooManyRequests": "Too many requests. Please wait a moment",
+  "errorProcessingData": "Error processing data",
+  "errorWrongPasswordOrPhone": "Incorrect password or phone number",
+  "errorUserNotFound": "No user found with this information",
+  "errorInvalidPhone": "Invalid phone number",
+  "errorWrongVerificationCode": "Incorrect verification code. Please enter the correct code",
+  "errorVerificationCodeExpired": "Verification code has expired. Please request a new code",
+  "errorWrongInput": "The entered information is incorrect",
+  "errorAlreadyRegistered": "This information has already been registered",
+  "errorInsufficientBalance": "Insufficient balance",
+  "errorPaymentProcessing": "Error processing payment",
+  "errorServerTryLater": "A server error occurred. Please try again later",
+  "authorBooks": "Author's books",
+  "publisherBooks": "Publisher's books",
+  "unknownLinkReceived": "Unknown link received: {link}",
+  "@unknownLinkReceived": {
+    "placeholders": {
+      "link": {
+        "type": "Object"
+      }
+    }
+  },
+  "verifyingPayment": "Verifying payment...",
+  "paymentVerifiedSuccessfully": "Payment verified successfully!",
+  "errorVerifyingPaymentWithMessage": "Error verifying payment: {error}",
+  "@errorVerifyingPaymentWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "paymentFailedMessage": "Payment failed",
+  "paymentCancelledByUser": "Payment was cancelled by the user",
+  "invalidBookLink": "Invalid book link",
+  "invalidBookId": "Invalid book ID",
+  "loadingBook": "Loading book...",
+  "errorOpeningBook": "Error opening book",
+  "errorLoadingBookWithMessage": "Error loading book: {error}",
+  "@errorLoadingBookWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "invalidClippingLink": "Invalid clipping link",
+  "errorOpeningClipping": "Error opening clipping",
+  "invalidPaymentParameters": "Invalid payment parameters",
+  "paymentCompletedSuccessfully": "Payment completed successfully!",
+  "paymentNotVerified": "Payment was not verified",
+  "cancelled": "Cancelled",
+  "processingError": "Processing error",
+  "unknownError": "Unknown error",
+  "errorFetchingProfile": "Error fetching profile information",
+  "active": "Active",
+  "expiredStatus": "Expired",
+  "daily": "Daily",
+  "monthly": "Monthly",
+  "yearly": "Yearly",
+  "reserved": "Reserved",
+  "amountMillionToman": "{amount}M Toman",
+  "@amountMillionToman": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      }
+    }
+  },
+  "amountThousandToman": "{amount}K Toman",
+  "@amountThousandToman": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      }
+    }
+  },
+  "amountToman": "{amount} Toman",
+  "@amountToman": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      }
+    }
+  },
+  "used": "Used",
+  "errorSavingNote": "Error saving note",
+  "errorFetchingShop": "Error fetching marketplace information",
+  "unexpectedErrorWithMessage": "Unexpected error: {error}",
+  "@unexpectedErrorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorServerReturnedError": "Server response error: the server returned an error",
+  "errorUploadingProduct": "Error uploading product",
+  "appName": "Imam Sadiq University",
+  "loginToApp": "Log in to Imam Sadiq University",
+  "loginWithEmail": "Log in with your email:",
+  "loginWithPhone": "Log in with your mobile number:",
+  "login": "Log in",
+  "or": "or",
+  "terms": "Terms",
+  "ofUsingApp": " of using Imam Sadiq University",
+  "email": "Email",
+  "password": "Password",
+  "withPhoneNumber": "With phone number",
+  "withEmail": "With email",
+  "withGoogleAccount": "With Google account",
+  "enteredNumberIncorrect": "The entered number is incorrect",
+  "numberNotEntered": "Number has not been entered",
+  "numberFormatIncorrect": "Number format is incorrect",
+  "verificationCode": "Verification code",
+  "enterYourPassword": "Enter your password",
+  "phoneNumberLabel": "Number: {phone}",
+  "@phoneNumberLabel": {
+    "placeholders": {
+      "phone": {
+        "type": "Object"
+      }
+    }
+  },
+  "editPhoneNumber": "Edit phone number",
+  "pleaseEnterPassword": "Please enter the password",
+  "loginWithOtp": "Log in with one-time password",
+  "haveInviteCodeOptional": "I have an invite code (optional)",
+  "sixDigitInviteCode": "6-digit invite code",
+  "errorInInputData": "Error in input data",
+  "enterOtpSentToNumber": "Enter the one-time code sent to the number below:",
+  "loginWithPassword": "Log in with password",
+  "checking": "Checking...",
+  "continueLabel": "Continue",
+  "enterFiveDigitCode": "Enter the 5-digit code",
+  "completeInformation": "Complete information",
+  "pleaseSelectRoleAndCategory": "Please select your role and category",
+  "yourRole": "Your role:",
+  "student": "Student",
+  "professor": "Professor",
+  "categoryLabel": "Category:",
+  "loggingIn": "Logging in...",
+  "confirmAndLogin": "Confirm and log in",
+  "selectCategory": "Select category",
+  "searchCategory": "Search categories...",
+  "categoryNotFound": "Category not found",
+  "author": "Author",
+  "searchAuthorTranslatorNarrator": "Search author, translator or narrator",
+  "filter": "Filter",
+  "clearFilter": "Clear filter",
+  "categoriesShort": "Categories",
+  "searchInApp": "Search in Imam Sadiq University",
+  "mostPopularAudioBookCategories": "Most popular audiobook categories",
+  "sizeInMegabytes": "{size} MB",
+  "@sizeInMegabytes": {
+    "placeholders": {
+      "size": {
+        "type": "Object"
+      }
+    }
+  },
+  "identifier": "ID",
+  "format": "Format",
+  "size": "Size",
+  "duration": "Duration",
+  "listSeparator": ",",
+  "translator": "Translator",
+  "narrator": "Narrator",
+  "publisher": "Publisher",
+  "language": "Language",
+  "persian": "Persian",
+  "publishDate": "Publication date",
+  "price": "Price",
+  "readAndDownloadFile": "Read and download file",
+  "inTheAppName": "in the Imam Sadiq University app",
+  "searchPublisher": "Search publishers",
+  "clippingFromBook": "A clipping from the book {bookName}",
+  "@clippingFromBook": {
+    "placeholders": {
+      "bookName": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorSharingWithMessage": "Error sharing: {error}",
+  "@errorSharingWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "cancel": "Cancel",
+  "share": "Share",
+  "all": "All",
+  "mostPopular": "Most popular",
+  "hashtagSuccess": "#Success",
+  "hashtagPsychology": "#Psychology",
+  "bookTour": "Book tour",
+  "noClippings": "No clippings",
+  "noClippingsToShow": "There are currently no clippings to show",
+  "newLabel": "New",
+  "bookWithName": "Book {bookName}",
+  "@bookWithName": {
+    "placeholders": {
+      "bookName": {
+        "type": "Object"
+      }
+    }
+  },
+  "more": "More",
+  "less": "Less",
+  "bookmarked": "Bookmarked",
+  "errorWithMessage": "Error: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "noBookmarkedBooks": "No bookmarked books!",
+  "noBookmarkedBooksYet": "You haven't bookmarked any books yet",
+  "untitled": "Untitled",
+  "home": "Home",
+  "profile": "Profile",
+  "marketplace": "Marketplace",
+  "categoriesTab": "Categories",
+  "myBooks": "My books",
+  "buySubscription": "Buy subscription",
+  "faq": "Frequently asked questions",
+  "faqPlaceholder": "Answers to frequently asked questions go here...",
+  "termsAndConditions": "Terms and conditions",
+  "subscriptionTermsPlaceholder": "Subscription terms and conditions go here...",
+  "termsOfUse": "Terms of use",
+  "subscriptionTermsOfUsePlaceholder": "Subscription terms of use go here...",
+  "errorProcessingPaymentWithMessage": "Error processing payment: {error}",
+  "@errorProcessingPaymentWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "toman": "Toman",
+  "daysCount": "{days} days",
+  "@daysCount": {
+    "placeholders": {
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "cart": "Shopping cart",
+  "paymentGatewayOpened": "Payment gateway opened successfully",
+  "cartEmpty": "Your shopping cart is empty",
+  "goHomeToBuyBooks": "Go to the home page to buy books",
+  "goToHome": "Go to home page",
+  "paymentMethod": "Payment method",
+  "onlinePaymentGateway": "Online payment gateway",
+  "payWithShetabCards": "Pay with all Shetab member cards",
+  "invoice": "Invoice",
+  "total": "Total",
+  "yourSavings": "Your savings on this purchase",
+  "payableAmount": "Payable amount",
+  "processing": "Processing...",
+  "payAmountToman": "Pay - {amount} Toman",
+  "@payAmountToman": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      }
+    }
+  },
+  "audioBook": "Audiobook",
+  "textBook": "Text book",
+  "subjectWithValue": "Subject: {subject}",
+  "@subjectWithValue": {
+    "placeholders": {
+      "subject": {
+        "type": "Object"
+      }
+    }
+  },
+  "useDiscountCode": "Use discount code",
+  "enterDiscountCode": "Enter your discount code",
+  "apply": "Apply",
+  "discountCodeApplied": "Discount code applied successfully",
+  "filterLabel": "Filter",
+  "bestSelling": "Best selling",
+  "noProductsFound": "No products found.",
+  "authorWithValue": "Author: {author}",
+  "@authorWithValue": {
+    "placeholders": {
+      "author": {
+        "type": "Object"
+      }
+    }
+  },
+  "translatorWithValue": "Translator: {translator}",
+  "@translatorWithValue": {
+    "placeholders": {
+      "translator": {
+        "type": "Object"
+      }
+    }
+  },
+  "narratorWithValue": "Narrator: {narrator}",
+  "@narratorWithValue": {
+    "placeholders": {
+      "narrator": {
+        "type": "Object"
+      }
+    }
+  },
+  "speaker": "Narrator",
+  "publisherWithValue": "Publisher: {publisher}",
+  "@publisherWithValue": {
+    "placeholders": {
+      "publisher": {
+        "type": "Object"
+      }
+    }
+  },
+  "applyFilter": "Apply filter",
+  "selectAuthor": "Select author",
+  "searchAuthors": "Search authors...",
+  "noAuthorFound": "No author found.",
+  "confirm": "Confirm",
+  "searchInWithValue": "Search in {title}...",
+  "@searchInWithValue": {
+    "placeholders": {
+      "title": {
+        "type": "Object"
+      }
+    }
+  },
+  "noneFoundWithValue": "No {title} found.",
+  "@noneFoundWithValue": {
+    "placeholders": {
+      "title": {
+        "type": "Object"
+      }
+    }
+  },
+  "chapterDetails": "Chapter details",
+  "notesCount": "{count} notes",
+  "@notesCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "noNotes": "No notes",
+  "noNotesInChapter": "No notes have been added to this chapter yet",
+  "readMore": "Read more",
+  "analysis": "Analysis",
+  "edit": "Edit",
+  "delete": "Delete",
+  "editNote": "Edit note",
+  "yourNote": "Your note",
+  "noteAboutClippingHint": "A note or comment about this clipping...",
+  "save": "Save",
+  "deleteNote": "Delete note",
+  "confirmDeleteNote": "Are you sure you want to delete this note?",
+  "chapterNotFound": "The chapter was not found. It may have been deleted or you may not have access to it.",
+  "errorLoadingDetailsWithMessage": "Error loading details: {error}",
+  "@errorLoadingDetailsWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorUpdatingNoteWithMessage": "Error updating note: {error}",
+  "@errorUpdatingNoteWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorDeletingNoteWithMessage": "Error deleting note: {error}",
+  "@errorDeletingNoteWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorSelectingImageWithMessage": "Error selecting image: {error}",
+  "@errorSelectingImageWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "pleaseSelectCategoryFormal": "Please select a category",
+  "createNewChapter": "Create new chapter",
+  "editChapter": "Edit chapter",
+  "close": "Close",
+  "chapterTitle": "Chapter title",
+  "chapterTitleExample": "e.g. Artificial intelligence",
+  "titleRequired": "Title is required",
+  "titleMinLength": "Title must be at least 3 characters",
+  "descriptionOptional": "Description (optional)",
+  "description": "Description",
+  "chapterDescriptionHint": "A short description of this chapter",
+  "category": "Category",
+  "imageOptional": "Image (optional)",
+  "changeImage": "Change image",
+  "selectImage": "Select image",
+  "enterApp": "Enter the app",
+  "giftCard": "Gift card",
+  "confirmAndPay": "Confirm and pay",
+  "recipientPhoneRequired": "Recipient mobile number*",
+  "amountInRial": "Amount in Rial",
+  "sendGiftCardToOthers": "Send a gift card to others",
+  "pleaseEnterPhoneNumber": "Please enter the phone number",
+  "phoneMustStartWith09": "Number must start with 09",
+  "phoneNumberInvalid": "The entered number is not valid",
+  "rialArabic": "Rial",
+  "mobileNumber": "Mobile number",
+  "paymentAmount": "Payment amount",
+  "amountRial": "{amount} Rial",
+  "@amountRial": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      }
+    }
+  },
+  "giftCardSentToNumber": "Your gift card was successfully\n sent to {phone}! 🤩",
+  "@giftCardSentToNumber": {
+    "placeholders": {
+      "phone": {
+        "type": "Object"
+      }
+    }
+  },
+  "giftSentSuccessfully": "Gift sent successfully!",
+  "giftToOthers": "Gift to others",
+  "bookName": "Book name",
+  "subject": "Subject",
+  "classification": "Classification",
+  "pay": "Pay",
+  "successful": "Successful",
+  "retry": "Try again",
+  "bookByAuthorPublisher": "The book {bookName} by {author}, {publisher} Publications",
+  "@bookByAuthorPublisher": {
+    "placeholders": {
+      "bookName": {
+        "type": "Object"
+      },
+      "author": {
+        "type": "Object"
+      },
+      "publisher": {
+        "type": "Object"
+      }
+    }
+  },
+  "bookClassificationWithValue": "Book classification: {classification}",
+  "@bookClassificationWithValue": {
+    "placeholders": {
+      "classification": {
+        "type": "Object"
+      }
+    }
+  },
+  "tomanWithSpace": " Toman",
+  "friendMobileNumber": "Your friend's mobile number",
+  "noContent": "No content",
+  "noContentToShow": "There is currently no content to show",
+  "currentlyReading": "Currently reading",
+  "categories": "Categories",
+  "newestProducts": "Newest products",
+  "featuredProducts": "Featured products",
+  "suggestedProducts": "Suggested products",
+  "weeklySuggestion": "Suggestion of the week",
+  "newTextBooks": "New text books",
+  "newAudioBooks": "New audiobooks",
+  "pdfNotAvailable": "PDF file is not available",
+  "errorFetchingHome": "Error fetching home page information",
+  "introLoremIpsum": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+  "nextStep": "Next step",
+  "invited": "Invited",
+  "inviteFriends": "Invite friends",
+  "invite": "Invite",
+  "rewards": "Rewards",
+  "inviteCodeUnavailable": "Invite code is not available",
+  "invitedFriendsList": "List of invited friends",
+  "totalPeopleCount": "Total: {count} people",
+  "@totalPeopleCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "noInvitations": "No invitations",
+  "noFriendsInvitedYet": "You haven't invited any friends yet",
+  "noRewards": "No rewards",
+  "noRewardsToShow": "There are no rewards to show yet",
+  "inviteFriendsReadFree": "📚 Invite your friends and\n read free for a month!",
+  "inviteFriendsDescription": "Invite your friends to the book reader app and you and your friend will each get a free one-month subscription! Just send them your invite code so they can enter the fascinating world of books.",
+  "inviteCodeCopied": "Invite code copied!",
+  "copy": "Copy",
+  "noFriendInvitedYet": "You haven't invited a friend yet",
+  "inviteFriendsBothGetFreeMonth": "By inviting your friends, both of you will receive a free one-month subscription!",
+  "shareYourInviteCode": "Share your invite code",
+  "invitationDateWithValue": "Invitation date: {date}",
+  "@invitationDateWithValue": {
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "noRewardsReceivedYet": "You haven't received any rewards yet",
+  "inviteFriendsGetRewards": "By inviting your friends and using the invite code, you will receive valuable rewards!",
+  "receivedRewards": "Received rewards",
+  "totalRewardsCount": "Total: {count} rewards",
+  "@totalRewardsCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "trackingCodeWithValue": "Tracking code: {code}",
+  "@trackingCodeWithValue": {
+    "placeholders": {
+      "code": {
+        "type": "Object"
+      }
+    }
+  },
+  "receivedDateWithValue": "Received date: {date}",
+  "@receivedDateWithValue": {
+    "placeholders": {
+      "date": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorLoadingShelf": "Error loading shelf",
+  "shelfIsEmpty": "This shelf is empty",
+  "addFavoriteBooksToShelf": "Add your favorite books to this shelf",
+  "shelfBooks": "Shelf books",
+  "booksCount": "{count} books",
+  "@booksCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "audio": "Audio",
+  "text": "Text",
+  "progress": "Progress",
+  "bookClippingComments": "Book clipping comments",
+  "errorLoadingComments": "Error loading comments",
+  "noCommentsYet": "No comments yet",
+  "beFirstToComment": "Be the first to comment",
+  "noBookFound": "No book found!",
+  "noBooksInLibraryYet": "No books have been added to your library yet",
+  "myShelves": "My shelves",
+  "appShelves": "Imam Sadiq University shelves",
+  "noTextBooksInLibrary": "There are no text books in your library",
+  "noAudioBooksInLibrary": "There are no audiobooks in your library",
+  "noBooksFound": "No books found",
+  "electronic": "Electronic",
+  "errorLoadingChaptersWithMessage": "Error loading chapters: {error}",
+  "@errorLoadingChaptersWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorCreatingChapterWithMessage": "Error creating chapter: {error}",
+  "@errorCreatingChapterWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorUpdatingChapterWithMessage": "Error updating chapter: {error}",
+  "@errorUpdatingChapterWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorDeletingChapterWithMessage": "Error deleting chapter: {error}",
+  "@errorDeletingChapterWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "myNoteCards": "My note cards",
+  "noChapters": "No chapters",
+  "noChaptersCreatedYet": "You haven't created any chapters yet",
+  "deleteChapter": "Delete chapter",
+  "confirmDeleteItem": "Are you sure you want to delete \"{title}\"?",
+  "@confirmDeleteItem": {
+    "placeholders": {
+      "title": {
+        "type": "Object"
+      }
+    }
+  },
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "daysAgo": "{days} days ago",
+  "@daysAgo": {
+    "placeholders": {
+      "days": {
+        "type": "Object"
+      }
+    }
+  },
+  "myClippings": "My clippings",
+  "noClippingsSavedYet": "You haven't saved any clippings from books yet",
+  "likedByUser": "  liked by user",
+  "commentSubmittedSuccessfully": "Your comment was submitted successfully",
+  "myComments": "My comments",
+  "yourComment": "Your comment",
+  "pleaseEnterComment": "Please enter your comment",
+  "yes": "Yes",
+  "no": "No",
+  "sending": "Sending...",
+  "submitComment": "Submit comment",
+  "howWasYourReadingExperience": "How was your experience\n reading this book?",
+  "helpOthersReadBetter": "Help others read better",
+  "doYouRecommendBook": "Would you recommend this book to others?",
+  "notSure": "Not sure",
+  "pleaseEnterRating": "Please enter your rating",
+  "iRecommend": "I recommend it",
+  "iDontRecommend": "I don't recommend it",
+  "noCommentSubmitted": "No comments submitted",
+  "noCommentsForBooksYet": "You haven't commented on any books yet",
+  "unknownBookName": "Unknown book name",
+  "myPurchases": "My purchases",
+  "viewAll": "View all",
+  "noPurchases": "No purchases",
+  "trackingCode": "Tracking code",
+  "purchaseDate": "Purchase date",
+  "discount": "Discount",
+  "myShelvesTitle": "My shelves",
+  "createNewShelf": "Create new shelf",
+  "errorLoadingShelves": "Error loading shelves",
+  "noShelvesCreatedYet": "You haven't created a shelf yet",
+  "createShelfFirstToAddBooks": "To add books to a shelf, first create a new shelf",
+  "createShelf": "Create shelf",
+  "writeShelfName": "Write the shelf name",
+  "submit": "Submit",
+  "deleteShelf": "Delete shelf",
+  "confirmDeleteShelf": "Are you sure you want to delete the shelf \"{name}\"?",
+  "@confirmDeleteShelf": {
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "latestBooks": "Latest books:",
+  "moreBooksCount": "+{count} more books",
+  "@moreBooksCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "shelfEmpty": "Shelf is empty",
+  "subscriptionHistory": "Subscription history",
+  "activeSubscription": "Active subscription",
+  "appSubscription": "Imam Sadiq University subscription",
+  "subscriptionDescription": "By buying a book reader subscription, get access to a world of e-books and audiobooks. A unique experience for book lovers, anywhere and anytime!",
+  "activeSubscriptions": "Active subscriptions",
+  "startDate": "Start date:",
+  "expiryDate": "Expiry date:",
+  "buyPremiumSubscription": "Buy premium subscription",
+  "expiredSubscriptions": "Expired subscriptions",
+  "noExpiredSubscriptions": "You have no expired subscriptions",
+  "openLinkInBrowser": "Please open this link in your browser: {url}",
+  "@openLinkInBrowser": {
+    "placeholders": {
+      "url": {
+        "type": "Object"
+      }
+    }
+  },
+  "paymentVerificationFailed": "Payment verification failed. Please try again.",
+  "paymentType": "Payment type",
+  "amount": "Amount",
+  "errorMessage": "Error message",
+  "paymentSuccessful": "Payment successful",
+  "paymentFailed": "Payment failed",
+  "paymentExpired": "Payment time expired",
+  "paymentCancelled": "Payment cancelled",
+  "paymentError": "Payment error",
+  "paymentSuccessDescription": "Your payment was successful and your purchase has been recorded",
+  "paymentFailedDescription": "Unfortunately your payment was not successful. Please try again",
+  "paymentExpiredDescription": "Your payment time has expired. Please try again",
+  "paymentCancelledDescription": "The payment was cancelled by you",
+  "paymentErrorDescription": "An error occurred while processing the payment",
+  "backToHome": "Back to home page",
+  "bookPurchase": "Book purchase",
+  "giftCardPurchase": "Gift card purchase",
+  "walletCharge": "Wallet top-up",
+  "viewMyBooks": "View my books",
+  "viewMySubscriptions": "View my subscriptions",
+  "viewGiftCards": "View gift cards",
+  "viewWallet": "View wallet",
+  "paymentDone": "Payment completed successfully",
+  "orderNumber": "Order number",
+  "transactionId": "Transaction ID",
+  "purchasedItems": "Purchased items",
+  "itemsCountTapToView": "{count} items - tap to view",
+  "@itemsCountTapToView": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "unknown": "Unknown",
+  "productWithValue": "Product {productId}",
+  "@productWithValue": {
+    "placeholders": {
+      "productId": {
+        "type": "Object"
+      }
+    }
+  },
+  "productIdWithValue": "Product ID: {productId}",
+  "@productIdWithValue": {
+    "placeholders": {
+      "productId": {
+        "type": "Object"
+      }
+    }
+  },
+  "purchased": "Purchased",
+  "totalPayment": "Total payment",
+  "itemsCount": "{count} items",
+  "@itemsCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "viewPaymentHistory": "View payment history",
+  "paymentHistory": "Payment history",
+  "dateLabel": "Date:",
+  "purchaseLabel": "Purchase:",
+  "amountLabel": "Amount:",
+  "amountTomanTrailing": "{amount} Toman",
+  "@amountTomanTrailing": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      }
+    }
+  },
+  "viaLabel": "Via:",
+  "statusLabel": "Status:",
+  "trackingCodeLabel": "Tracking code:",
+  "discountLabel": "Discount:",
+  "store": "Store",
+  "noPurchasesYet": "You haven't made any purchases yet.",
+  "paymentHistoryHint": "Here you can see your transaction history",
+  "personalDevelopmentBooks": "Personal development books",
+  "filters": "Filters",
+  "textBooks": "Text books",
+  "audioBooks": "Audiobooks",
+  "authorTranslatorNarrator": "Author, translator or narrator",
+  "drivingMode": "Driving mode",
+  "stopPlaybackAfter": "Stop playback after...",
+  "oneMinuteTest": "1 minute (test)",
+  "fifteenMinutes": "15 minutes",
+  "twentyMinutes": "20 minutes",
+  "thirtyMinutes": "30 minutes",
+  "fortyFiveMinutes": "45 minutes",
+  "oneHour": "1 hour",
+  "endOfThisSection": "End of this section",
+  "playbackSpeed": "Playback speed",
+  "normalSpeed": "{speed}.0X (normal)",
+  "@normalSpeed": {
+    "placeholders": {
+      "speed": {
+        "type": "Object"
+      }
+    }
+  },
+  "someTracksNotDownloaded": "Some tracks were not downloaded.",
+  "percentListened": "{percent}% listened",
+  "@percentListened": {
+    "placeholders": {
+      "percent": {
+        "type": "Object"
+      }
+    }
+  },
+  "someTracksNotDownloadedColon": "Some tracks were not downloaded:",
+  "retryFailedTracksOnly": "Retry only the failed tracks",
+  "allTracksDownloaded": "All tracks downloaded successfully!",
+  "downloadAll": "Download all",
+  "noteSavedSuccessfully": "Note saved successfully",
+  "errorSavingNoteWithMessage": "Error saving note: {error}",
+  "@errorSavingNoteWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "bookAddedToBookmarks": "Book added to bookmarks",
+  "bookRemovedFromBookmarks": "Book removed from bookmarks",
+  "errorBookmarkingWithMessage": "Error bookmarking: {error}",
+  "@errorBookmarkingWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "clippingSavedSuccessfully": "Book clipping saved successfully",
+  "errorSavingClippingWithMessage": "Error saving book clipping: {error}",
+  "@errorSavingClippingWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorDownloadingBookWithMessage": "Error downloading book: {error}",
+  "@errorDownloadingBookWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorSharing": "Error sharing",
+  "note": "Note",
+  "productNotFound": "Product not found",
+  "productNotAvailable": "The requested product is not available",
+  "shareBook": "Share book",
+  "aboutBook": "About the book",
+  "tags": "Tags",
+  "tag": "Tag",
+  "userReviews": "User reviews",
+  "otherBooksByAuthor": "Other books by this author",
+  "otherBooksByPublisher": "Other books by this publisher",
+  "relatedBooks": "Related books",
+  "play": "Play",
+  "read": "Read",
+  "contentTypeUnknown": "Content type is unknown",
+  "audioFileNotAvailable": "Audio file is not available",
+  "bookFileNotAvailable": "Book file is not available",
+  "productAlreadyInCart": "This product is already in your shopping cart",
+  "addedToCartWithName": "{name} was added to the shopping cart",
+  "@addedToCartWithName": {
+    "placeholders": {
+      "name": {
+        "type": "Object"
+      }
+    }
+  },
+  "view": "View",
+  "errorAddingToCart": "Error adding to shopping cart",
+  "fromReviewsCount": "from {count} reviews",
+  "@fromReviewsCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "premiumAccess": "Premium access",
+  "addToShelf": "Add to shelf",
+  "viewCart": "View shopping cart",
+  "addToCart": "Add to shopping cart",
+  "loading": "Loading...",
+  "readSample": "Read sample",
+  "continueReading": "Continue reading",
+  "fullDescription": "Full description",
+  "tableOfContents": "Table of contents",
+  "viewBookInfo": "View book information",
+  "helpful": "Helpful",
+  "notHelpful": "Not helpful",
+  "whatIsYourOpinion": "What is your opinion?",
+  "bookAddedToShelf": "Book added to shelf successfully",
+  "createNewShelfTitle": "Create new shelf",
+  "enterShelfName": "Enter the shelf name",
+  "create": "Create",
+  "errorLoadingProfileCheckInternet": "Error loading profile information. Please check your internet connection.",
+  "errorLoadingProfileWithMessage": "Error loading profile information: {error}",
+  "@errorLoadingProfileWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "profileManagement": "Profile management",
+  "errorLoadingProfile": "Error loading profile",
+  "selectImageSource": "Select image source",
+  "camera": "Camera",
+  "gallery": "Gallery",
+  "imageFileNotFound": "Image file not found",
+  "imageMaxSize10Mb": "Image file size must not exceed 10 MB",
+  "editImage": "Edit image",
+  "imageSelectedWithoutEditing": "Image selected without editing",
+  "errorSelectingImage": "Error selecting image",
+  "errorEditingImage": "Error editing image. Please select another image",
+  "galleryCameraPermissionDenied": "Access to the gallery or camera was not granted",
+  "unsupportedImageFormat": "Image format is not supported. Please select a JPG or PNG image",
+  "errorReadingImage": "Error reading image file. Please select another image",
+  "invalidImageFormat": "Invalid image format. Please select a valid image",
+  "minimumAge10": "You must be at least 10 years old",
+  "invalidBirthDate": "Invalid birth date",
+  "imageTooLarge": "The image is too large. Please select a smaller image",
+  "errorProcessingImage": "Error processing image. Please select another image",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "passwordOptional": "Password (optional)",
+  "enterNewPasswordToChange": "To change your password, enter a new password",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "birthDate": "Birth date",
+  "selectDate": "Select date",
+  "aboutMeOptional": "About me (optional)",
+  "saveInformation": "Save information",
+  "monthFarvardin": "Farvardin",
+  "monthOrdibehesht": "Ordibehesht",
+  "monthKhordad": "Khordad",
+  "monthTir": "Tir",
+  "monthMordad": "Mordad",
+  "monthShahrivar": "Shahrivar",
+  "monthMehr": "Mehr",
+  "monthAban": "Aban",
+  "monthAzar": "Azar",
+  "monthDey": "Dey",
+  "monthBahman": "Bahman",
+  "monthEsfand": "Esfand",
+  "selectBirthDate": "Select birth date",
+  "year": "Year",
+  "month": "Month",
+  "day": "Day",
+  "noPublicChaptersYet": "No public chapters have been created yet",
+  "user": "User",
+  "replyToBookClipping": "Reply to book clipping",
+  "send": "Send",
+  "reviewsAndRatings": "Reviews and ratings",
+  "submitReviewAndRating": "Submit review and rating",
+  "shareOpinion": "Share opinion",
+  "uploadProduct": "Upload product",
+  "searchMarketplace": "Search the marketplace",
+  "noProductsInMarketplace": "There are currently no products in the marketplace",
+  "handouts": "Handouts",
+  "educationalContent": "Educational content",
+  "questionBank": "Question bank",
+  "periodical": "Periodical",
+  "quarterly": "Quarterly",
+  "monthlyMagazine": "Monthly magazine",
+  "yearbook": "Yearbook",
+  "productsCount": "{count} products",
+  "@productsCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "studyTourNotFound": "The requested study path was not found",
+  "errorLoadingStudyTourDetailsWithMessage": "Error loading study path details: {error}",
+  "@errorLoadingStudyTourDetailsWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "twoMonths": "2 months",
+  "fourMonths": "4 months",
+  "sixMonths": "6 months",
+  "eightMonths": "8 months",
+  "studyTour": "Study path",
+  "booksCountLabel": "Number of books",
+  "studyRoute": "Study route",
+  "errorLoadingStudyToursWithMessage": "Error loading study paths: {error}",
+  "@errorLoadingStudyToursWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "myStudyTours": "My study paths",
+  "noStudyToursYet": "You haven't submitted a study path yet",
+  "submitFirstStudyTour": "Submit your first study path",
+  "submitStudyTour": "Submit study path",
+  "providedAnswer": "Provided answer:",
+  "pending": "Pending",
+  "approved": "Approved",
+  "rejected": "Rejected",
+  "errorLoadingCategories": "Error loading categories",
+  "studyTourRequest": "Study path request",
+  "designYourStudyTour": "Design your study path",
+  "studyTourRequestHint": "Choose your desired subject and submit your study path request",
+  "studyTourTitle": "Study path title",
+  "studyTourTitleExample": "Example: Iranian history study path",
+  "studyTourDescriptionHint": "Write your description of the desired study path...",
+  "submitRequest": "Submit request",
+  "noBookFoundPlain": "No book found",
+  "textBooksTitle": "Text books",
+  "productUploadedSuccessfully": "Product uploaded successfully",
+  "errorSelectingFileWithMessage": "Error selecting file: {error}",
+  "@errorSelectingFileWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorSelectingSampleFileWithMessage": "Error selecting sample file: {error}",
+  "@errorSelectingSampleFileWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "pleaseSelectMainFile": "Please select the main file",
+  "pleaseSelectCategory": "Please select a category",
+  "pleaseSelectProductImage": "Please select the product image",
+  "uploadAnswerSheetOrHandout": "Upload answer sheet or handout",
+  "contentType": "Content type",
+  "productName": "Product name",
+  "productNameExample": "Example: 10th grade math handout",
+  "pleaseEnterProductName": "Please enter the product name",
+  "pageCount": "Number of pages",
+  "pageCountExample": "Example: 30",
+  "pleaseEnterPageCount": "Please enter the number of pages",
+  "pleaseEnterValidNumber": "Please enter a valid number",
+  "publishYear": "Publication year",
+  "publishYearExample": "Example: 1402",
+  "pleaseEnterPublishYear": "Please enter the publication year",
+  "priceInToman": "Price (Toman)",
+  "priceExample": "Example: 250,000",
+  "pleaseEnterPrice": "Please enter the price",
+  "enterProductDescription": "Enter the product description...",
+  "pleaseEnterDescription": "Please enter the description",
+  "mainFileRequired": "Main file *",
+  "selectFilePdfDoc": "Select file (PDF, DOC, DOCX)",
+  "sampleFileOptional": "Sample file (optional)",
+  "selectSampleFile": "Select sample file",
+  "productImageRequired": "Product image *",
+  "handout": "Handout",
+  "mySubscriptions": "My subscriptions",
+  "myCommentsMenu": "My comments",
+  "myClippingsMenu": "My clippings",
+  "update": "Update",
+  "logout": "Log out of account",
+  "walletChargedSuccessfully": "Wallet topped up successfully!",
+  "wallet": "Wallet",
+  "customAmountToman": "Custom amount (Toman)",
+  "activateGiftCard": "Activate gift card",
+  "currentBalanceToman": "Current balance\n {amount} Toman",
+  "@currentBalanceToman": {
+    "placeholders": {
+      "amount": {
+        "type": "Object"
+      }
+    }
+  },
+  "setAmount": " Set amount",
+  "pleaseSelectAtLeastOneChapter": "Please select at least one chapter",
+  "addToNoteCards": "Add to note cards",
+  "selectedClipping": "Selected clipping",
+  "selectChapter": "Select chapter",
+  "chaptersSelectedCount": "{count} chapters selected",
+  "@chaptersSelectedCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "noteOptional": "Note (optional)",
+  "confirmFormal": "Confirm",
+  "confirmWithCount": "Confirm ({count})",
+  "@confirmWithCount": {
+    "placeholders": {
+      "count": {
+        "type": "Object"
+      }
+    }
+  },
+  "createChapterFirstToAddNote": "To add a note, you must first create a chapter.",
+  "selectedClippingColon": "Selected clipping:",
+  "selectChapterColon": "Select chapter:",
+  "yourNoteOptional": "Your note (optional)",
+  "unknownAuthor": "Unknown author",
+  "percentListenedSpaced": "{percent}% listened",
+  "@percentListenedSpaced": {
+    "placeholders": {
+      "percent": {
+        "type": "Object"
+      }
+    }
+  },
+  "percentRead": "{percent}% read",
+  "@percentRead": {
+    "placeholders": {
+      "percent": {
+        "type": "Object"
+      }
+    }
+  },
+  "noCategoryFound": "No category found",
+  "fontYekanBakh": "Yekan Bakh",
+  "fontVazir": "Vazir",
+  "fontAnjoman": "Anjoman",
+  "fontIranYekan": "IRAN Yekan",
+  "addToNoteCardsEmoji": "📝 Add to note cards",
+  "bookClippingEmoji": "📑 Book clipping",
+  "highlightYellow": "🟡 Yellow highlight",
+  "highlightGreen": "🟢 Green highlight",
+  "highlightOrange": "🟠 Orange highlight",
+  "highlightBlue": "🔵 Blue highlight",
+  "textHighlightedSuccessfully": "Text highlighted successfully",
+  "noReadableContent": "No readable content found.",
+  "chapters": "Chapters",
+  "highlights": "Highlights",
+  "saved": "Saved",
+  "deleteAllHighlights": "Delete all highlights",
+  "pageNumber": "Page {page}",
+  "@pageNumber": {
+    "placeholders": {
+      "page": {
+        "type": "Object"
+      }
+    }
+  },
+  "gridView": "Grid view",
+  "previousPage": "Previous page",
+  "pageProgress": "{page} of {totalPages} pages - {percent}%",
+  "@pageProgress": {
+    "placeholders": {
+      "page": {
+        "type": "Object"
+      },
+      "totalPages": {
+        "type": "Object"
+      },
+      "percent": {
+        "type": "Object"
+      }
+    }
+  },
+  "nextPage": "Next page",
+  "chaptersAndHighlights": "Chapters and highlights",
+  "book": "Book",
+  "settings": "Settings",
+  "fontType": "Font type",
+  "fontSize": "Font size",
+  "lineSpacing": "Line spacing",
+  "low": "Low",
+  "high": "High",
+  "fontWeight": "Font weight",
+  "normal": "Normal",
+  "medium": "Medium",
+  "bold": "Bold",
+  "extraBold": "Extra bold",
+  "displayMode": "Display mode",
+  "nightMode": "Night mode",
+  "readingDirection": "Reading direction",
+  "vertical": "Vertical",
+  "switchToVerticalReading": "Switch reading direction to vertical",
+  "noReadableContentHtml": "<p>No readable content found.</p>",
+  "emptyBookHtml": "<p>The book is empty.</p>",
+  "emptyBook": "The book is empty.",
+  "pdfFileNotFound": "PDF file not found",
+  "errorLoadingPdfWithMessage": "Error loading PDF: {error}",
+  "@errorLoadingPdfWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "errorDownloadingFileWithMessage": "Error downloading file: {error}",
+  "@errorDownloadingFileWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "downloading": "Downloading...",
+  "pageOfTotal": "Page {page} of {totalPages}",
+  "@pageOfTotal": {
+    "placeholders": {
+      "page": {
+        "type": "Object"
+      },
+      "totalPages": {
+        "type": "Object"
+      }
+    }
+  },
+  "connectionProblem": "Connection problem",
+  "serverError": "Server error",
+  "connectionTimedOut": "Connection timed out",
+  "notFound": "Not found",
+  "accessDenied": "Access denied",
+  "invalidData": "Invalid data",
+  "errorOccurred": "An error occurred",
+  "appTheme": "App theme",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "appLanguage": "App language",
+  "english": "English",
+  "uncategorized": "Uncategorized",
+  "unknownPublisher": "Unknown publisher"
 }

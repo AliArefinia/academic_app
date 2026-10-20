@@ -1,3 +1,5 @@
+import 'package:academic/core/settings/app_settings.dart';
+import 'package:academic/l10n/l10n.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'dart:ui';
@@ -68,7 +70,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
   double _fontSize = 18.0;
   String _fontFamily = 'yakanBakh';
   FontWeight _fontWeight = FontWeight.w400;
-  bool _isNightMode = false;
+  bool _isNightMode = AppSettings.instance.isDarkActive;
   List<Highlight> _highlights = [];
   ScrollController _scrollController = ScrollController();
   Uint8List? _coverImageBytes;
@@ -78,10 +80,10 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
   late ScrollController _gridViewScrollController;
   late TabController _tabController;
   final Map<String, String> _availableFonts = {
-    'yakanBakh': 'یکان باخ',
-    'Vazirmatn': 'وزیر',
-    'Anjoman': 'انجمن',
-    'IRANYekanX': 'ایران یکان',
+    'yakanBakh': l10n.fontYekanBakh,
+    'Vazirmatn': l10n.fontVazir,
+    'Anjoman': l10n.fontAnjoman,
+    'IRANYekanX': l10n.fontIranYekan,
   };
   double _lineSpacing = 1.8;
   Set<int> _savedPages = {};
@@ -230,7 +232,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                 }
               },
               type: ContextMenuButtonType.custom,
-              label: '📝 افزودن به فیش‌نویسی',
+              label: l10n.addToNoteCardsEmoji,
             ),
           if (widget.allowSharing && widget.onAddBookClipping != null && widget.product?.idAsInt != null)
             ContextMenuButtonItem(
@@ -246,7 +248,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                 }
               },
               type: ContextMenuButtonType.custom,
-              label: '📑 بریده کتاب',
+              label: l10n.bookClippingEmoji,
             ),
           ContextMenuButtonItem(
             onPressed: () {
@@ -273,7 +275,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
               editableTextState.hideToolbar();
             },
             type: ContextMenuButtonType.custom,
-            label: '🟡 برجسته‌سازی زرد',
+            label: l10n.highlightYellow,
           ),
           ContextMenuButtonItem(
             onPressed: () {
@@ -300,7 +302,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
               editableTextState.hideToolbar();
             },
             type: ContextMenuButtonType.custom,
-            label: '🟢 برجسته‌سازی سبز',
+            label: l10n.highlightGreen,
           ),
           ContextMenuButtonItem(
             onPressed: () {
@@ -327,7 +329,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
               editableTextState.hideToolbar();
             },
             type: ContextMenuButtonType.custom,
-            label: '🟠 برجسته‌سازی نارنجی',
+            label: l10n.highlightOrange,
           ),
           ContextMenuButtonItem(
             onPressed: () {
@@ -354,7 +356,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
               editableTextState.hideToolbar();
             },
             type: ContextMenuButtonType.custom,
-            label: '🔵 برجسته‌سازی آبی',
+            label: l10n.highlightBlue,
           ),
         ];
         return AdaptiveTextSelectionToolbar.buttonItems(
@@ -520,7 +522,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
             // Show a snackbar to confirm the highlight
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text('متن با موفقیت برجسته شد'),
+                content: Text(l10n.textHighlightedSuccessfully),
                 duration: const Duration(seconds: 2),
                 behavior: SnackBarBehavior.floating,
               ),
@@ -652,7 +654,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                     }
                   },
                   type: ContextMenuButtonType.custom,
-                  label: '📑 بریده کتاب',
+                  label: l10n.bookClippingEmoji,
                 ),
               );
             }
@@ -1321,7 +1323,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
 
           _currentPage = 0;
           _currentContent =
-              _pages.isNotEmpty ? _pages[0] : 'محتوای قابل خواندن یافت نشد.';
+              _pages.isNotEmpty ? _pages[0] : l10n.noReadableContent;
           _mapChaptersToPages(); // Map chapter to actual page indices after pagination
 
           // Initialize scroll controllers for each content page
@@ -1617,10 +1619,10 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                   ),
                 child: TabBar(
                   controller: _tabController,
-                  tabs: const [
-                    Tab(text: 'سرفصل‌ها'),
-                    Tab(text: 'برجسته‌ها'),
-                    Tab(text: 'ذخیره شده‌ها'),
+                  tabs: [
+                    Tab(text: l10n.chapters),
+                    Tab(text: l10n.highlights),
+                    Tab(text: l10n.saved),
                   ],
                   indicatorColor:
                       widget.themeColor, // Use theme color for indicator
@@ -1662,7 +1664,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                             padding: const EdgeInsets.all(8.0),
                             child: TextButton.icon(
                               icon: const Icon(Icons.delete_sweep, size: 18),
-                              label: const Text('حذف همه برجسته‌ها'),
+                              label: Text(l10n.deleteAllHighlights),
                               onPressed: () {
                                 setState(() {
                                   _highlights.clear();
@@ -1763,7 +1765,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                           leading:
                               Icon(Icons.bookmark, color: widget.themeColor),
                           title: Text(
-                            'صفحه ${pageIndex + 1}',
+                            l10n.pageNumber(pageIndex + 1),
                             style: TextStyle(
                               color: _isNightMode ? Colors.white : Colors.black,
                             ),
@@ -1953,7 +1955,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                     });
                   }
                 },
-                tooltip: 'نمای شبکه‌ای',
+                tooltip: l10n.gridView,
               ),
             ),
             // Central rounded container with page info and navigation
@@ -1973,11 +1975,11 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                     icon: Icon(Icons.arrow_back_ios,
                         color: widget.themeColor, size: 16),
                     onPressed: _currentPage > 0 ? _goToPreviousPage : null,
-                    tooltip: 'صفحه قبل',
+                    tooltip: l10n.previousPage,
                   ),
                   const SizedBox(width: 4),
                   Text(
-                    '${_currentPage + 1} از $totalPages صفحه - $percentage٪',
+                    l10n.pageProgress(_currentPage + 1, totalPages.toString(), percentage.toString()),
                     style: const TextStyle(
                         fontSize: 12,
                         color: Colors.white,
@@ -1990,7 +1992,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                         color: widget.themeColor, size: 16),
                     onPressed:
                         _currentPage < totalPages - 1 ? _goToNextPage : null,
-                    tooltip: 'صفحه بعد',
+                    tooltip: l10n.nextPage,
                   ),
                 ],
               ),
@@ -2012,7 +2014,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                     color: _isNightMode ? Colors.white : Colors.black,
                     size: 18),
                 onPressed: _showBottomSheet,
-                tooltip: 'سرفصل‌ها و برجسته‌ها',
+                tooltip: l10n.chaptersAndHighlights,
               ),
             ),
           ],
@@ -2073,7 +2075,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
           child: Scaffold(
             appBar: AppBar(
               title: Text(
-                widget.product?.name ?? 'کتاب',
+                widget.product?.name ?? l10n.book,
                 overflow: TextOverflow.ellipsis,
               ),
               actions: [
@@ -2110,13 +2112,13 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                         if (snapshot.hasError) {
                           return Center(
                             child:
-                                Text('خطا در بارگذاری کتاب: ${snapshot.error}'),
+                                Text(l10n.errorLoadingBookWithMessage(snapshot.error.toString())),
                           );
                         }
 
                         if (_pages.isEmpty) {
-                          return const Center(
-                            child: Text('محتوای قابل خواندن یافت نشد.'),
+                          return Center(
+                            child: Text(l10n.noReadableContent),
                           );
                         }
 
@@ -2207,7 +2209,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  'تنظیمات',
+                  l10n.settings,
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -2222,7 +2224,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   children: [
                     // Font Family Section
-                    _buildSectionTitle('نوع فونت'),
+                    _buildSectionTitle(l10n.fontType),
                     Container(
                       height: 50,
                       child: ListView(
@@ -2267,7 +2269,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                     const SizedBox(height: 24),
 
                     // Font Size Section
-                    _buildSectionTitle('اندازه فونت'),
+                    _buildSectionTitle(l10n.fontSize),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -2299,7 +2301,7 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                     const SizedBox(height: 24),
 
                     // Line Spacing Section
-                    _buildSectionTitle('فاصله خطوط'),
+                    _buildSectionTitle(l10n.lineSpacing),
                     Slider(
                       value: _lineSpacing,
                       min: 1.0,
@@ -2321,12 +2323,12 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text('کم',
+                          Text(l10n.low,
                               style: TextStyle(
                                   color: _isNightMode
                                       ? Colors.white70
                                       : Colors.black54)),
-                          Text('زیاد',
+                          Text(l10n.high,
                               style: TextStyle(
                                   color: _isNightMode
                                       ? Colors.white70
@@ -2337,30 +2339,30 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                     const SizedBox(height: 24),
 
                     // Font Weight Section
-                    _buildSectionTitle('ضخامت فونت'),
+                    _buildSectionTitle(l10n.fontWeight),
                     Container(
                       height: 50,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
                         children: [
                           _buildFontWeightOption(
-                              'معمولی', FontWeight.w400, setModalState),
+                              l10n.normal, FontWeight.w400, setModalState),
                           _buildFontWeightOption(
-                              'متوسط', FontWeight.w500, setModalState),
+                              l10n.medium, FontWeight.w500, setModalState),
                           _buildFontWeightOption(
-                              'ضخیم', FontWeight.w700, setModalState),
+                              l10n.bold, FontWeight.w700, setModalState),
                           _buildFontWeightOption(
-                              'خیلی ضخیم', FontWeight.w800, setModalState),
+                              l10n.extraBold, FontWeight.w800, setModalState),
                         ],
                       ),
                     ),
                     const SizedBox(height: 24),
 
                     // Theme Mode Section
-                    _buildSectionTitle('حالت نمایش'),
+                    _buildSectionTitle(l10n.displayMode),
                     SwitchListTile(
                       title: Text(
-                        'حالت شب',
+                        l10n.nightMode,
                         style: TextStyle(
                           color: _isNightMode ? Colors.white : Colors.black,
                         ),
@@ -2380,16 +2382,16 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
                     const SizedBox(height: 24),
 
                     // Reading Direction Section
-                    _buildSectionTitle('جهت مطالعه'),
+                    _buildSectionTitle(l10n.readingDirection),
                     SwitchListTile(
                       title: Text(
-                        'عمودی',
+                        l10n.vertical,
                         style: TextStyle(
                           color: _isNightMode ? Colors.white : Colors.black,
                         ),
                       ),
                       subtitle: Text(
-                        'تغییر جهت مطالعه به حالت عمودی',
+                        l10n.switchToVerticalReading,
                         style: TextStyle(
                           color: _isNightMode ? Colors.white70 : Colors.black54,
                         ),
@@ -3012,19 +3014,19 @@ class _CustomEpubReaderState extends State<CustomEpubReader>
     }
     if (paginatedPages.isEmpty && contentUnits.isNotEmpty) {
       paginatedPages.add({
-        'html': '<p>محتوای قابل خواندن یافت نشد.</p>',
+        'html': l10n.noReadableContentHtml,
         'unitIndex': 0,
         'globalPlainTextOffset': 0
       });
-      _pageTexts.add('محتوای قابل خواندن یافت نشد.');
+      _pageTexts.add(l10n.noReadableContent);
     }
     if (paginatedPages.isEmpty && contentUnits.isEmpty) {
       paginatedPages.add({
-        'html': '<p>کتاب خالی است.</p>',
+        'html': l10n.emptyBookHtml,
         'unitIndex': 0,
         'globalPlainTextOffset': 0
       });
-      _pageTexts.add('کتاب خالی است.');
+      _pageTexts.add(l10n.emptyBook);
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {

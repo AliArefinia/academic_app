@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -62,8 +63,8 @@ class _StudyTourListPageState extends State<StudyTourListPage>
     return Scaffold(
       backgroundColor: context.colorScheme.surface,
       appBar: AppBar(
-        title: const Text(
-          'سیر مطالعاتی من',
+        title: Text(
+          l10n.myStudyTours,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -141,7 +142,7 @@ class _StudyTourListPageState extends State<StudyTourListPage>
           ),
           SizedBox(height: 24.h),
           Text(
-            'هنوز سیر مطالعاتی ثبت نکرده‌اید',
+            l10n.noStudyToursYet,
             style: context.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: context.colorScheme.onSurface,
@@ -150,7 +151,7 @@ class _StudyTourListPageState extends State<StudyTourListPage>
           ),
           SizedBox(height: 8.h),
           Text(
-            'اولین سیر مطالعاتی خود را ثبت کنید',
+            l10n.submitFirstStudyTour,
             style: context.textTheme.bodyLarge?.copyWith(
               color: context.colorScheme.onSurface.withOpacity(0.7),
             ),
@@ -165,7 +166,7 @@ class _StudyTourListPageState extends State<StudyTourListPage>
               }
             },
             icon: const Icon(Icons.add),
-            label: const Text('ثبت سیر مطالعاتی'),
+            label: Text(l10n.submitStudyTour),
             style: ElevatedButton.styleFrom(
               backgroundColor: context.colorScheme.primary,
               foregroundColor: context.colorScheme.onPrimary,
@@ -358,7 +359,7 @@ class _StudyTourListPageState extends State<StudyTourListPage>
                               ),
                               SizedBox(width: 8.w),
                               Text(
-                                'پاسخ ارائه شده:',
+                                l10n.providedAnswer,
                                 style: context.textTheme.bodySmall?.copyWith(
                                   color: context.colorScheme.primary,
                                   fontWeight: FontWeight.bold,
@@ -437,11 +438,11 @@ class _StudyTourListPageState extends State<StudyTourListPage>
   String _getStatusText(StudyTourStatus status) {
     switch (status) {
       case StudyTourStatus.pending:
-        return 'در انتظار';
+        return l10n.pending;
       case StudyTourStatus.approved:
-        return 'تایید شده';
+        return l10n.approved;
       case StudyTourStatus.rejected:
-        return 'رد شده';
+        return l10n.rejected;
     }
   }
 }

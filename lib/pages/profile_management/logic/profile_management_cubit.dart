@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:academic/core/error/error_message_mapper.dart';
@@ -52,11 +53,11 @@ class ProfilemanagementCubit extends Cubit<ProfilemanagementState> {
           emit(ProfilemanagementState.loaded(user));
         } else {
           // If both API and local storage fail, show error
-          emit(ProfilemanagementState.error('خطا در بارگذاری اطلاعات پروفایل. لطفا اتصال اینترنت خود را بررسی کنید.'));
+          emit(ProfilemanagementState.error(l10n.errorLoadingProfileCheckInternet));
         }
       }
     } catch (e) {
-      emit(ProfilemanagementState.error('خطا در بارگذاری اطلاعات پروفایل: ${e.toString()}'));
+      emit(ProfilemanagementState.error(l10n.errorLoadingProfileWithMessage(e.toString())));
     }
   }
 

@@ -1,3 +1,6 @@
+import 'package:academic/core/theme/theme.dart';
+import 'package:academic/core/helper/ui_extention.dart';
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:academic/core/error/error_message_mapper.dart';
@@ -31,14 +34,14 @@ class AppErrorWidget extends StatelessWidget {
             Text(
               getDisplayMessage(),
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.grey[700]),
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(color: context.isDarkMode ? AppTheme.darkOnSurfaceVariant : Colors.grey[700]),
             ),
             const SizedBox(height: AppSpacing.s24),
             if (onRetry != null)
               ElevatedButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh),
-                label: const Text('تلاش مجدد'),
+                label: Text(l10n.retry),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

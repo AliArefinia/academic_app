@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -232,7 +233,7 @@ class _PlayerPageState extends State<PlayerPage> {
                             ),
                             const SizedBox(height: 18),
                             Text(
-                              'موضوع: ${widget.subject}',
+                              l10n.subjectWithValue(widget.subject.toString()),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurfaceVariant,
                                 fontSize: 13,
@@ -241,7 +242,7 @@ class _PlayerPageState extends State<PlayerPage> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              'رده‌بندی کتاب: ${widget.category}',
+                              l10n.bookClassificationWithValue(widget.category.toString()),
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.onSurfaceVariant,
                                 fontSize: 13,
@@ -307,7 +308,7 @@ class _PlayerPageState extends State<PlayerPage> {
                                                 ),
                                                 const SizedBox(height: 8),
                                                 Text(
-                                                  'توقف پخش بعد از...',
+                                                  l10n.stopPlaybackAfter,
                                                   style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold,
@@ -320,13 +321,13 @@ class _PlayerPageState extends State<PlayerPage> {
                                                   builder: (context, state) {
                                                     return Column(
                                                       children: [
-                                                        _buildTimerOptionNew(context, '۱ دقیقه (تست)', const Duration(minutes: 1), state.sleepTimerDuration),
-                                                        _buildTimerOptionNew(context, '۱۵ دقیقه', const Duration(minutes: 15), state.sleepTimerDuration),
-                                                        _buildTimerOptionNew(context, '۲۰ دقیقه', const Duration(minutes: 20), state.sleepTimerDuration),
-                                                        _buildTimerOptionNew(context, '۳۰ دقیقه', const Duration(minutes: 30), state.sleepTimerDuration),
-                                                        _buildTimerOptionNew(context, '۴۵ دقیقه', const Duration(minutes: 45), state.sleepTimerDuration),
-                                                        _buildTimerOptionNew(context, '۱ ساعت', const Duration(hours: 1), state.sleepTimerDuration),
-                                                        _buildTimerOptionNew(context, 'پایان این بخش', null, state.sleepTimerDuration),
+                                                        _buildTimerOptionNew(context, l10n.oneMinuteTest, const Duration(minutes: 1), state.sleepTimerDuration),
+                                                        _buildTimerOptionNew(context, l10n.fifteenMinutes, const Duration(minutes: 15), state.sleepTimerDuration),
+                                                        _buildTimerOptionNew(context, l10n.twentyMinutes, const Duration(minutes: 20), state.sleepTimerDuration),
+                                                        _buildTimerOptionNew(context, l10n.thirtyMinutes, const Duration(minutes: 30), state.sleepTimerDuration),
+                                                        _buildTimerOptionNew(context, l10n.fortyFiveMinutes, const Duration(minutes: 45), state.sleepTimerDuration),
+                                                        _buildTimerOptionNew(context, l10n.oneHour, const Duration(hours: 1), state.sleepTimerDuration),
+                                                        _buildTimerOptionNew(context, l10n.endOfThisSection, null, state.sleepTimerDuration),
                                                       ],
                                                     );
                                                   },
@@ -362,8 +363,8 @@ class _PlayerPageState extends State<PlayerPage> {
                             isScrollControlled: true,
                             backgroundColor: Colors.transparent,
                             builder: (context) => Container(
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
+                              decoration: BoxDecoration(
+                                color: context.cardBackground,
                                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                               ),
                                 child: Column(
@@ -384,7 +385,7 @@ class _PlayerPageState extends State<PlayerPage> {
                                                 width: 40,
                                                 height: 4,
                                                 decoration: BoxDecoration(
-                                                  color: Colors.grey[300],
+                                                  color: context.subtleBorder,
                                                   borderRadius: BorderRadius.circular(2),
                                                 ),
                                               ),
@@ -392,8 +393,8 @@ class _PlayerPageState extends State<PlayerPage> {
                                             ],
                                           ),
                                         ),
-                                    const Text(
-                                      'سرعت پخش',
+                                    Text(
+                                      l10n.playbackSpeed,
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
@@ -690,7 +691,7 @@ class _PlayerPageState extends State<PlayerPage> {
 
   Widget _buildSpeedButton(BuildContext context, double speed, double currentSpeed, {bool isNormal = false}) {
     final isSelected = speed == currentSpeed;
-    final text = isNormal ? '$speed.0X (نرمال)' : '${speed}X';
+    final text = isNormal ? l10n.normalSpeed(speed.toString()) : '${speed}X';
     
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -810,7 +811,7 @@ class _AnimatedSpeedIconState extends State<AnimatedSpeedIcon> with SingleTicker
   Widget build(BuildContext context) {
     Color color;
     if (widget.speed == 1.0) {
-      color = Colors.grey[800]!;
+      color = context.isDarkMode ? Colors.grey[300]! : Colors.grey[800]!;
     } else if (widget.speed == 1.5) {
       color = Colors.blue[700]!;
     } else {

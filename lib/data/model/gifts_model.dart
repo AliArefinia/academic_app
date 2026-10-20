@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import '../api/gifts/model/my_gifts_model.dart';
 
 class GiftModel {
@@ -25,11 +26,11 @@ class GiftModel {
   // Helper method to format amount
   String get formattedAmount {
     if (amount >= 1000000) {
-      return '${(amount / 1000000).toStringAsFixed(1)}M تومان';
+      return l10n.amountMillionToman((amount / 1000000).toStringAsFixed(1));
     } else if (amount >= 1000) {
-      return '${(amount / 1000).toStringAsFixed(0)}K تومان';
+      return l10n.amountThousandToman((amount / 1000).toStringAsFixed(0));
     } else {
-      return '$amount تومان';
+      return l10n.amountToman(amount.toString());
     }
   }
 
@@ -37,11 +38,11 @@ class GiftModel {
   String get typeDisplayName {
     switch (type) {
       case 'active':
-        return 'فعال';
+        return l10n.active;
       case 'used':
-        return 'استفاده شده';
+        return l10n.used;
       case 'expired':
-        return 'منقضی شده';
+        return l10n.expiredStatus;
       default:
         return type;
     }

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:academic/core/error/error_message_mapper.dart';
@@ -73,7 +74,7 @@ class PaymentCubit extends Cubit<PaymentState> {
         
         // Show URL to user as fallback
         emit(PaymentState.error(
-            'لطفاً این لینک را در مرورگر باز کنید: ${response.redirectUrl}'));
+            l10n.openLinkInBrowser(response.redirectUrl.toString())));
         return response;
       }
     } catch (e) {
@@ -98,7 +99,7 @@ class PaymentCubit extends Cubit<PaymentState> {
         // Payment verification failed - use specific error message from server
         final errorMessage = response.message.isNotEmpty
             ? response.message
-            : 'تایید پرداخت ناموفق بود. لطفاً دوباره تلاش کنید.';
+            : l10n.paymentVerificationFailed;
         print('❌ Payment verification failed: $errorMessage');
         emit(PaymentState.error(errorMessage));
       }

@@ -1,3 +1,5 @@
+import 'package:academic/l10n/l10n.dart';
+import 'package:academic/core/api_constants.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -88,18 +90,18 @@ class _UserInfoSectionState extends State<UserInfoSection> {
       final ImageSource? source = await showDialog<ImageSource>(
         context: context,
         builder: (context) => AlertDialog(
-          title: const Text('انتخاب منبع تصویر'),
+          title: Text(l10n.selectImageSource),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
                 leading: const Icon(Icons.camera_alt),
-                title: const Text('دوربین'),
+                title: Text(l10n.camera),
                 onTap: () => Navigator.pop(context, ImageSource.camera),
               ),
               ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: const Text('گالری'),
+                title: Text(l10n.gallery),
                 onTap: () => Navigator.pop(context, ImageSource.gallery),
               ),
             ],
@@ -123,8 +125,8 @@ class _UserInfoSectionState extends State<UserInfoSection> {
       if (!await imageFile.exists()) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('فایل تصویر یافت نشد'),
+            SnackBar(
+              content: Text(l10n.imageFileNotFound),
               backgroundColor: Colors.red,
             ),
           );
@@ -137,8 +139,8 @@ class _UserInfoSectionState extends State<UserInfoSection> {
       if (fileSize > 10 * 1024 * 1024) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('حجم فایل تصویر نباید بیشتر از ۱۰ مگابایت باشد'),
+            SnackBar(
+              content: Text(l10n.imageMaxSize10Mb),
               backgroundColor: Colors.red,
             ),
           );
@@ -162,7 +164,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
           compressQuality: 80,
           uiSettings: [
             AndroidUiSettings(
-              toolbarTitle: 'ویرایش تصویر',
+              toolbarTitle: l10n.editImage,
               toolbarColor: Theme.of(context).colorScheme.primary,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.square,
@@ -178,7 +180,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
               dimmedLayerColor: Colors.black.withOpacity(0.8),
             ),
             IOSUiSettings(
-              title: 'ویرایش تصویر',
+              title: l10n.editImage,
               aspectRatioLockEnabled: true,
               resetAspectRatioEnabled: false,
             ),
@@ -207,8 +209,8 @@ class _UserInfoSectionState extends State<UserInfoSection> {
           });
           
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('تصویر بدون ویرایش انتخاب شد'),
+            SnackBar(
+              content: Text(l10n.imageSelectedWithoutEditing),
               backgroundColor: Colors.orange,
               duration: Duration(seconds: 2),
             ),
@@ -217,18 +219,18 @@ class _UserInfoSectionState extends State<UserInfoSection> {
       }
     } catch (e) {
       if (mounted) {
-        String errorMessage = 'خطا در انتخاب تصویر';
+        String errorMessage = l10n.errorSelectingImage;
         
         if (e.toString().contains('UCropActivity')) {
-          errorMessage = 'خطا در ویرایش تصویر. لطفا تصویر دیگری انتخاب کنید';
+          errorMessage = l10n.errorEditingImage;
         } else if (e.toString().contains('Permission')) {
-          errorMessage = 'دسترسی به گالری یا دوربین داده نشده است';
+          errorMessage = l10n.galleryCameraPermissionDenied;
         } else if (e.toString().contains('Bounds')) {
-          errorMessage = 'فرمت تصویر پشتیبانی نمی‌شود. لطفا تصویر JPG یا PNG انتخاب کنید';
+          errorMessage = l10n.unsupportedImageFormat;
         } else if (e.toString().contains('FileSystemException')) {
-          errorMessage = 'خطا در خواندن فایل تصویر. لطفا تصویر دیگری انتخاب کنید';
+          errorMessage = l10n.errorReadingImage;
         } else if (e.toString().contains('FormatException')) {
-          errorMessage = 'فرمت تصویر نامعتبر است. لطفا تصویر معتبری انتخاب کنید';
+          errorMessage = l10n.invalidImageFormat;
         }
         
         ScaffoldMessenger.of(context).showSnackBar(
@@ -313,7 +315,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(context.appTranslate?.pleaseSelectBirthDate ?? 'لطفا تاریخ تولد را انتخاب کنید'),
+                content: Text(context.appTranslate?.pleaseSelectBirthDate ?? l10n.pleaseSelectBirthDate),
                 backgroundColor: Colors.red,
               ),
             );
@@ -327,7 +329,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(context.appTranslate?.birthDateMustBeBeforeToday ?? 'سن شما باید حداقل ۱۰ سال باشد'),
+                content: Text(context.appTranslate?.birthDateMustBeBeforeToday ?? l10n.minimumAge10),
                 backgroundColor: Colors.red,
               ),
             );
@@ -340,8 +342,8 @@ class _UserInfoSectionState extends State<UserInfoSection> {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('تاریخ تولد نامعتبر است'),
+              SnackBar(
+                content: Text(l10n.invalidBirthDate),
                 backgroundColor: Colors.red,
               ),
             );
@@ -359,8 +361,8 @@ class _UserInfoSectionState extends State<UserInfoSection> {
           if (bytes.length > 5 * 1024 * 1024) {
             if (mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('حجم تصویر بسیار بزرگ است. لطفا تصویر کوچکتری انتخاب کنید'),
+                SnackBar(
+                  content: Text(l10n.imageTooLarge),
                   backgroundColor: Colors.red,
                 ),
               );
@@ -371,8 +373,8 @@ class _UserInfoSectionState extends State<UserInfoSection> {
         } catch (e) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('خطا در پردازش تصویر. لطفا تصویر دیگری انتخاب کنید'),
+              SnackBar(
+                content: Text(l10n.errorProcessingImage),
                 backgroundColor: Colors.red,
               ),
             );
@@ -403,7 +405,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
           },
           success: (message) {
             final localizedMessage = message == 'profileUpdatedSuccessfully'
-                ? (context.appTranslate?.profileUpdatedSuccessfully ?? 'پروفایل با موفقیت بروزرسانی شد')
+                ? (context.appTranslate?.profileUpdatedSuccessfully ?? l10n.profileUpdatedSuccessfully)
                 : message;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -438,7 +440,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
                         height: 120,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.grey[200],
+                          color: context.mutedFill,
                           boxShadow: [
                             BoxShadow(
                               color: Colors.black.withOpacity(0.1),
@@ -460,7 +462,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
                                   ? Image.network(
                                       widget.user.avatar!.startsWith('http') 
                                           ? widget.user.avatar!
-                                          : 'https://demo.halalread.ir${widget.user.avatar!}',
+                                          : '${ApiConstants.baseUrl}${widget.user.avatar!}',
                                       fit: BoxFit.cover,
                                       width: 120,
                                       height: 120,
@@ -512,13 +514,13 @@ class _UserInfoSectionState extends State<UserInfoSection> {
               const SizedBox(height: AppSpacing.s24),
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'نام',
+                decoration: InputDecoration(
+                  labelText: l10n.firstName,
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return context.appTranslate?.pleaseEnterName ?? 'لطفا نام را وارد کنید';
+                    return context.appTranslate?.pleaseEnterName ?? l10n.pleaseEnterName;
                   }
                   return null;
                 },
@@ -526,13 +528,13 @@ class _UserInfoSectionState extends State<UserInfoSection> {
               const SizedBox(height: AppSpacing.s16),
               TextFormField(
                 controller: _lastNameController,
-                decoration: const InputDecoration(
-                  labelText: 'نام خانوادگی',
+                decoration: InputDecoration(
+                  labelText: l10n.lastName,
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return context.appTranslate?.pleaseEnterLastName ?? 'لطفا نام خانوادگی را وارد کنید';
+                    return context.appTranslate?.pleaseEnterLastName ?? l10n.pleaseEnterLastName;
                   }
                   return null;
                 },
@@ -540,15 +542,15 @@ class _UserInfoSectionState extends State<UserInfoSection> {
               const SizedBox(height: AppSpacing.s16),
               TextFormField(
                 controller: _passwordController,
-                decoration: const InputDecoration(
-                  labelText: 'رمز عبور (اختیاری)',
+                decoration: InputDecoration(
+                  labelText: l10n.passwordOptional,
                   border: OutlineInputBorder(),
-                  helperText: 'برای تغییر رمز عبور، رمز جدید را وارد کنید',
+                  helperText: l10n.enterNewPasswordToChange,
                 ),
                 obscureText: true,
                 validator: (value) {
                   if (value != null && value.isNotEmpty && value.length < 8) {
-                    return context.appTranslate?.passwordMustBeAtLeast8Chars ?? 'رمز عبور باید حداقل ۸ کاراکتر باشد';
+                    return context.appTranslate?.passwordMustBeAtLeast8Chars ?? l10n.passwordMustBeAtLeast8Chars;
                   }
                   return null;
                 },
@@ -556,13 +558,13 @@ class _UserInfoSectionState extends State<UserInfoSection> {
               const SizedBox(height: AppSpacing.s16),
               DropdownButtonFormField<String>(
                 value: _selectedGender,
-                decoration: const InputDecoration(
-                  labelText: 'جنسیت',
+                decoration: InputDecoration(
+                  labelText: l10n.gender,
                   border: OutlineInputBorder(),
                 ),
-                items: const [
-                  DropdownMenuItem(value: 'male', child: Text('مرد')),
-                  DropdownMenuItem(value: 'female', child: Text('زن')),
+                items: [
+                  DropdownMenuItem(value: 'male', child: Text(l10n.male)),
+                  DropdownMenuItem(value: 'female', child: Text(l10n.female)),
                 ],
                 onChanged: (value) {
                   if (value != null) {
@@ -573,7 +575,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return context.appTranslate?.pleaseSelectGender ?? 'لطفا جنسیت را انتخاب کنید';
+                    return context.appTranslate?.pleaseSelectGender ?? l10n.pleaseSelectGender;
                   }
                   return null;
                 },
@@ -583,16 +585,16 @@ class _UserInfoSectionState extends State<UserInfoSection> {
                 onTap: () => _selectDate(context),
                 child: InputDecorator(
                   decoration: InputDecoration(
-                    labelText: 'تاریخ تولد',
+                    labelText: l10n.birthDate,
                     border: const OutlineInputBorder(),
                     errorText: _selectedDate != null && _selectedDate!.isAfter(_maxDate)
-                        ? 'سن شما باید حداقل ۱۰ سال باشد'
+                        ? l10n.minimumAge10
                         : null,
                   ),
                   child: Builder(
                     builder: (context) {
                       if (_selectedDate == null) {
-                        return const Text('انتخاب تاریخ');
+                        return Text(l10n.selectDate);
                       }
                       
                       final locale = Localizations.localeOf(context);
@@ -612,7 +614,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(
-                    context.appTranslate?.pleaseSelectBirthDate ?? 'لطفا تاریخ تولد را انتخاب کنید',
+                    context.appTranslate?.pleaseSelectBirthDate ?? l10n.pleaseSelectBirthDate,
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.error,
                       fontSize: 12,
@@ -622,8 +624,8 @@ class _UserInfoSectionState extends State<UserInfoSection> {
               const SizedBox(height: AppSpacing.s16),
               TextFormField(
                 controller: _aboutController,
-                decoration: const InputDecoration(
-                  labelText: 'درباره من (اختیاری)',
+                decoration: InputDecoration(
+                  labelText: l10n.aboutMeOptional,
                   border: OutlineInputBorder(),
                 ),
                 maxLines: 3,
@@ -646,7 +648,7 @@ class _UserInfoSectionState extends State<UserInfoSection> {
                             width: 20,
                             child: CircularProgressIndicator(strokeWidth: 2),
                           )
-                        : const Text('ذخیره اطلاعات'),
+                        : Text(l10n.saveInformation),
                   );
                 },
               ),
@@ -710,9 +712,9 @@ class _JalaliDatePickerDialogState extends State<_JalaliDatePickerDialog> {
   }
 
   String getMonthName(int month) {
-    const months = [
-      'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
-      'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+    final months = [
+      l10n.monthFarvardin, l10n.monthOrdibehesht, l10n.monthKhordad, l10n.monthTir, l10n.monthMordad, l10n.monthShahrivar,
+      l10n.monthMehr, l10n.monthAban, l10n.monthAzar, l10n.monthDey, l10n.monthBahman, l10n.monthEsfand
     ];
     return months[month - 1];
   }
@@ -720,7 +722,7 @@ class _JalaliDatePickerDialogState extends State<_JalaliDatePickerDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('انتخاب تاریخ تولد'),
+      title: Text(l10n.selectBirthDate),
       content: SizedBox(
         width: double.maxFinite,
         child: Column(
@@ -729,8 +731,8 @@ class _JalaliDatePickerDialogState extends State<_JalaliDatePickerDialog> {
             // Year picker
             DropdownButtonFormField<int>(
               value: selectedYear,
-              decoration: const InputDecoration(
-                labelText: 'سال',
+              decoration: InputDecoration(
+                labelText: l10n.year,
                 border: OutlineInputBorder(),
               ),
               items: years.map((year) {
@@ -755,8 +757,8 @@ class _JalaliDatePickerDialogState extends State<_JalaliDatePickerDialog> {
             // Month picker
             DropdownButtonFormField<int>(
               value: selectedMonth,
-              decoration: const InputDecoration(
-                labelText: 'ماه',
+              decoration: InputDecoration(
+                labelText: l10n.month,
                 border: OutlineInputBorder(),
               ),
               items: months.map((month) {
@@ -781,8 +783,8 @@ class _JalaliDatePickerDialogState extends State<_JalaliDatePickerDialog> {
             // Day picker
             DropdownButtonFormField<int>(
               value: selectedDay <= days.length ? selectedDay : days.length,
-              decoration: const InputDecoration(
-                labelText: 'روز',
+              decoration: InputDecoration(
+                labelText: l10n.day,
                 border: OutlineInputBorder(),
               ),
               items: days.map((day) {
@@ -805,14 +807,14 @@ class _JalaliDatePickerDialogState extends State<_JalaliDatePickerDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('لغو'),
+          child: Text(l10n.cancelled),
         ),
         ElevatedButton(
           onPressed: () {
             final selected = Jalali(selectedYear, selectedMonth, selectedDay);
             Navigator.pop(context, selected);
           },
-          child: const Text('تایید'),
+          child: Text(l10n.confirm),
         ),
       ],
     );

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:academic/core/storage/local_storage.dart';
@@ -51,11 +52,11 @@ class UserprofileCubit extends Cubit<UserprofileState> {
           emit(UserprofileState.loaded(user));
         } else {
           // If both API and local storage fail, show error
-          emit(const UserprofileState.error('خطا در بارگذاری اطلاعات پروفایل. لطفا اتصال اینترنت خود را بررسی کنید.'));
+          emit(UserprofileState.error(l10n.errorLoadingProfileCheckInternet));
         }
       }
     } catch (e) {
-      emit(UserprofileState.error('خطا در بارگذاری اطلاعات پروفایل: ${e.toString()}'));
+      emit(UserprofileState.error(l10n.errorLoadingProfileWithMessage(e.toString())));
     }
   }
 

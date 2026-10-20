@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -27,16 +28,16 @@ class ChapterDetailCubit extends Cubit<ChapterDetailState> {
     } on DioException catch (e) {
       // Handle 404 errors specifically
       if (e.response?.statusCode == 404) {
-        emit(const ChapterDetailState.error(
-          'سرفصل مورد نظر یافت نشد. ممکن است این سرفصل حذف شده باشد یا شما دسترسی به آن ندارید.',
+        emit(ChapterDetailState.error(
+          l10n.chapterNotFound,
         ));
       } else {
         emit(ChapterDetailState.error(
-          'خطا در بارگذاری جزئیات: ${e.message ?? 'خطای نامشخص'}',
+          l10n.errorLoadingDetailsWithMessage(e.message ?? l10n.unknownError),
         ));
       }
     } catch (e) {
-      emit(ChapterDetailState.error('خطا در بارگذاری جزئیات: ${e.toString()}'));
+      emit(ChapterDetailState.error(l10n.errorLoadingDetailsWithMessage(e.toString())));
     }
   }
 
@@ -55,7 +56,7 @@ class ChapterDetailCubit extends Cubit<ChapterDetailState> {
     } catch (e) {
       final state = this.state;
       if (state is _Loaded) {
-        emit(ChapterDetailState.error('خطا در به‌روزرسانی یادداشت: ${e.toString()}'));
+        emit(ChapterDetailState.error(l10n.errorUpdatingNoteWithMessage(e.toString())));
         // Restore previous state after showing error
         await Future.delayed(const Duration(seconds: 2));
         await loadChapterDetail(chapterId);
@@ -77,7 +78,7 @@ class ChapterDetailCubit extends Cubit<ChapterDetailState> {
     } catch (e) {
       final state = this.state;
       if (state is _Loaded) {
-        emit(ChapterDetailState.error('خطا در حذف یادداشت: ${e.toString()}'));
+        emit(ChapterDetailState.error(l10n.errorDeletingNoteWithMessage(e.toString())));
         // Restore previous state after showing error
         await Future.delayed(const Duration(seconds: 2));
         await loadChapterDetail(chapterId);

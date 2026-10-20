@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -42,7 +43,7 @@ class HomePageCubit extends Cubit<HomePageState> {
     } catch (e, stackTrace) {
       print('❌ [HomePageCubit] Error fetching home data: $e');
       print(stackTrace);
-      emit(const HomePageState.error('خطا در دریافت اطلاعات صفحه اصلی'));
+      emit(HomePageState.error(l10n.errorFetchingHome));
     }
   }
 

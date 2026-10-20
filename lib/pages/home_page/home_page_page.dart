@@ -1,5 +1,6 @@
 // 📁 lib/ui/home/home_page.dart
 
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -126,18 +127,18 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
           loading: () => _buildLoadingState(context),
           empty: () => Scaffold(
                 appBar: CustomAppBar(
-                  title: 'دانشگاه امام صادق (ع)',
+                  title: l10n.appName,
                   icon: Icons.home_rounded,
                 ),
                 body: EmptyStateWidget(
-                  title: 'محتوایی وجود ندارد',
-                  message: 'در حال حاضر محتوایی برای نمایش وجود ندارد',
+                  title: l10n.noContent,
+                  message: l10n.noContentToShow,
                   iconAsset: Assets.icBooks,
                 ),
               ),
           error: (message) => Scaffold(
                 appBar: CustomAppBar(
-                  title: 'دانشگاه امام صادق (ع)',
+                  title: l10n.appName,
                   icon: Icons.home_rounded,
                 ),
                 body: ErrorStateWidget(
@@ -165,7 +166,7 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
               onTap: () => MyAppHelper().hideKeyboard(context),
               child: Scaffold(
                 appBar: CustomAppBar(
-                  title: 'دانشگاه امام صادق (ع)',
+                  title: l10n.appName,
                   icon: Icons.home_rounded,
                   actions: [
                     // Cart Icon with Badge
@@ -182,7 +183,7 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
                       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s20),
                       child: SearchInputField(
                         controller: TextEditingController(),
-                        Text: "جستجو در دانشگاه امام صادق (ع)",
+                        Text: l10n.searchInApp,
                         onTap: () => context.push('/bookCategories'),
                       ),
                     ),
@@ -203,7 +204,7 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
                                     padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s20),
                                     child: Align(
                                       alignment: Alignment.centerRight,
-                                      child: Text("در حال مطالعه", style: context.textTheme.headlineSmall),
+                                      child: Text(l10n.currentlyReading, style: context.textTheme.headlineSmall),
                                     ),
                                   ),
                                   const SizedBox(height: AppSpacing.s16),
@@ -216,8 +217,8 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
                                           return Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s24),
                                             child: AudioBookProgress(
-                                              bookTitle: progress.product.name ?? 'بدون عنوان',
-                                              bookDetails: progress.product.type == 'audio' ? 'کتاب صوتی' : 'کتاب متنی',
+                                              bookTitle: progress.product.name ?? l10n.untitled,
+                                              bookDetails: progress.product.type == 'audio' ? l10n.audioBook : l10n.textBook,
                                               progress: (progress.progress * 100).toInt(),
                                               bookIcon: progress.product.image ?? '',
                                               bookType: progress.product.type,
@@ -271,7 +272,7 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s20),
                                     child: Text(
-                                      "دسته‌بندی‌ها",
+                                      l10n.categories,
                                       style: context.textTheme.headlineSmall,
                                     ),
                                   ),
@@ -312,7 +313,7 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
                               curve: Curves.easeOutCubic,
                               offset: 35,
                               isVisible: _showContent,
-                              child: _section(context, "جدیدترین محصولات", latestProducts.map((p) => p as BookModel).toList()),
+                              child: _section(context, l10n.newestProducts, latestProducts.map((p) => p as BookModel).toList()),
                             ),
                           if (offerProducts != null && offerProducts.isNotEmpty)
                             AnimatedSection(
@@ -320,7 +321,7 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
                               curve: Curves.easeOutCubic,
                               offset: 30,
                               isVisible: _showContent,
-                              child: _section(context, "محصولات ویژه", offerProducts.map((p) => p as BookModel).toList()),
+                              child: _section(context, l10n.featuredProducts, offerProducts.map((p) => p as BookModel).toList()),
                             ),
                           if (featuredProducts != null && featuredProducts.isNotEmpty)
                             AnimatedSection(
@@ -328,7 +329,7 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
                               curve: Curves.easeOutCubic,
                               offset: 25,
                               isVisible: _showContent,
-                              child: _section(context, "محصولات پیشنهادی", featuredProducts.map((p) => p as BookModel).toList()),
+                              child: _section(context, l10n.suggestedProducts, featuredProducts.map((p) => p as BookModel).toList()),
                             ),
                           if (audioBooks != null && audioBooks.isNotEmpty)
                             AnimatedSection(
@@ -336,7 +337,7 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
                               curve: Curves.easeOutCubic,
                               offset: 20,
                               isVisible: _showContent,
-                              child: _section(context, "پیشنهاد هفته", audioBooks),
+                              child: _section(context, l10n.weeklySuggestion, audioBooks),
                             ),
                           if (textBooks != null && textBooks.isNotEmpty)
                             AnimatedSection(
@@ -344,7 +345,7 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
                               curve: Curves.easeOutCubic,
                               offset: 15,
                               isVisible: _showContent,
-                              child: _section(context, "تازه های متنی", textBooks),
+                              child: _section(context, l10n.newTextBooks, textBooks),
                             ),
                           if (audioBooks != null && audioBooks.isNotEmpty)
                             AnimatedSection(
@@ -352,7 +353,7 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
                               curve: Curves.easeOutCubic,
                               offset: 10,
                               isVisible: _showContent,
-                              child: _section(context, "تازه های صوتی", audioBooks),
+                              child: _section(context, l10n.newAudioBooks, audioBooks),
                             ),
                         ],
                       ),
@@ -370,7 +371,7 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
   Widget _buildLoadingState(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('دانشگاه امام صادق (ع)', style: context.textTheme.headlineMedium),
+        title: Text(l10n.appName, style: context.textTheme.headlineMedium),
       ),
       body: ListView(
         children: [
@@ -534,15 +535,15 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
           _openPdf(pdfUrl, product);
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('فایل PDF در دسترس نیست'),
+            SnackBar(
+              content: Text(l10n.pdfNotAvailable),
             ),
           );
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('فایل PDF در دسترس نیست'),
+          SnackBar(
+            content: Text(l10n.pdfNotAvailable),
           ),
         );
       }
@@ -576,8 +577,8 @@ class _HomepagePageState extends State<HomepagePage> with SingleTickerProviderSt
     if (epubUrl == null || epubUrl.isEmpty) {
       if (sampleEpubUrl == null || sampleEpubUrl.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('خطا در باز کردن کتاب'),
+          SnackBar(
+            content: Text(l10n.errorOpeningBook),
           ),
         );
         return;

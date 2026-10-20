@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -102,21 +103,21 @@ class PaymentResultPage extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      _buildDetailRow(context, 'نوع پرداخت', _getPaymentTypeText()),
+                      _buildDetailRow(context, l10n.paymentType, _getPaymentTypeText()),
                       const Divider(),
-                      _buildDetailRow(context, 'مبلغ', _formatAmount(amount)),
+                      _buildDetailRow(context, l10n.amount, _formatAmount(amount)),
                       if (trackingCode != null && trackingCode!.isNotEmpty) ...[
                         const Divider(),
                         _buildDetailRow(
                           context,
-                          'کد پیگیری',
+                          l10n.trackingCode,
                           trackingCode!,
                           isCopyable: true,
                         ),
                       ],
                       if (errorMessage != null && errorMessage!.isNotEmpty) ...[
                         const Divider(),
-                        _buildErrorRow(context, 'پیام خطا', errorMessage!),
+                        _buildErrorRow(context, l10n.errorMessage, errorMessage!),
                       ],
                     ],
                   ),
@@ -184,30 +185,30 @@ class PaymentResultPage extends StatelessWidget {
   String _getStatusTitle() {
     switch (status) {
       case PaymentStatus.success:
-        return 'پرداخت موفق';
+        return l10n.paymentSuccessful;
       case PaymentStatus.failed:
-        return 'پرداخت ناموفق';
+        return l10n.paymentFailed;
       case PaymentStatus.expired:
-        return 'زمان پرداخت منقضی شده';
+        return l10n.paymentExpired;
       case PaymentStatus.cancelled:
-        return 'پرداخت لغو شد';
+        return l10n.paymentCancelled;
       case PaymentStatus.error:
-        return 'خطا در پرداخت';
+        return l10n.paymentError;
     }
   }
 
   String _getStatusDescription() {
     switch (status) {
       case PaymentStatus.success:
-        return 'پرداخت شما با موفقیت انجام شد و خرید شما ثبت گردید';
+        return l10n.paymentSuccessDescription;
       case PaymentStatus.failed:
-        return 'متاسفانه پرداخت شما با موفقیت انجام نشد. لطفا دوباره تلاش کنید';
+        return l10n.paymentFailedDescription;
       case PaymentStatus.expired:
-        return 'زمان پرداخت شما به پایان رسیده است. لطفا دوباره تلاش کنید';
+        return l10n.paymentExpiredDescription;
       case PaymentStatus.cancelled:
-        return 'پرداخت توسط شما لغو شد';
+        return l10n.paymentCancelledDescription;
       case PaymentStatus.error:
-        return 'خطایی در هنگام پردازش پرداخت رخ داد';
+        return l10n.paymentErrorDescription;
     }
   }
 
@@ -300,7 +301,7 @@ class PaymentResultPage extends StatelessWidget {
       return Column(
         children: [
           MainButton(
-            text: 'بازگشت به صفحه اصلی',
+            text: l10n.backToHome,
             backgroundColor: context.colorScheme.primary,
             textColor: context.colorScheme.onPrimary,
             onPressed: () => _navigateToHome(context),
@@ -318,14 +319,14 @@ class PaymentResultPage extends StatelessWidget {
       return Column(
         children: [
           MainButton(
-            text: 'تلاش مجدد',
+            text: l10n.retry,
             backgroundColor: context.colorScheme.primary,
             textColor: context.colorScheme.onPrimary,
             onPressed: () => _handleRetryAction(context),
           ),
           const SizedBox(height: 12),
           MainButton(
-            text: 'بازگشت به صفحه اصلی',
+            text: l10n.backToHome,
             backgroundColor: Colors.transparent,
             textColor: context.colorScheme.primary,
             onPressed: () => _navigateToHome(context),
@@ -338,17 +339,17 @@ class PaymentResultPage extends StatelessWidget {
   String _getPaymentTypeText() {
     switch (paymentType) {
       case 'book':
-        return 'خرید کتاب';
+        return l10n.bookPurchase;
       case 'subscription':
-        return 'خرید اشتراک';
+        return l10n.buySubscription;
       case 'gift_card':
-        return 'خرید کارت هدیه';
+        return l10n.giftCardPurchase;
       case 'wallet':
-        return 'شارژ کیف پول';
+        return l10n.walletCharge;
       case 'unknown':
-        return 'پرداخت';
+        return l10n.pay;
       default:
-        return 'پرداخت';
+        return l10n.pay;
     }
   }
 
@@ -356,18 +357,18 @@ class PaymentResultPage extends StatelessWidget {
     print('DEBUG: PaymentResultPage paymentType: $paymentType');
     switch (paymentType) {
       case 'book':
-        return 'مشاهده کتاب های من';
+        return l10n.viewMyBooks;
       case 'subscription':
-        return 'مشاهده اشتراک های من';
+        return l10n.viewMySubscriptions;
       case 'gift_card':
-        return 'مشاهده کارت های هدیه';
+        return l10n.viewGiftCards;
       case 'wallet':
-        return 'مشاهده کیف پول';
+        return l10n.viewWallet;
       case 'unknown':
-        return 'مشاهده کتاب های من';
+        return l10n.viewMyBooks;
       default:
         print('DEBUG: Unknown paymentType: $paymentType, using default');
-        return 'مشاهده کتاب های من';
+        return l10n.viewMyBooks;
     }
   }
 
@@ -455,7 +456,7 @@ class PaymentResultPage extends StatelessWidget {
 
   String _formatAmount(int amount) {
     final formatter = NumberFormat('#,###', 'en_US');
-    return '${formatter.format(amount)} تومان';
+    return l10n.amountToman(formatter.format(amount));
   }
 
   void _navigateToHome(BuildContext context) {

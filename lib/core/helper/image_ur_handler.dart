@@ -1,3 +1,5 @@
+import 'package:academic/core/api_constants.dart';
+
 String? buildImageUrl(String? rawImage) {
   if (rawImage == null || rawImage.isEmpty) {
     return null;
@@ -6,10 +8,11 @@ String? buildImageUrl(String? rawImage) {
   String cleaned = rawImage.replaceAll('\n', '').replaceAll(' ', '').replaceAll('"', '');
   cleaned = cleaned.replaceAll('.p\nng', '.png').replaceAll('.s\nvg', '.svg');
 
+  const baseUrl = ApiConstants.baseUrl;
   if (cleaned.startsWith('http')) return cleaned;
-  if (cleaned.startsWith('/products/')) return 'https://demo.halalread.ir/storage$cleaned';
-  if (cleaned.startsWith('products/')) return 'https://demo.halalread.ir/storage/$cleaned';
-  if (cleaned.startsWith('/')) return 'https://demo.halalread.ir$cleaned';
+  if (cleaned.startsWith('/products/')) return '$baseUrl/storage$cleaned';
+  if (cleaned.startsWith('products/')) return '$baseUrl/storage/$cleaned';
+  if (cleaned.startsWith('/')) return '$baseUrl$cleaned';
 
-  return 'https://demo.halalread.ir/storage/$cleaned';
+  return '$baseUrl/storage/$cleaned';
 }

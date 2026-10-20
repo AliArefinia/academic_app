@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -66,8 +67,6 @@ import 'package:academic/pages/product/product_page.dart';
 import 'package:academic/pages/reply_to_book_clipping/logic/reply_to_book_clipping_cubit.dart';
 import 'package:academic/pages/reply_to_book_clipping/reply_to_book_clipping_page.dart';
 import 'package:academic/pages/reviews_and_rating/logic/reviews_and_rating_cubit.dart';
-import 'package:academic/pages/select_program_language/logic/select_program_language_cubit.dart';
-import 'package:academic/pages/select_program_language/select_program_language_page.dart';
 import 'package:academic/pages/share_view/logic/share_view_cubit.dart';
 import 'package:academic/pages/share_view/share_view_page.dart';
 import 'package:academic/pages/text_books/logic/text_books_cubit.dart';
@@ -103,7 +102,7 @@ import '../../pages/my_subscriptions/my_subscriptions_page.dart';
 import '../../pages/profile_management/logic/profile_management_cubit.dart';
 import '../../pages/profile_management/profile_management_page.dart';
 import '../../pages/reviews_and_rating/reviews_and_rating_page.dart';
-import '../../pages/select_language_page/select_language_screen.dart';
+import '../../pages/settings/settings_page.dart';
 import '../../pages/splash/logic/splash_cubit.dart';
 import '../../pages/splash/splash_page.dart';
 import '../../pages/study_tour_request/study_tour_request_page.dart';
@@ -149,7 +148,7 @@ part 'pages/product.p.dart';
 
 part 'pages/book_tour.p.dart';
 
-part 'pages/select_program_language.p.dart';
+part 'pages/settings.p.dart';
 
 part 'pages/my_purchases.p.dart';
 
@@ -196,7 +195,6 @@ part 'pages/buy_subscription.p.dart';
 
 part 'pages/login.p.dart';
 
-part 'pages/lang.p.dart';
 
 part 'pages/bottom_navigation/bottom_navigation.p.dart';
 
@@ -221,7 +219,7 @@ class PathRoute {
   static const String bookTourRoute = '/bookTour';
   static const String myCommentsMainRoute = '/myCommentsMain';
   static const String buySubscriptionRoute = '/buySubscriptionRoute';
-  static const String selectProgramLanguageRoute = '/selectProgramLanguage';
+  static const String settingsRoute = '/settings';
   static const String inviteFriendsRoute = '/inviteFriends';
   static const String mySubscriptionsRoute = '/mySubscriptionsRoute';
   static const String homePageRoute = '/homePage';
@@ -246,7 +244,6 @@ class PathRoute {
   static const String reviewsAndRatingRoute = '/reviewsAndRating';
   static const String getStartedRoute = '/getStarted';
   static const String splashRoute = '/splash';
-  static const String langRoute = '/langRoute';
   static const String loginRoute = '/loginRoute';
   static const String introRoute = '/introRoute';
   static const String giftCardRoute = '/giftCardRoute';
@@ -299,18 +296,18 @@ class PlayerRoute extends GoRouteData {
     if (globalPlayer != null) {
       globalPlayer.playerCubit.initPlayer(
         product.sampleAudio ?? '',
-        title: product.name ?? 'Unknown Title',
+        title: product.name ?? l10n.untitled,
         cover: product.image ?? 'https://via.placeholder.com/150',
       );
     }
-    String categoryName = 'Uncategorized';
+    String categoryName = l10n.uncategorized;
     if (product.categories != null && product.categories!.isNotEmpty) {
-      categoryName = product.categories!.first.name ?? 'Uncategorized';
+      categoryName = product.categories!.first.name ?? l10n.uncategorized;
     }
-    final publisherName = product.publisher ?? 'Unknown Publisher';
+    final publisherName = product.publisher ?? l10n.unknownPublisher;
     final coverUrl = product.image ?? 'https://via.placeholder.com/150';
-    final titleText = product.name ?? 'Unknown Title';
-    final subjectText = 'Audio Book';
+    final titleText = product.name ?? l10n.untitled;
+    final subjectText = l10n.audioBook;
     return PlayerPage(
       cover: coverUrl,
       title: titleText,
@@ -438,7 +435,7 @@ class AuthorBooksRoute extends GoRouteData {
       create: (context) => TagBooksCubit(),
       child: TagBooksPage(
         authorId: int.parse(authorId),
-        title: authorName ?? 'کتاب‌های نویسنده',
+        title: authorName ?? l10n.authorBooks,
       ),
     );
   }
@@ -460,7 +457,7 @@ class PublisherBooksRoute extends GoRouteData {
       child: TagBooksPage(
         publisherId: int.tryParse(publisherId),
         publisherName: publisherName,
-        title: publisherName ?? 'کتاب‌های ناشر',
+        title: publisherName ?? l10n.publisherBooks,
       ),
     );
   }

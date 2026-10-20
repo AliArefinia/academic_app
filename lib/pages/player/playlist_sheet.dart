@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:academic/core/helper/ui_extention.dart';
 import 'package:academic/core/theme/const.dart';
@@ -89,7 +90,7 @@ class _PlaylistSheetState extends State<PlaylistSheet> {
     setState(() {
       isDownloadingAll = false;
       downloadSuccess = failedIndexes.isEmpty;
-      downloadError = failedIndexes.isNotEmpty ? 'برخی ترک‌ها دانلود نشدند.' : null;
+      downloadError = failedIndexes.isNotEmpty ? l10n.someTracksNotDownloaded : null;
     });
   }
 
@@ -199,7 +200,7 @@ class _PlaylistSheetState extends State<PlaylistSheet> {
                             textDirection: TextDirection.rtl,
                           ),
                           Text(
-                            'موضوع: ${widget.subject}',
+                            l10n.subjectWithValue(widget.subject.toString()),
                             style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -209,7 +210,7 @@ class _PlaylistSheetState extends State<PlaylistSheet> {
                             textDirection: TextDirection.rtl,
                           ),
                           Text(
-                            'رده‌بندی کتاب: ${widget.category}',
+                            l10n.bookClassificationWithValue(widget.category.toString()),
                             style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -232,7 +233,7 @@ class _PlaylistSheetState extends State<PlaylistSheet> {
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                                 child: Text(
-                                  '${(widget.progress * 100).toStringAsFixed(0)}% شنیده‌اید',
+                                  l10n.percentListened((widget.progress * 100).toStringAsFixed(0)),
                                   style: const TextStyle(
                                     fontSize: 12,
                                     color: Color(0xFFFFA000),
@@ -245,7 +246,7 @@ class _PlaylistSheetState extends State<PlaylistSheet> {
                                 widget.totalDuration,
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: Colors.grey[600],
+                                  color: context.secondaryText,
                                 ),
                               ),
                             ],
@@ -271,9 +272,9 @@ class _PlaylistSheetState extends State<PlaylistSheet> {
                     margin: EdgeInsets.symmetric(horizontal: 16),
                     padding: EdgeInsets.symmetric(vertical: 12),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: context.cardBackground,
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.grey[300]!),
+                      border: Border.all(color: context.subtleBorder),
                     ),
                     child: isDownloadingAll
                         ? Row(
@@ -296,13 +297,13 @@ class _PlaylistSheetState extends State<PlaylistSheet> {
                                     children: [
                                       Icon(Icons.error, color: Colors.red),
                                       SizedBox(width: 8),
-                                      Text('برخی ترک‌ها دانلود نشدند:', style: TextStyle(color: Colors.red, fontSize: 13)),
+                                      Text(l10n.someTracksNotDownloadedColon, style: TextStyle(color: Colors.red, fontSize: 13)),
                                     ],
                                   ),
                                   ...failedIndexes.map((i) => Text(widget.headlines[i].title, style: TextStyle(color: Colors.red, fontSize: 12))),
                                   TextButton(
                                     onPressed: () => downloadAll(onlyIndexes: failedIndexes),
-                                    child: Text('تلاش مجدد فقط برای ترک‌های ناموفق'),
+                                    child: Text(l10n.retryFailedTracksOnly),
                                   ),
                                 ],
                               )
@@ -312,16 +313,16 @@ class _PlaylistSheetState extends State<PlaylistSheet> {
                                     children: [
                                       Icon(Icons.check_circle, color: Colors.green),
                                       SizedBox(width: 8),
-                                      Text('همه ترک‌ها با موفقیت دانلود شدند!', style: TextStyle(color: Colors.green)),
+                                      Text(l10n.allTracksDownloaded, style: TextStyle(color: Colors.green)),
                                     ],
                                   )
                                 : Center(
                                     child: Text(
-                                      'دانلود همه',
+                                      l10n.downloadAll,
                                       style: TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500,
-                                        color: Colors.black87,
+                                        color: context.strongText,
                                       ),
                                     ),
                                   ),
@@ -516,7 +517,7 @@ class _PlaylistItem extends StatelessWidget {
               size,
               style: TextStyle(
                 fontSize: 12,
-                color: Colors.grey[600],
+                color: context.secondaryText,
               ),
             ),
           ],

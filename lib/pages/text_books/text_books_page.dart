@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,7 +16,7 @@ class TextbooksPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            title: 'کتاب های متنی',
+            title: l10n.textBooksTitle,
             icon: Icons.menu_book_rounded,
             leading: IconButton(
               onPressed: () => context.pop(),

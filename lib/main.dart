@@ -1,3 +1,6 @@
+import 'package:academic/l10n/l10n.dart';
+import 'package:academic/core/api_constants.dart';
+import 'package:academic/core/settings/app_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,7 +19,6 @@ import 'package:get_it/get_it.dart';
 
 import 'core/router/router.dart';
 import 'core/theme/theme.dart';
-import 'l10n/app_localizations.dart';
 import 'package:academic/data/api/product/model/product_model.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +27,7 @@ final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await AppSettings.init();
   await configureDependencies();
 
   // Register ProductCubit and EpubHandler
@@ -46,8 +49,40 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final AppSettings _settings = AppSettings.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _settings.addListener(_onSettingsChanged);
+  }
+
+  @override
+  void dispose() {
+    _settings.removeListener(_onSettingsChanged);
+    super.dispose();
+  }
+
+  /// Texts are read through the global `l10n` accessor, so after a language
+  /// or theme change every element is rebuilt in place (navigation stack and
+  /// page state are kept).
+  void _onSettingsChanged() {
+    setState(() {});
+    void rebuild(Element element) {
+      element.markNeedsBuild();
+      element.visitChildren(rebuild);
+    }
+
+    (context as Element).visitChildren(rebuild);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,15 +95,13 @@ class MyApp extends StatelessWidget {
           create: (_) => GetIt.I<ReadingProgressService>(),
           child: GlobalPlayerScope(
             child: MaterialApp.router(
-              locale: const Locale('fa', 'IR'),
-              title: "دانشگاه امام صادق (ع)",
+              locale: _settings.locale,
+              title: l10n.appName,
+              themeMode: _settings.themeMode,
               darkTheme: AppTheme().myTheme(false),
               theme: AppTheme().myTheme(true),
               debugShowCheckedModeBanner: false,
-              supportedLocales: const [
-                Locale('en', 'US'),
-                Locale('fa', 'IR'),
-              ],
+              supportedLocales: AppSettings.supportedLocales,
               builder: (context, child) {
                 // Limit text scale factor to prevent layout breaking
                 final mediaQuery = MediaQuery.of(context);
@@ -76,17 +109,26 @@ class MyApp extends StatelessWidget {
                   textScaleFactor: mediaQuery.textScaleFactor.clamp(1.0, 1.2),
                 );
                 
-                return MediaQuery(
-                  data: limitedMediaQuery,
-                  child: Directionality(
-                    textDirection: TextDirection.rtl,
-                    child: Navigator(
-                      onGenerateRoute: (settings) {
-                        return MaterialPageRoute(
-                          settings: settings,
-                          builder: (context) => _PlayerScaffold(child: child),
-                        );
-                      },
+                final isDark = Theme.of(context).brightness == Brightness.dark;
+
+                return AnnotatedRegion<SystemUiOverlayStyle>(
+                  value: isDark
+                      ? SystemUiOverlayStyle.light
+                          .copyWith(statusBarColor: Colors.transparent)
+                      : SystemUiOverlayStyle.dark
+                          .copyWith(statusBarColor: Colors.transparent),
+                  child: MediaQuery(
+                    data: limitedMediaQuery,
+                    child: Directionality(
+                      textDirection: _settings.textDirection,
+                      child: Navigator(
+                        onGenerateRoute: (settings) {
+                          return MaterialPageRoute(
+                            settings: settings,
+                            builder: (context) => _PlayerScaffold(child: child),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 );
@@ -163,8 +205,8 @@ class _PlayerScaffoldState extends State<_PlayerScaffold> {
     // Clean old entries (older than 1 minute)
     _processedLinks.removeWhere((key, value) => now.difference(value).inMinutes > 1);
 
-    // Special handling for demo.halalread.ir URLs
-    if (url.contains('demo.halalread.ir/api/callback')) {
+    // Special handling for API host callback URLs
+    if (url.contains('${ApiConstants.host}/api/callback')) {
       print('🔵 Detected callback URL, handling as payment return');
     }
 

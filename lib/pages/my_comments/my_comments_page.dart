@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -71,7 +72,7 @@ class _MycommentsPageState extends State<MycommentsPage> {
         if (state.success) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('نظر شما با موفقیت ثبت شد'),
+              content: Text(l10n.commentSubmittedSuccessfully),
               backgroundColor: Colors.green,
             ),
           );
@@ -90,7 +91,7 @@ class _MycommentsPageState extends State<MycommentsPage> {
           onTap: () => MyAppHelper().hideKeyboard(context),
           child: Scaffold(
             appBar: CustomAppBar(
-              title: 'نظر های من',
+              title: l10n.myComments,
               icon: Icons.comment_rounded,
             ),
             body: state.isContinued
@@ -134,10 +135,10 @@ class _MycommentsPageState extends State<MycommentsPage> {
                                 }
                               },
                               decoration: InputDecoration(
-                                hintText: 'نظر شما',
+                                hintText: l10n.yourComment,
                                 hintStyle: context.textTheme.bodyMedium,
                                 border: const OutlineInputBorder(borderSide: BorderSide.none),
-                                errorText: state.showCommentError ? 'لطفا نظر خود را وارد کنید' : null,
+                                errorText: state.showCommentError ? l10n.pleaseEnterComment : null,
                                 errorStyle: context.textTheme.bodySmall?.copyWith(
                                   color: context.colorScheme.error,
                                 ),
@@ -161,15 +162,15 @@ class _MycommentsPageState extends State<MycommentsPage> {
                                       productId: widget.productId,
                                       comment: commentController.text,
                                       rate: state.rate,
-                                      recommendation: state.opinion == 'بله'
+                                      recommendation: state.opinion == l10n.yes
                                           ? 1
-                                          : state.opinion == 'خیر'
+                                          : state.opinion == l10n.no
                                               ? -1
                                               : 0,
                                     );
                                   },
                                   child: Text(
-                                    state.isLoading ? 'در حال ارسال...' : 'ثبت نظر',
+                                    state.isLoading ? l10n.sending : l10n.submitComment,
                                     style: context.textTheme.headlineMedium?.copyWith(
                                       color: context.colorScheme.secondary,
                                     ),
@@ -194,7 +195,7 @@ class _MycommentsPageState extends State<MycommentsPage> {
                         ),
                         MainButton(
                           textColor: context.colorScheme.secondary,
-                          text: 'ادامه',
+                          text: l10n.continueLabel,
                           backgroundColor: context.colorScheme.primary,
                           onPressed: () {
                             cubit.changePageStatus();
@@ -255,12 +256,12 @@ class MainContainer extends StatelessWidget {
             height: context.fullHeight * 0.25,
           ),
           Text(
-            'تجربه شما از مطالعه این کتاب\n چطور بود؟',
+            l10n.howWasYourReadingExperience,
             style: context.textTheme.titleLarge,
             textAlign: TextAlign.center,
           ),
           Text(
-            'به دیگران برای مطالعه بهتر کمک کنید',
+            l10n.helpOthersReadBetter,
             style: context.textTheme.bodySmall,
           ),
           Row(
@@ -269,26 +270,26 @@ class MainContainer extends StatelessWidget {
             children: stars,
           ),
           Text(
-            'این کتاب را به دیگران توصیه می کنید؟',
+            l10n.doYouRecommendBook,
             style: context.textTheme.bodySmall,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               OpinionContainer(
-                text: 'بله',
-                isSelected: state.opinion == 'بله',
-                onTap: () => cubit.selectOpinion('بله'),
+                text: l10n.yes,
+                isSelected: state.opinion == l10n.yes,
+                onTap: () => cubit.selectOpinion(l10n.yes),
               ),
               OpinionContainer(
-                text: 'مطمئن نیستم',
-                isSelected: state.opinion == 'مطمئن نیستم',
-                onTap: () => cubit.selectOpinion('مطمئن نیستم'),
+                text: l10n.notSure,
+                isSelected: state.opinion == l10n.notSure,
+                onTap: () => cubit.selectOpinion(l10n.notSure),
               ),
               OpinionContainer(
-                text: 'خیر',
-                isSelected: state.opinion == 'خیر',
-                onTap: () => cubit.selectOpinion('خیر'),
+                text: l10n.no,
+                isSelected: state.opinion == l10n.no,
+                onTap: () => cubit.selectOpinion(l10n.no),
               ),
             ],
           ),
@@ -373,7 +374,7 @@ class TopContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "کتاب $bookName",
+                  l10n.bookWithName(bookName.toString()),
                   style: context.textTheme.labelLarge
                       ?.copyWith(fontWeight: FontWeight.w700),
                 ),
@@ -397,7 +398,7 @@ class TopContainer extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 4),
                         child: Text(
-                          'لطفا امتیاز خود را وارد کنید',
+                          l10n.pleaseEnterRating,
                           style: context.textTheme.bodySmall?.copyWith(
                             color: context.colorScheme.error,
                           ),
@@ -426,12 +427,12 @@ class TopContainer extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        opinion == 'بله'
-                            ? 'توصیه می کنم'
-                            : opinion == 'مطمئن نیستم'
-                                ? 'مطمئن نیستم'
-                                : opinion == 'خیر'
-                                    ? 'توصیه نمیکنم'
+                        opinion == l10n.yes
+                            ? l10n.iRecommend
+                            : opinion == l10n.notSure
+                                ? l10n.notSure
+                                : opinion == l10n.no
+                                    ? l10n.iDontRecommend
                                     : '',
                         style: context.textTheme.labelSmall,
                       )
@@ -464,7 +465,7 @@ class TextFieldContainer extends StatelessWidget {
         keyboardType: TextInputType.multiline,
         style: context.textTheme.bodyMedium,
         decoration: InputDecoration(
-          hintText: 'نظر شما',
+          hintText: l10n.yourComment,
           hintStyle: context.textTheme.bodyMedium,
           border: const OutlineInputBorder(borderSide: BorderSide.none),
         ),

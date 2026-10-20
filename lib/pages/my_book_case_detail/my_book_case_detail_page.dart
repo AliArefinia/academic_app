@@ -1,5 +1,6 @@
 // 📁 lib/ui/book_case_detail/book_case_detail_page.dart
 
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -48,7 +49,7 @@ class BookCaseDetailPage extends StatelessWidget {
                     Icon(Icons.error_outline, size: 64, color: Colors.red[300]),
                     const SizedBox(height: 16),
                     Text(
-                      "خطا در بارگذاری قفسه",
+                      l10n.errorLoadingShelf,
                       style: context.textTheme.titleMedium?.copyWith(
                         color: Colors.red[700],
                       ),
@@ -57,7 +58,7 @@ class BookCaseDetailPage extends StatelessWidget {
                     Text(
                       msg,
                       style: context.textTheme.bodyMedium?.copyWith(
-                        color: Colors.grey[600],
+                        color: context.secondaryText,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -68,7 +69,7 @@ class BookCaseDetailPage extends StatelessWidget {
                             .read<BookCaseDetailCubit>()
                             .fetchBookCase(caseId);
                       },
-                      child: const Text('تلاش مجدد'),
+                      child: Text(l10n.retry),
                     ),
                   ],
                 ),
@@ -88,14 +89,14 @@ class BookCaseDetailPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 16),
                         Text(
-                          "این قفسه خالی است",
+                          l10n.shelfIsEmpty,
                           style: context.textTheme.titleMedium?.copyWith(
-                            color: Colors.grey[600],
+                            color: context.secondaryText,
                           ),
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          "کتاب‌های مورد علاقه خود را به این قفسه اضافه کنید",
+                          l10n.addFavoriteBooksToShelf,
                           style: context.textTheme.bodyMedium?.copyWith(
                             color: Colors.grey[500],
                           ),
@@ -116,7 +117,7 @@ class BookCaseDetailPage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            "کتاب‌های قفسه",
+                            l10n.shelfBooks,
                             style: context.textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -132,7 +133,7 @@ class BookCaseDetailPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
-                              "${books.length} کتاب",
+                              l10n.booksCount(books.length),
                               style: context.textTheme.bodyMedium?.copyWith(
                                 color: context.colorScheme.primary,
                                 fontWeight: FontWeight.w600,
@@ -261,7 +262,7 @@ class BookCard extends StatelessWidget {
                   // Book title
                   Flexible(
                     child: Text(
-                      book.name ?? 'بدون عنوان',
+                      book.name ?? l10n.untitled,
                       style: context.textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w600,
                         fontSize: 13,
@@ -283,7 +284,7 @@ class BookCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        book.type == 'audio' ? 'صوتی' : 'متنی',
+                        book.type == 'audio' ? l10n.audio : l10n.text,
                         style: context.textTheme.bodySmall?.copyWith(
                           color: context.colorScheme.primary,
                           fontSize: 11,
@@ -304,7 +305,7 @@ class BookCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'پیشرفت',
+                            l10n.progress,
                             style: context.textTheme.bodySmall?.copyWith(
                               fontSize: 10,
                               color: context.colorScheme.onSurface

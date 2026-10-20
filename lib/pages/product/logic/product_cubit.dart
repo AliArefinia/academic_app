@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
@@ -77,7 +78,7 @@ class ProductCubit extends Cubit<ProductState> {
       
       emit(state.copyWith(
         isLoading: false,
-        successMessage: 'یادداشت با موفقیت ذخیره شد',
+        successMessage: l10n.noteSavedSuccessfully,
       ));
       
       // Clear success message after 3 seconds
@@ -86,7 +87,7 @@ class ProductCubit extends Cubit<ProductState> {
     } catch (e) {
       emit(state.copyWith(
         isLoading: false,
-        error: 'خطا در ذخیره یادداشت: ${e.toString()}',
+        error: l10n.errorSavingNoteWithMessage(e.toString()),
         successMessage: null,
       ));
       
@@ -156,7 +157,7 @@ class ProductCubit extends Cubit<ProductState> {
       emit(state.copyWith(
         isBookmarking: false,
         product: updatedProduct,
-        successMessage: response.bookmarked ? 'کتاب به بوکمارک اضافه شد' : 'کتاب از بوکمارک حذف شد',
+        successMessage: response.bookmarked ? l10n.bookAddedToBookmarks : l10n.bookRemovedFromBookmarks,
       ));
 
       // Clear success message after 3 seconds
@@ -166,7 +167,7 @@ class ProductCubit extends Cubit<ProductState> {
     } catch (e) {
       emit(state.copyWith(
         isBookmarking: false,
-        error: 'خطا در بوکمارک کردن: ${e.toString()}',
+        error: l10n.errorBookmarkingWithMessage(e.toString()),
       ));
 
       // Clear error message after 3 seconds
@@ -190,7 +191,7 @@ class ProductCubit extends Cubit<ProductState> {
       
       emit(state.copyWith(
         isLoading: false,
-        successMessage: 'بریده کتاب با موفقیت ذخیره شد',
+        successMessage: l10n.clippingSavedSuccessfully,
       ));
       
       // Clear success message after 3 seconds
@@ -199,7 +200,7 @@ class ProductCubit extends Cubit<ProductState> {
     } catch (e) {
       emit(state.copyWith(
         isLoading: false,
-        error: 'خطا در ذخیره بریده کتاب: ${e.toString()}',
+        error: l10n.errorSavingClippingWithMessage(e.toString()),
         successMessage: null,
       ));
       

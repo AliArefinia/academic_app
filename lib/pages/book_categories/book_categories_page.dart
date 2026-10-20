@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -54,7 +55,7 @@ class _BookcategoriesPageState extends State<BookcategoriesPage> {
           onTap: () => MyAppHelper().hideKeyboard(context),
           child: Scaffold(
             appBar: AppBar(
-              title: const Text('دسته‌ها'),
+              title: Text(l10n.categoriesShort),
             ),
             body: SafeArea(
               child: _buildCategoriesTab(context, state),
@@ -80,7 +81,7 @@ class _BookcategoriesPageState extends State<BookcategoriesPage> {
                           children: [
                             SearchInputField(
                               controller: _searchController,
-                              Text: "جستجو در دانشگاه امام صادق (ع)",
+                              Text: l10n.searchInApp,
                               onChanged: _onSearchChanged,
                             ),
                             if (state.maybeWhen(loading: () => true, orElse: () => false))
@@ -127,7 +128,7 @@ class _BookcategoriesPageState extends State<BookcategoriesPage> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s20),
                       child: Text(
-                        "محبوب‌ترین دسته‌بندی‌های کتاب صوتی",
+                        l10n.mostPopularAudioBookCategories,
                         style: context.textTheme.headlineSmall,
                       ),
                     ),

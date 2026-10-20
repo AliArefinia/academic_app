@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -23,7 +24,7 @@ class _MyChaptersPageState extends State<MyChaptersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: 'فیش‌های من',
+        title: l10n.myNoteCards,
         icon: Icons.folder_rounded,
       ),
       body: BlocBuilder<MyChaptersCubit, MyChaptersState>(
@@ -34,8 +35,8 @@ class _MyChaptersPageState extends State<MyChaptersPage> {
               loaded: (chapters) {
                 if (chapters.isEmpty) {
                   return EmptyStateWidget(
-                    title: 'سرفصلی وجود ندارد',
-                    message: 'هنوز هیچ سرفصلی ایجاد نکرده‌اید',
+                    title: l10n.noChapters,
+                    message: l10n.noChaptersCreatedYet,
                     iconAsset: Assets.icFolder,
                   );
                 }
@@ -74,19 +75,19 @@ class _MyChaptersPageState extends State<MyChaptersPage> {
                         showDialog(
                           context: context,
                           builder: (dialogContext) => AlertDialog(
-                            title: const Text('حذف سرفصل'),
-                            content: Text('آیا از حذف "${chapter.title}" اطمینان دارید؟'),
+                            title: Text(l10n.deleteChapter),
+                            content: Text(l10n.confirmDeleteItem(chapter.title.toString())),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(dialogContext),
-                                child: const Text('انصراف'),
+                                child: Text(l10n.cancel),
                               ),
                               TextButton(
                                 onPressed: () {
                                   Navigator.pop(dialogContext);
                                   cubitContext.read<MyChaptersCubit>().deleteChapter(chapter.id);
                                 },
-                                child: const Text('حذف', style: TextStyle(color: Colors.red)),
+                                child: Text(l10n.delete, style: TextStyle(color: Colors.red)),
                               ),
                             ],
                           ),
@@ -175,7 +176,7 @@ class ChapterCard extends StatelessWidget {
                           Text(
                             chapter.description!,
                             style: context.textTheme.bodyMedium?.copyWith(
-                              color: Colors.grey[600],
+                              color: context.secondaryText,
                             ),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
@@ -187,11 +188,11 @@ class ChapterCard extends StatelessWidget {
                   PopupMenuButton(
                     itemBuilder: (context) => [
                       PopupMenuItem(
-                        child: const Row(
+                        child: Row(
                           children: [
                             Icon(Icons.edit, size: 20),
                             SizedBox(width: AppSpacing.s8),
-                            Text('ویرایش'),
+                            Text(l10n.edit),
                           ],
                         ),
                         onTap: () => Future.delayed(
@@ -200,11 +201,11 @@ class ChapterCard extends StatelessWidget {
                         ),
                       ),
                       PopupMenuItem(
-                        child: const Row(
+                        child: Row(
                           children: [
                             Icon(Icons.delete, size: 20, color: Colors.red),
                             SizedBox(width: AppSpacing.s8),
-                            Text('حذف', style: TextStyle(color: Colors.red)),
+                            Text(l10n.delete, style: TextStyle(color: Colors.red)),
                           ],
                         ),
                         onTap: () => Future.delayed(
@@ -222,13 +223,13 @@ class ChapterCard extends StatelessWidget {
                   Icon(
                     Icons.note_outlined,
                     size: 16,
-                    color: Colors.grey[600],
+                    color: context.secondaryText,
                   ),
                   const SizedBox(width: AppSpacing.s4),
                   Text(
-                    '${chapter.notesCount ?? 0} یادداشت',
+                    l10n.notesCount(chapter.notesCount ?? 0),
                     style: context.textTheme.bodySmall?.copyWith(
-                      color: Colors.grey[600],
+                      color: context.secondaryText,
                     ),
                   ),
                   const Spacer(),
@@ -236,7 +237,7 @@ class ChapterCard extends StatelessWidget {
                     Text(
                       _formatDate(chapter.updatedAt!),
                       style: context.textTheme.bodySmall?.copyWith(
-                        color: Colors.grey[600],
+                        color: context.secondaryText,
                       ),
                     ),
                 ],
@@ -255,11 +256,11 @@ class ChapterCard extends StatelessWidget {
       final difference = now.difference(date);
 
       if (difference.inDays == 0) {
-        return 'امروز';
+        return l10n.today;
       } else if (difference.inDays == 1) {
-        return 'دیروز';
+        return l10n.yesterday;
       } else if (difference.inDays < 7) {
-        return '${difference.inDays} روز پیش';
+        return l10n.daysAgo(difference.inDays);
       } else {
         return '${date.year}/${date.month}/${date.day}';
       }

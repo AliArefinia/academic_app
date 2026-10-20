@@ -1,3 +1,5 @@
+import 'package:academic/l10n/l10n.dart';
+import 'package:academic/core/api_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -20,7 +22,7 @@ class UserprofilePage extends StatelessWidget {
           loading: () => const Center(child: CircularProgressIndicator()),
           loaded: (user) => Scaffold(
             appBar: CustomAppBar(
-              title: "پروفایل",
+              title: l10n.profile,
               icon: Icons.person_rounded,
               centerTitle: true,
             ),
@@ -35,7 +37,7 @@ class UserprofilePage extends StatelessWidget {
                             user.avatar!.isNotEmpty)
                         ? NetworkImage(user.avatar!.startsWith('http') 
                             ? user.avatar!
-                            : 'https://demo.halalread.ir${user.avatar!}')
+                            : '${ApiConstants.baseUrl}${user.avatar!}')
                         : null,
                     child: (user.avatar == null ||
                             user.avatar!.isEmpty)
@@ -44,7 +46,7 @@ class UserprofilePage extends StatelessWidget {
                   ),
                   const SizedBox(height: AppSpacing.s16),
                   Text(
-                    user.name ?? 'کاربر',
+                    user.name ?? l10n.user,
                     style: context.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -65,35 +67,35 @@ class UserprofilePage extends StatelessWidget {
                     child: Column(
                       children: [
                         ReusableDropdownMenu(
-                          text: "پروفایل",
+                          text: l10n.profile,
                           iconPath: Assets.icProfile,
                           onTap: () {
                             const ProfilemanagementRoute().push(context);
                           },
                         ),
                         ReusableDropdownMenu(
-                          text: "کتاب های من",
+                          text: l10n.myBooks,
                           iconPath: Assets.icBooks,
                           onTap: () {
                             const MybooksRoute().push(context);
                           },
                         ),
                         ReusableDropdownMenu(
-                          text: "خرید های من",
+                          text: l10n.myPurchases,
                           iconPath: Assets.icShop,
                           onTap: () {
                             const MypurchasesRoute().push(context);
                           },
                         ),
                         ReusableDropdownMenu(
-                          text: "اشتراک های من",
+                          text: l10n.mySubscriptions,
                           iconPath: Assets.icWallet,
                           onTap: () {
                             const MysubscriptionsRoute().push(context);
                           },
                         ),
                         ReusableDropdownMenu(
-                          text: "خرید اشتراک",
+                          text: l10n.buySubscription,
                           iconPath: Assets.icShop,
                           onTap: () {
                             const BuysubscriptionRoute().push(context);
@@ -102,44 +104,44 @@ class UserprofilePage extends StatelessWidget {
                         ReusableDropdownMenu(
                           onTap: () =>
                               const MycommentsmainRoute().push(context),
-                          text: "نظرات من",
+                          text: l10n.myCommentsMenu,
                           iconPath: Assets.icStar,
                         ),
                         ReusableDropdownMenu(
                           onTap: () => const StudyTourListRoute().push(context),
-                          text: "سیر مطالعاتی",
+                          text: l10n.studyTour,
                           iconPath: Assets.icBookId,
                         ),
                         ReusableDropdownMenu(
-                          text: "بریده های من",
+                          text: l10n.myClippingsMenu,
                           iconPath: Assets.icSave,
                           onTap: () {
                             const MyClippingsRoute().push(context);
                           },
                         ),
                         ReusableDropdownMenu(
-                          text: "کتاب گردی",
+                          text: l10n.bookTour,
                           iconPath: Assets.icBooks,
                           onTap: () {
                             const BooktourRoute().push(context);
                           },
                         ),
                         ReusableDropdownMenu(
-                          text: "فیش‌های من",
+                          text: l10n.myNoteCards,
                           iconPath: Assets.icFolder,
                           onTap: () {
                             const MychaptersRoute().push(context);
                           },
                         ),
                         ReusableDropdownMenu(
-                          text: "کارت هدیه",
+                          text: l10n.giftCard,
                           iconPath: Assets.icWallet,
                           onTap: () {
                             const GiftcardRoute().push(context);
                           },
                         ),
                         ReusableDropdownMenu(
-                          text: "تاریخچه پرداخت ها",
+                          text: l10n.paymentHistory,
                           iconPath: Assets.icPayment,
                           onTap: () {
                             const PaymenthistoryRoute().push(context);
@@ -148,15 +150,20 @@ class UserprofilePage extends StatelessWidget {
                         ReusableDropdownMenu(
                           isIconDifference: true,
                           onTap: () => const InvitefriendsRoute().push(context),
-                          text: "دعوت از دوستان",
+                          text: l10n.inviteFriends,
                           iconPath: Assets.icPeople,
                         ),
                         ReusableDropdownMenu(
-                          text: "بروز رسانی",
+                          text: l10n.settings,
+                          iconPath: Assets.icFilter,
+                          onTap: () => const SettingsRoute().push(context),
+                        ),
+                        ReusableDropdownMenu(
+                          text: l10n.update,
                           iconPath: Assets.icUpdate,
                         ),
                         ReusableDropdownMenu(
-                          text: "خروج از حساب کاربری",
+                          text: l10n.logout,
                           iconPath: Assets.icExit,
                           onTap: () async {
                             await context.read<UserprofileCubit>().logout();
@@ -180,7 +187,7 @@ class UserprofilePage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () =>
                       context.read<UserprofileCubit>().loadUserData(),
-                  child: const Text('تلاش مجدد'),
+                  child: Text(l10n.retry),
                 ),
               ],
             ),

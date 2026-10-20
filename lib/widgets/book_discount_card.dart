@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:academic/core/helper/ui_extention.dart';
 import 'package:academic/core/theme/const.dart';
@@ -190,7 +191,7 @@ class BookDiscountCard extends StatelessWidget {
                                       text: newPrice,
                                       style: context.textTheme.headlineMedium),
                                   TextSpan(
-                                      text: " تومان",
+                                      text: l10n.tomanWithSpace,
                                       style: context.textTheme.labelSmall
                                           ?.copyWith(
                                           fontWeight: FontWeight.w600)),

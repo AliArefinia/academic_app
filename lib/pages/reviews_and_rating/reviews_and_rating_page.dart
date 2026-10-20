@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +25,7 @@ class ReviewsandratingPage extends StatelessWidget {
             slivers: [
               SliverToBoxAdapter(
                 child: CustomAppBar(
-                  title: 'نقدها و امتیازها',
+                  title: l10n.reviewsAndRatings,
                   icon: Icons.star_rate_rounded,
                   leading: IconButton(
                     onPressed: () {
@@ -184,7 +185,7 @@ class SubmitButton extends StatelessWidget {
         height: context.fullHeight * 0.03,
         child: Center(
           child: Text(
-            'ثبت نقد و امتیاز',
+            l10n.submitReviewAndRating,
             style: context.textTheme.labelSmall
           ),
         ),

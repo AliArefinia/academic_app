@@ -187,7 +187,7 @@ class __$$InvitefriendsStateImplCopyWithImpl<$Res>
 
 class _$InvitefriendsStateImpl implements _InvitefriendsState {
   const _$InvitefriendsStateImpl(
-      {this.currentTab = 'دعوت',
+      {this.currentTab = 'invite',
       this.inviteCode,
       final List<InvitedFriendsModel> invitedFriends = const [],
       final List<GiftModel> gifts = const [],

@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -61,8 +62,8 @@ class ShareviewPage extends StatelessWidget {
                   },
                   icon: const Icon(Icons.arrow_back_outlined),
                 ),
-                title: const Text(
-                  'اشتراک دیدگاه',
+                title: Text(
+                  l10n.shareOpinion,
                 ),
               ),
               SliverToBoxAdapter(

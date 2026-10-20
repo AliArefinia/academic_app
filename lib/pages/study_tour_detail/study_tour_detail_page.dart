@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -66,8 +67,8 @@ class _StudyTourDetailPageState extends State<StudyTourDetailPage>
     return Scaffold(
       backgroundColor: context.colorScheme.surface,
       appBar: AppBar(
-        title: const Text(
-          'سیر مطالعاتی',
+        title: Text(
+          l10n.studyTour,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -102,7 +103,7 @@ class _StudyTourDetailPageState extends State<StudyTourDetailPage>
                     SizedBox(height: 16.h),
                     ElevatedButton(
                       onPressed: () => context.read<StudyTourDetailCubit>().loadStudyTourDetail(widget.studyTourId),
-                      child: const Text('تلاش مجدد'),
+                      child: Text(l10n.retry),
                     ),
                   ],
                 ),
@@ -204,13 +205,13 @@ class _StudyTourDetailPageState extends State<StudyTourDetailPage>
             children: [
               _buildStatItem(
                 icon: Icons.book_outlined,
-                label: 'تعداد کتاب‌ها',
+                label: l10n.booksCountLabel,
                 value: '${studyTour.books.length}',
               ),
               SizedBox(width: 24.w),
               _buildStatItem(
                 icon: Icons.schedule,
-                label: 'مدت زمان',
+                label: l10n.duration,
                 value: studyTour.estimatedDuration,
               ),
             ],
@@ -260,7 +261,7 @@ class _StudyTourDetailPageState extends State<StudyTourDetailPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'مسیر مطالعاتی',
+          l10n.studyRoute,
           style: context.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
             color: context.colorScheme.onSurface,

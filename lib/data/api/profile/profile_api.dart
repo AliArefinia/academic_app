@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -35,7 +36,7 @@ class ProfileApiService {
 
       final response = await _dio.post('/api/profiles', data: formData);
       if (response.data['data'] == null) {
-        throw Exception(response.data['message'] ?? 'خطا در دریافت اطلاعات پروفایل');
+        throw Exception(response.data['message'] ?? l10n.errorFetchingProfile);
       }
       return UserModel.fromJson(response.data['data']);
     } catch (e) {
@@ -47,7 +48,7 @@ class ProfileApiService {
     try {
       final response = await _dio.get('/api/profiles');
       if (response.data['data'] == null) {
-        throw Exception(response.data['message'] ?? 'خطا در دریافت اطلاعات پروفایل');
+        throw Exception(response.data['message'] ?? l10n.errorFetchingProfile);
       }
       return UserModel.fromJson(response.data['data']);
     } catch (e) {

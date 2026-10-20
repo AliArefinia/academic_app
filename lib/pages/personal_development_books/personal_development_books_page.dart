@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -31,7 +32,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
           onTap: () => MyAppHelper().hideKeyboard(context),
           child: Scaffold(
             appBar: AppBar(
-              title: const Text('کتاب های توسعه فردی'),
+              title: Text(l10n.personalDevelopmentBooks),
               leading: IconButton(
                 onPressed: () {
 
@@ -46,7 +47,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                 children: [
                   SearchInputField(
                     controller: TextEditingController(),
-                    Text: "جستجو در دانشگاه امام صادق (ع)",
+                    Text: l10n.searchInApp,
                   ),
                   const SizedBox(height: AppSpacing.s20),
                   Container(
@@ -67,7 +68,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                             const SizedBox(width: AppSpacing.s8),
                             Row(
                               children: [
-                                Text("فیلتر",
+                                Text(l10n.filterLabel,
                                     style: context.textTheme.titleMedium
                                         ?.copyWith(fontSize: 15)),
                                 const SizedBox(width: AppSpacing.s32),
@@ -75,7 +76,7 @@ class _CategoryProductsPageState extends State<CategoryProductsPage> {
                               ],
                             ),
                             const SizedBox(width: AppSpacing.s8),
-                            Text("پر فروش ترین",
+                            Text(l10n.bestSelling,
                                 style: context.textTheme.titleMedium
                                     ?.copyWith(fontSize: 15)),
                             const Spacer(),
@@ -224,7 +225,7 @@ void showFiltersDialog(BuildContext context) {
                     child: Align(
                         alignment: Alignment.centerRight,
                         child: Text(
-                          "فیلترها",
+                          l10n.filters,
                           style: context.textTheme.headlineMedium,
                         )),
                   ),
@@ -234,7 +235,7 @@ void showFiltersDialog(BuildContext context) {
                   Divider(color: context.colorScheme.primary, thickness: 2),
                   filterItem(
                     context,
-                    title: "کتاب‌های متنی",
+                    title: l10n.textBooks,
                     isActive: state.isTextBooksActive,
                     onTap: () => context
                         .read<PersonaldevelopmentbooksCubit>()
@@ -242,7 +243,7 @@ void showFiltersDialog(BuildContext context) {
                   ),
                   filterItem(
                     context,
-                    title: "کتاب‌های صوتی",
+                    title: l10n.audioBooks,
                     isActive: state.isAudioBooksActive,
                     onTap: () => context
                         .read<PersonaldevelopmentbooksCubit>()
@@ -251,7 +252,7 @@ void showFiltersDialog(BuildContext context) {
                   const SizedBox(height: 16),
                   navigationItem(
                     context,
-                    title: "نویسنده، مترجم یا گوینده",
+                    title: l10n.authorTranslatorNarrator,
                     hasDivider: true,
                     onTap: () {
                       const AuthorbookRoute().push(context);
@@ -259,7 +260,7 @@ void showFiltersDialog(BuildContext context) {
                   ),
                   navigationItem(
                     context,
-                    title: "ناشر",
+                    title: l10n.publisher,
                     hasDivider: false,
                     onTap: () {
                       const BookpublisherRoute().push(context);

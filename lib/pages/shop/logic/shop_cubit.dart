@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -52,7 +53,7 @@ class ShopCubit extends Cubit<ShopState> {
       }
     } catch (e) {
       // Error logged by repository
-      emit(const ShopState.error('خطا در دریافت اطلاعات بازارچه'));
+      emit(ShopState.error(l10n.errorFetchingShop));
     }
   }
 }

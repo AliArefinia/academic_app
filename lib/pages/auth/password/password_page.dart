@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,11 +80,11 @@ class _PasswordPageState extends State<PasswordPage> {
                     authHeaderWidget(context),
                     const SizedBox(height: AppSpacing.s12),
                     Text(
-                      'ورود به دانشگاه امام صادق (ع)',
+                      l10n.loginToApp,
                       style: context.textTheme.titleLarge,
                     ).addVerticalSpacing(AppSpacing.s12),
                     Text(
-                      'رمز ورود خود را وارد کنید',
+                      l10n.enterYourPassword,
                       style: context.textTheme.bodyLarge,
                     ).addVerticalSpacing(AppSpacing.s12),
                     // Phone number display with edit button
@@ -91,7 +92,7 @@ class _PasswordPageState extends State<PasswordPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'شماره: ${widget.phone}',
+                          l10n.phoneNumberLabel(widget.phone.toString()),
                           style: context.textTheme.bodyLarge,
                         ),
                         const SizedBox(width: AppSpacing.s16),
@@ -101,7 +102,7 @@ class _PasswordPageState extends State<PasswordPage> {
                             const LoginRoute().go(context);
                           },
                           child: Text(
-                            'ویرایش شماره همراه',
+                            l10n.editPhoneNumber,
                             style: context.textTheme.bodySmall?.copyWith(
                               color: context.colorScheme.primary,
                             ),
@@ -113,7 +114,7 @@ class _PasswordPageState extends State<PasswordPage> {
                     TextFormField(
                       controller: _passwordController,
                       decoration: InputDecoration(
-                        labelText: 'رمز عبور',
+                        labelText: l10n.password,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(AppRadius.corner8)),
                         ),
@@ -121,7 +122,7 @@ class _PasswordPageState extends State<PasswordPage> {
                       obscureText: true,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'لطفا رمز عبور را وارد کنید';
+                          return l10n.pleaseEnterPassword;
                         }
                         return null;
                       },
@@ -141,22 +142,22 @@ class _PasswordPageState extends State<PasswordPage> {
                         onPressed: isLoading ? null : () {
                           VerificationRoute(widget.phone, widget.isInvited, true, false).go(context);
                         },
-                        child: const Text('ورود با رمز یکبار مصرف'),
+                        child: Text(l10n.loginWithOtp),
                       ).addVerticalSpacing(AppSpacing.s32),
                     ),
 
                     CustomButton(
                       onPressed: isLoading ? null : _handleLogin,
-                      child: const Text('ورود'),
+                      child: Text(l10n.login),
                     ).addVerticalSpacing(AppSpacing.s32),
 
                     Text.rich(TextSpan(
-                      text: 'قوانین',
+                      text: l10n.terms,
                       style: context.textTheme.bodyMedium
                           ?.copyWith(color: context.colorScheme.tertiary),
                       children: [
                         TextSpan(
-                          text: ' استفاده از دانشگاه امام صادق (ع)',
+                          text: l10n.ofUsingApp,
                           style: context.textTheme.bodyMedium,
                         ),
                       ],
@@ -210,7 +211,7 @@ class _PasswordPageState extends State<PasswordPage> {
                     ),
                     const SizedBox(width: AppSpacing.s8),
                     Text(
-                      'کد دعوت دارم (اختیاری)',
+                      l10n.haveInviteCodeOptional,
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: _showInviteCode 
                             ? context.colorScheme.primary 
@@ -248,7 +249,7 @@ class _PasswordPageState extends State<PasswordPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'کد دعوت ۶ رقمی',
+                        l10n.sixDigitInviteCode,
                         style: context.textTheme.bodySmall?.copyWith(
                           color: context.colorScheme.onSurface.withOpacity(0.7),
                           fontWeight: FontWeight.w500,

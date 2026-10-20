@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -155,7 +156,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('خطا در انتخاب فایل: ${e.toString()}'),
+            content: Text(l10n.errorSelectingFileWithMessage(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -179,7 +180,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('خطا در انتخاب فایل نمونه: ${e.toString()}'),
+            content: Text(l10n.errorSelectingSampleFileWithMessage(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -206,7 +207,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('خطا در انتخاب تصویر: ${e.toString()}'),
+            content: Text(l10n.errorSelectingImageWithMessage(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -221,8 +222,8 @@ class _UploadProductPageState extends State<UploadProductPage> {
 
     if (_file == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('لطفا فایل اصلی را انتخاب کنید'),
+        SnackBar(
+          content: Text(l10n.pleaseSelectMainFile),
           backgroundColor: Colors.red,
         ),
       );
@@ -231,8 +232,8 @@ class _UploadProductPageState extends State<UploadProductPage> {
 
     if (_selectedCategoryId == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('لطفا دسته‌بندی را انتخاب کنید'),
+        SnackBar(
+          content: Text(l10n.pleaseSelectCategory),
           backgroundColor: Colors.red,
         ),
       );
@@ -241,8 +242,8 @@ class _UploadProductPageState extends State<UploadProductPage> {
 
     if (_image == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('لطفا تصویر محصول را انتخاب کنید'),
+        SnackBar(
+          content: Text(l10n.pleaseSelectProductImage),
           backgroundColor: Colors.red,
         ),
       );
@@ -295,7 +296,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
       },
       child: Scaffold(
         appBar: CustomAppBar(
-          title: 'آپلود پاسخنامه یا جزوه',
+          title: l10n.uploadAnswerSheetOrHandout,
           icon: Icons.upload_file_rounded,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -317,29 +318,29 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     // Type Selection
-                    _buildSectionTitle('نوع محتوا'),
+                    _buildSectionTitle(l10n.contentType),
                     const SizedBox(height: AppSpacing.s12),
                     _buildTypeSelector(),
                     const SizedBox(height: AppSpacing.s24),
 
                     // Category Selection
-                    _buildSectionTitle('دسته‌بندی'),
+                    _buildSectionTitle(l10n.category),
                     const SizedBox(height: AppSpacing.s12),
                     _buildCategorySelector(),
                     const SizedBox(height: AppSpacing.s24),
 
                     // Name
-                    _buildSectionTitle('نام محصول'),
+                    _buildSectionTitle(l10n.productName),
                     const SizedBox(height: AppSpacing.s12),
                     TextFormField(
                       controller: _nameController,
-                      decoration: const InputDecoration(
-                        hintText: 'مثال: جزوه ریاضی پایه دهم',
-                        labelText: 'نام',
+                      decoration: InputDecoration(
+                        hintText: l10n.productNameExample,
+                        labelText: l10n.firstName,
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'لطفا نام محصول را وارد کنید';
+                          return l10n.pleaseEnterProductName;
                         }
                         return null;
                       },
@@ -347,21 +348,21 @@ class _UploadProductPageState extends State<UploadProductPage> {
                     const SizedBox(height: AppSpacing.s24),
 
                     // Number of Pages
-                    _buildSectionTitle('تعداد صفحات'),
+                    _buildSectionTitle(l10n.pageCount),
                     const SizedBox(height: AppSpacing.s12),
                     TextFormField(
                       controller: _numberOfPagesController,
                       keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        hintText: 'مثال: 30',
-                        labelText: 'تعداد صفحات',
+                      decoration: InputDecoration(
+                        hintText: l10n.pageCountExample,
+                        labelText: l10n.pageCount,
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'لطفا تعداد صفحات را وارد کنید';
+                          return l10n.pleaseEnterPageCount;
                         }
                         if (int.tryParse(value) == null) {
-                          return 'لطفا یک عدد معتبر وارد کنید';
+                          return l10n.pleaseEnterValidNumber;
                         }
                         return null;
                       },
@@ -369,18 +370,18 @@ class _UploadProductPageState extends State<UploadProductPage> {
                     const SizedBox(height: AppSpacing.s24),
 
                     // Publish Year
-                    _buildSectionTitle('سال انتشار'),
+                    _buildSectionTitle(l10n.publishYear),
                     const SizedBox(height: AppSpacing.s12),
                     TextFormField(
                       controller: _publishYearController,
                       keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        hintText: 'مثال: 1402',
-                        labelText: 'سال انتشار',
+                      decoration: InputDecoration(
+                        hintText: l10n.publishYearExample,
+                        labelText: l10n.publishYear,
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'لطفا سال انتشار را وارد کنید';
+                          return l10n.pleaseEnterPublishYear;
                         }
                         return null;
                       },
@@ -388,7 +389,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                     const SizedBox(height: AppSpacing.s24),
 
                     // Price
-                    _buildSectionTitle('قیمت (تومان)'),
+                    _buildSectionTitle(l10n.priceInToman),
                     const SizedBox(height: AppSpacing.s12),
                     TextFormField(
                       controller: _priceController,
@@ -396,19 +397,19 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       inputFormatters: [
                         PriceFormatter(),
                       ],
-                      decoration: const InputDecoration(
-                        hintText: 'مثال: 250,000',
-                        labelText: 'قیمت',
+                      decoration: InputDecoration(
+                        hintText: l10n.priceExample,
+                        labelText: l10n.price,
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'لطفا قیمت را وارد کنید';
+                          return l10n.pleaseEnterPrice;
                         }
                         // Remove commas and convert Persian digits to English before validation
                         final cleanValue = value.replaceAll(',', '').replaceAll(' ', '');
                         final convertedValue = _convertPersianToEnglish(cleanValue);
                         if (int.tryParse(convertedValue) == null) {
-                          return 'لطفا یک عدد معتبر وارد کنید';
+                          return l10n.pleaseEnterValidNumber;
                         }
                         return null;
                       },
@@ -416,18 +417,18 @@ class _UploadProductPageState extends State<UploadProductPage> {
                     const SizedBox(height: AppSpacing.s24),
 
                     // Content/Description
-                    _buildSectionTitle('توضیحات'),
+                    _buildSectionTitle(l10n.description),
                     const SizedBox(height: AppSpacing.s12),
                     TextFormField(
                       controller: _contentController,
                       maxLines: 4,
-                      decoration: const InputDecoration(
-                        hintText: 'توضیحات محصول را وارد کنید...',
-                        labelText: 'توضیحات',
+                      decoration: InputDecoration(
+                        hintText: l10n.enterProductDescription,
+                        labelText: l10n.description,
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'لطفا توضیحات را وارد کنید';
+                          return l10n.pleaseEnterDescription;
                         }
                         return null;
                       },
@@ -435,27 +436,27 @@ class _UploadProductPageState extends State<UploadProductPage> {
                     const SizedBox(height: AppSpacing.s24),
 
                     // File Selection
-                    _buildSectionTitle('فایل اصلی *'),
+                    _buildSectionTitle(l10n.mainFileRequired),
                     const SizedBox(height: AppSpacing.s12),
                     _buildFileSelector(
                       file: _file,
                       onTap: _pickFile,
-                      label: 'انتخاب فایل (PDF, DOC, DOCX)',
+                      label: l10n.selectFilePdfDoc,
                     ),
                     const SizedBox(height: AppSpacing.s24),
 
                     // Sample File (Optional)
-                    _buildSectionTitle('فایل نمونه (اختیاری)'),
+                    _buildSectionTitle(l10n.sampleFileOptional),
                     const SizedBox(height: AppSpacing.s12),
                     _buildFileSelector(
                       file: _sample,
                       onTap: _pickSample,
-                      label: 'انتخاب فایل نمونه',
+                      label: l10n.selectSampleFile,
                     ),
                     const SizedBox(height: AppSpacing.s24),
 
                     // Image (Required)
-                    _buildSectionTitle('تصویر محصول *'),
+                    _buildSectionTitle(l10n.productImageRequired),
                     const SizedBox(height: AppSpacing.s12),
                     _buildImageSelector(),
                     const SizedBox(height: AppSpacing.s32),
@@ -480,8 +481,8 @@ class _UploadProductPageState extends State<UploadProductPage> {
                                 valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                               ),
                             )
-                          : const Text(
-                              'آپلود محصول',
+                          : Text(
+                              l10n.uploadProduct,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -525,10 +526,10 @@ class _UploadProductPageState extends State<UploadProductPage> {
           ),
           border: InputBorder.none,
         ),
-        items: const [
+        items: [
           DropdownMenuItem(
             value: '1',
-            child: Text('جزوه'),
+            child: Text(l10n.handout),
           ),
         ],
         onChanged: (value) {
@@ -555,13 +556,13 @@ class _UploadProductPageState extends State<UploadProductPage> {
       ),
       child: DropdownButtonFormField<int>(
         value: _selectedCategoryId,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(
             horizontal: AppSpacing.s16,
             vertical: AppSpacing.s12,
           ),
           border: InputBorder.none,
-          hintText: 'انتخاب دسته‌بندی',
+          hintText: l10n.selectCategory,
         ),
         items: categories.map((category) {
           return DropdownMenuItem<int>(
@@ -576,7 +577,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
         },
         validator: (value) {
           if (value == null) {
-            return 'لطفا دسته‌بندی را انتخاب کنید';
+            return l10n.pleaseSelectCategory;
           }
           return null;
         },
@@ -669,7 +670,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                       TextButton.icon(
                         onPressed: _pickImage,
                         icon: const Icon(Icons.edit),
-                        label: const Text('تغییر تصویر'),
+                        label: Text(l10n.changeImage),
                       ),
                       const SizedBox(width: AppSpacing.s16),
                       TextButton.icon(
@@ -679,7 +680,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                           });
                         },
                         icon: const Icon(Icons.delete),
-                        label: const Text('حذف'),
+                        label: Text(l10n.delete),
                         style: TextButton.styleFrom(
                           foregroundColor: Colors.red,
                         ),
@@ -697,7 +698,7 @@ class _UploadProductPageState extends State<UploadProductPage> {
                   ),
                   const SizedBox(width: AppSpacing.s12),
                   Text(
-                    'انتخاب تصویر',
+                    l10n.selectImage,
                     style: context.textTheme.bodyMedium?.copyWith(
                       color: context.colorScheme.onSurfaceVariant,
                     ),

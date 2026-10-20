@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -125,8 +126,8 @@ class _StudyTourRequestPageState extends State<StudyTourRequestPage>
       child: Scaffold(
         backgroundColor: context.colorScheme.surface,
         appBar: AppBar(
-          title: const Text(
-            'درخواست سیر مطالعاتی',
+          title: Text(
+            l10n.studyTourRequest,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           centerTitle: true,
@@ -223,7 +224,7 @@ class _StudyTourRequestPageState extends State<StudyTourRequestPage>
           ),
           SizedBox(height: 16.h),
           Text(
-            'سیر مطالعاتی خود را طراحی کنید',
+            l10n.designYourStudyTour,
             style: context.textTheme.headlineSmall?.copyWith(
               fontWeight: FontWeight.bold,
               color: context.colorScheme.onSurface,
@@ -232,7 +233,7 @@ class _StudyTourRequestPageState extends State<StudyTourRequestPage>
           ),
           SizedBox(height: 8.h),
           Text(
-            'موضوع مورد نظر خود را انتخاب کنید و درخواست سیر مطالعاتی خود را ثبت کنید',
+            l10n.studyTourRequestHint,
             style: context.textTheme.bodyMedium?.copyWith(
               color: context.colorScheme.onSurface.withOpacity(0.7),
             ),
@@ -248,7 +249,7 @@ class _StudyTourRequestPageState extends State<StudyTourRequestPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'انتخاب دسته‌بندی',
+          l10n.selectCategory,
           style: context.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
             color: context.colorScheme.onSurface,
@@ -376,7 +377,7 @@ class _StudyTourRequestPageState extends State<StudyTourRequestPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'عنوان سیر مطالعاتی',
+          l10n.studyTourTitle,
           style: context.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
             color: context.colorScheme.onSurface,
@@ -394,7 +395,7 @@ class _StudyTourRequestPageState extends State<StudyTourRequestPage>
           child: TextField(
             controller: _titleController,
             decoration: InputDecoration(
-              hintText: 'مثال: سیر مطالعاتی تاریخ ایران',
+              hintText: l10n.studyTourTitleExample,
               hintStyle: context.textTheme.bodyMedium?.copyWith(
                 color: context.colorScheme.onSurface.withOpacity(0.5),
               ),
@@ -423,7 +424,7 @@ class _StudyTourRequestPageState extends State<StudyTourRequestPage>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'توضیحات',
+          l10n.description,
           style: context.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
             color: context.colorScheme.onSurface,
@@ -442,7 +443,7 @@ class _StudyTourRequestPageState extends State<StudyTourRequestPage>
             controller: _descriptionController,
             maxLines: 5,
             decoration: InputDecoration(
-              hintText: 'توضیحات خود را در مورد سیر مطالعاتی مورد نظر بنویسید...',
+              hintText: l10n.studyTourDescriptionHint,
               hintStyle: context.textTheme.bodyMedium?.copyWith(
                 color: context.colorScheme.onSurface.withOpacity(0.5),
               ),
@@ -531,7 +532,7 @@ class _StudyTourRequestPageState extends State<StudyTourRequestPage>
                   Icon(Icons.send, size: 20.w),
                   SizedBox(width: 8.w),
                   Text(
-                    'ثبت درخواست',
+                    l10n.submitRequest,
                     style: context.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),

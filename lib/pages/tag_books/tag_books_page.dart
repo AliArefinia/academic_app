@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -86,7 +87,7 @@ class _TagBooksPageState extends State<TagBooksPage> {
                     const SizedBox(height: AppSpacing.s20),
                     Expanded(
                       child: state.when(
-                        initial: () => const Center(child: Text('در حال بارگذاری...')),
+                        initial: () => Center(child: Text(l10n.loading)),
                         loading: () => const Center(child: CircularProgressIndicator()),
                         success: (books) => _buildBooksList(books),
                         error: (message) => Center(
@@ -95,7 +96,7 @@ class _TagBooksPageState extends State<TagBooksPage> {
                             children: [
                               const Icon(Icons.error_outline, size: 64, color: Colors.red),
                               const SizedBox(height: 16),
-                              Text('خطا: $message'),
+                              Text(l10n.errorWithMessage(message.toString())),
                               const SizedBox(height: 16),
                               ElevatedButton(
                                 onPressed: () => _cubit.fetchTagBooks(
@@ -104,7 +105,7 @@ class _TagBooksPageState extends State<TagBooksPage> {
                                   publisherId: widget.publisherId,
                                   publisherName: widget.publisherName,
                                 ),
-                                child: const Text('تلاش مجدد'),
+                                child: Text(l10n.retry),
                               ),
                             ],
                           ),
@@ -123,13 +124,13 @@ class _TagBooksPageState extends State<TagBooksPage> {
 
   Widget _buildBooksList(List<BookModel> books) {
     if (books.isEmpty) {
-      return const Center(
+      return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.book_outlined, size: 64, color: Colors.grey),
             SizedBox(height: 16),
-            Text('هیچ کتابی یافت نشد'),
+            Text(l10n.noBookFoundPlain),
           ],
         ),
       );

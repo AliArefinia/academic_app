@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:dio/dio.dart';
 
 String _dioUnknownRootMessage(DioException error) {
@@ -10,15 +11,15 @@ String _dioUnknownRootMessage(DioException error) {
 
 /// Maps technical error messages to user-friendly Persian messages
 class ErrorMessageMapper {
-  static const String _defaultErrorMessage = 'مشکلی پیش آمده است. لطفا دوباره تلاش کنید';
-  static const String _networkErrorMessage = 'اتصال اینترنت برقرار نیست';
-  static const String _serverErrorMessage = 'مشکلی در سرور پیش آمده است. لطفا دوباره تلاش کنید';
-  static const String _timeoutErrorMessage = 'زمان اتصال به پایان رسید. لطفا دوباره تلاش کنید';
-  static const String _unauthorizedErrorMessage = 'لطفا دوباره وارد شوید';
-  static const String _forbiddenErrorMessage = 'دسترسی غیرمجاز';
-  static const String _notFoundErrorMessage = 'اطلاعات مورد نظر یافت نشد';
-  static const String _validationErrorMessage = 'اطلاعات وارد شده نامعتبر است';
-  static const String _serverUnavailableErrorMessage = 'سرویس در دسترس نیست. لطفا بعدا تلاش کنید';
+  static String get _defaultErrorMessage => l10n.errorSomethingWentWrong;
+  static String get _networkErrorMessage => l10n.errorNoInternet;
+  static String get _serverErrorMessage => l10n.errorServerTryAgain;
+  static String get _timeoutErrorMessage => l10n.errorConnectionTimeout;
+  static String get _unauthorizedErrorMessage => l10n.errorPleaseLoginAgain;
+  static String get _forbiddenErrorMessage => l10n.errorUnauthorized;
+  static String get _notFoundErrorMessage => l10n.errorNotFound;
+  static String get _validationErrorMessage => l10n.errorInvalidInput;
+  static String get _serverUnavailableErrorMessage => l10n.errorServiceUnavailable;
 
   /// Maps any error to a user-friendly message
   static String mapError(dynamic error) {
@@ -53,7 +54,7 @@ class ErrorMessageMapper {
         return _mapDioBadResponse(error);
 
       case DioExceptionType.cancel:
-        return 'عملیات لغو شد';
+        return l10n.errorOperationCancelled;
 
       case DioExceptionType.unknown:
         final combined = _dioUnknownRootMessage(error);
@@ -105,7 +106,7 @@ class ErrorMessageMapper {
     
     // If no specific field errors found, return generic message for 422
     if (statusCode == 422) {
-      return 'اطلاعات وارد شده نامعتبر است';
+      return l10n.errorInvalidInput;
     }
     
     return _mapHttpStatusCode(statusCode);
@@ -115,7 +116,7 @@ class ErrorMessageMapper {
   static String _mapHttpStatusCode(int? statusCode) {
     switch (statusCode) {
       case 400:
-        return 'اطلاعات ارسالی نامعتبر است. لطفا دوباره تلاش کنید';
+        return l10n.errorInvalidRequestData;
       case 401:
         return _unauthorizedErrorMessage;
       case 403:
@@ -125,11 +126,11 @@ class ErrorMessageMapper {
       case 422:
         return _validationErrorMessage;
       case 413:
-        return 'حجم فایل بسیار بزرگ است';
+        return l10n.errorFileTooLarge;
       case 415:
-        return 'فرمت فایل پشتیبانی نمی‌شود';
+        return l10n.errorUnsupportedFileFormat;
       case 429:
-        return 'تعداد درخواست‌ها بیش از حد مجاز است. لطفا کمی صبر کنید';
+        return l10n.errorTooManyRequests;
       case 500:
         return _serverErrorMessage;
       case 502:
@@ -199,7 +200,7 @@ class ErrorMessageMapper {
     if (lowerError.contains('json') ||
         lowerError.contains('parsing') ||
         lowerError.contains('format')) {
-      return 'خطا در پردازش اطلاعات';
+      return l10n.errorProcessingData;
     }
 
     // Return original error if no pattern matches
@@ -230,49 +231,49 @@ class ErrorMessageMapper {
     if (lowerMessage.contains('invalid credentials') ||
         lowerMessage.contains('wrong password') ||
         lowerMessage.contains('incorrect password')) {
-      return 'رمز عبور یا شماره همراه اشتباه است';
+      return l10n.errorWrongPasswordOrPhone;
     }
 
     if (lowerMessage.contains('user not found') ||
         lowerMessage.contains('user does not exist')) {
-      return 'کاربری با این اطلاعات یافت نشد';
+      return l10n.errorUserNotFound;
     }
 
     if (lowerMessage.contains('phone number') ||
         lowerMessage.contains('mobile number')) {
-      return 'شماره همراه نامعتبر است';
+      return l10n.errorInvalidPhone;
     }
 
     if (lowerMessage.contains('verification code') ||
         lowerMessage.contains('otp') ||
         lowerMessage.contains('invalid otp')) {
-      return 'کد تایید اشتباه است. لطفا کد صحیح را وارد کنید';
+      return l10n.errorWrongVerificationCode;
     }
 
     if (lowerMessage.contains('expired') ||
         lowerMessage.contains('expire')) {
-      return 'کد تایید منقضی شده است. لطفا کد جدید درخواست کنید';
+      return l10n.errorVerificationCodeExpired;
     }
 
     if (lowerMessage.contains('wrong') ||
         lowerMessage.contains('incorrect') ||
         lowerMessage.contains('invalid')) {
-      return 'اطلاعات وارد شده اشتباه است';
+      return l10n.errorWrongInput;
     }
 
     if (lowerMessage.contains('already exists') ||
         lowerMessage.contains('duplicate')) {
-      return 'این اطلاعات قبلا ثبت شده است';
+      return l10n.errorAlreadyRegistered;
     }
 
     if (lowerMessage.contains('insufficient') ||
         lowerMessage.contains('not enough')) {
-      return 'موجودی کافی نیست';
+      return l10n.errorInsufficientBalance;
     }
 
     if (lowerMessage.contains('payment') ||
         lowerMessage.contains('transaction')) {
-      return 'خطا در پردازش پرداخت';
+      return l10n.errorPaymentProcessing;
     }
 
     // Backend technical errors - convert to user-friendly messages
@@ -282,7 +283,7 @@ class ErrorMessageMapper {
         lowerMessage.contains('fatal error') ||
         lowerMessage.contains('syntax error') ||
         lowerMessage.contains('parse error')) {
-      return 'مشکلی در سرور پیش آمده است. لطفا بعدا تلاش کنید';
+      return l10n.errorServerTryLater;
     }
 
     // Return the original message if no pattern matches

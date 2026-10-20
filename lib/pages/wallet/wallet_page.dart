@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -25,15 +26,15 @@ class WalletPage extends StatelessWidget {
         if (state.error != null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('خطا در پردازش پرداخت: ${state.error}'),
+              content: Text(l10n.errorProcessingPaymentWithMessage(state.error.toString())),
               backgroundColor: Colors.red,
             ),
           );
         }
         if (state.isPaymentSuccessful) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('کیف پول با موفقیت شارژ شد!'),
+            SnackBar(
+              content: Text(l10n.walletChargedSuccessfully),
               backgroundColor: Colors.green,
             ),
           );
@@ -49,7 +50,7 @@ class WalletPage extends StatelessWidget {
               onTap: (value) => cubit.selectIndex(value),
             ),
             appBar: CustomAppBar(
-              title: 'کیف پول',
+              title: l10n.wallet,
               icon: Icons.account_balance_wallet_rounded,
               leading: IconButton(
                 onPressed: () => context.pop(),
@@ -71,7 +72,7 @@ class WalletPage extends StatelessWidget {
                   }),
                   CustomTextField(
                     controller: cubit.amountOfMoneyController,
-                    hint: 'مبلغ دلخواه (تومان)',
+                    hint: l10n.customAmountToman,
                   ),
                   BlocBuilder<WalletCubit, WalletState>(
                     builder: (context, state) {
@@ -110,7 +111,7 @@ class WalletPage extends StatelessWidget {
                   BlocBuilder<WalletCubit, WalletState>(
                     builder: (context, state) {
                       return MainButton(
-                        text: state.isProcessingPayment ? 'در حال پردازش...' : 'شارژ کیف پول',
+                        text: state.isProcessingPayment ? l10n.processing : l10n.walletCharge,
                         backgroundColor: state.isProcessingPayment
                             ? context.colorScheme.outline
                             : cubit.amountOfMoneyController.text.isNotEmpty
@@ -125,7 +126,7 @@ class WalletPage extends StatelessWidget {
                   KeyboardVisibilityBuilder(builder: (context, visible) {
                     return visible
                         ? const SizedBox()
-                        : Text('فعالسازی کارت هدیه',style: context.textTheme.titleMedium?.copyWith(
+                        : Text(l10n.activateGiftCard,style: context.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600
                     ),);
                   }),
@@ -160,7 +161,7 @@ class TopIconAndText extends StatelessWidget {
           ),
         ),
         Text(
-          "موجودی فعلی\n $currentMoney تومان",
+          l10n.currentBalanceToman(currentMoney.toString()),
           textAlign: TextAlign.center,
           style: context.textTheme.titleMedium,
         )
@@ -186,7 +187,7 @@ class CustomTextField extends StatelessWidget {
       children: [
         Align(
             alignment: Alignment.centerRight,
-            child: Text(' تعیین مبلغ',style: context.textTheme.titleMedium?.copyWith(
+            child: Text(l10n.setAmount,style: context.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
             ),)),
         TextFormField(
@@ -258,7 +259,7 @@ class AmountOfMoney extends StatelessWidget {
                           : context.colorScheme.secondary),
                 ),
                 Text(
-                  'تومان',
+                  l10n.toman,
                   style: context.textTheme.labelLarge?.copyWith(
                       fontWeight: FontWeight.w700,
                       color: isSelected

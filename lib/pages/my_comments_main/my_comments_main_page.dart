@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,7 +31,7 @@ class MycommentsmainPage extends StatelessWidget {
             slivers: [
               SliverToBoxAdapter(
                 child: CustomAppBar(
-                  title: 'نظر های من',
+                  title: l10n.myComments,
                   icon: Icons.comment_rounded,
                 ),
               ),
@@ -50,8 +51,8 @@ class MycommentsmainPage extends StatelessWidget {
               else if (state.reviews.isEmpty)
                 SliverFillRemaining(
                   child: EmptyStateWidget(
-                    title: 'نظری ثبت نشده',
-                    message: 'هنوز نظری برای کتاب‌ها ثبت نکرده‌اید',
+                    title: l10n.noCommentSubmitted,
+                    message: l10n.noCommentsForBooksYet,
                     iconAsset: Assets.icRegisterComment,
                   ),
                 )
@@ -119,7 +120,7 @@ class RegisteredCommentsWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      userReview.name ?? 'نام کتاب نامشخص',
+                      userReview.name ?? l10n.unknownBookName,
                       style: context.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700, fontSize: 16),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

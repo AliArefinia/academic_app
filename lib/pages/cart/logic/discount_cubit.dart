@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -26,7 +27,7 @@ class DiscountCubit extends Cubit<DiscountState> {
       final result = await _repository.applyDiscount(code);
       
       if (result.status == 1) {
-        emit(DiscountState.valid('کد تخفیف با موفقیت اعمال شد', code));
+        emit(DiscountState.valid(l10n.discountCodeApplied, code));
       } else {
         final error = result.displayMessage;
         emit(DiscountState.invalid(error));

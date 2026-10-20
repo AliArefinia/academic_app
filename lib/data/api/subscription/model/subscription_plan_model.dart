@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:academic/core/error/json_parsing_error_handler.dart';
 import 'package:academic/core/utils/price_parser.dart';
@@ -35,13 +36,13 @@ class SubscriptionPlanModel {
 
   /// Get duration text based on days
   String get durationText {
-    if (days == 1) return 'روزه';
-    if (days < 30) return 'روزه';
-    if (days == 30) return 'ماهانه';
-    if (days < 365) return 'ماهانه';
-    if (days == 365) return 'سالانه';
-    if (days > 365) return 'سالانه';
-    return 'روزه';
+    if (days == 1) return l10n.daily;
+    if (days < 30) return l10n.daily;
+    if (days == 30) return l10n.monthly;
+    if (days < 365) return l10n.monthly;
+    if (days == 365) return l10n.yearly;
+    if (days > 365) return l10n.yearly;
+    return l10n.daily;
   }
 
   /// Get discount percentage (placeholder for future use)

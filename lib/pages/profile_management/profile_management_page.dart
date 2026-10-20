@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +17,7 @@ class ProfilemanagementPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            title: 'مدیریت پروفایل',
+            title: l10n.profileManagement,
             icon: Icons.edit_rounded,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
@@ -42,7 +43,7 @@ class ProfilemanagementPage extends StatelessWidget {
                     ),
                     const SizedBox(height: AppSpacing.s16),
                     Text(
-                      'خطا در بارگذاری پروفایل',
+                      l10n.errorLoadingProfile,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const SizedBox(height: AppSpacing.s16),
@@ -50,7 +51,7 @@ class ProfilemanagementPage extends StatelessWidget {
                     const SizedBox(height: AppSpacing.s16),
                     ElevatedButton(
                       onPressed: () => context.read<ProfilemanagementCubit>().loadProfile(),
-                      child: const Text('تلاش مجدد'),
+                      child: Text(l10n.retry),
                     ),
                   ],
                 ),

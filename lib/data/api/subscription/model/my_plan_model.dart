@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'my_plan_model.g.dart';
@@ -43,9 +44,9 @@ enum SubscriptionStatus {
   String get displayName {
     switch (this) {
       case SubscriptionStatus.active:
-        return 'فعال';
+        return l10n.active;
       case SubscriptionStatus.expired:
-        return 'منقضی شده';
+        return l10n.expiredStatus;
     }
   }
 }

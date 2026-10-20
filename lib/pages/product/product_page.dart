@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class EpubHandler {
     } catch (e) {
       debugPrint('[EpubHandler] Error: $e');
       if (context.mounted) {
-        ErrorHelper.showErrorSnackBar(context, 'خطا در باز کردن کتاب');
+        ErrorHelper.showErrorSnackBar(context, l10n.errorOpeningBook);
       }
     }
   }
@@ -115,7 +116,7 @@ class EpubHandler {
                     if (parentContext.mounted) {
                       ErrorHelper.showSuccessSnackBar(
                         parentContext,
-                        'یادداشت با موفقیت ذخیره شد',
+                        l10n.noteSavedSuccessfully,
                       );
                     }
                   } catch (e) {
@@ -123,7 +124,7 @@ class EpubHandler {
                     if (parentContext.mounted) {
                       ErrorHelper.showErrorSnackBar(
                         parentContext,
-                        'خطا در ذخیره یادداشت: ${e.toString()}',
+                        l10n.errorSavingNoteWithMessage(e.toString()),
                       );
                     }
                   }
@@ -140,7 +141,7 @@ class EpubHandler {
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: const Text('بریده کتاب با موفقیت ذخیره شد'),
+                    content: Text(l10n.clippingSavedSuccessfully),
                     backgroundColor: Colors.green,
                     duration: const Duration(seconds: 2),
                   ),
@@ -183,7 +184,7 @@ class EpubHandler {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('خطا در دانلود کتاب: ${e.toString()}'),
+            content: Text(l10n.errorDownloadingBookWithMessage(e.toString())),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
@@ -211,7 +212,7 @@ class _ProductPageState extends State<ProductPage> {
     if (product.authors?.isNotEmpty ?? false) {
       final authorNames = product.authors!.map((author) {
         return author.name;
-      }).where((name) => name.isNotEmpty).join('، ');
+      }).where((name) => name.isNotEmpty).join(l10n.listSeparator);
       
       if (authorNames.isNotEmpty) {
         buffer.writeln('✍️ نویسنده: $authorNames');
@@ -251,11 +252,11 @@ class _ProductPageState extends State<ProductPage> {
     try {
       await Share.share(
         shareText,
-        subject: 'کتاب ${product.name}',
+        subject: l10n.bookWithName(product.name.toString()),
       );
     } catch (e) {
       if (context.mounted) {
-        ErrorHelper.showErrorSnackBar(context, 'خطا در اشتراک‌گذاری');
+        ErrorHelper.showErrorSnackBar(context, l10n.errorSharing);
       }
     }
   }
@@ -273,7 +274,7 @@ class _ProductPageState extends State<ProductPage> {
           if (state.successMessage != null) {
             // For addNote, message is shown in onSave callback after bottom sheet closes
             // For other actions (bookmark, clipping), show here
-            if (!state.successMessage!.contains('یادداشت')) {
+            if (!state.successMessage!.contains(l10n.note)) {
               ErrorHelper.showSuccessSnackBar(context, state.successMessage!);
             }
           }
@@ -304,9 +305,9 @@ class _ProductPageState extends State<ProductPage> {
           if (product == null) {
             return Scaffold(
               body: ErrorStateWidget(
-                error: 'محصول یافت نشد',
-                title: 'محصول یافت نشد',
-                message: 'محصول مورد نظر در دسترس نیست',
+                error: l10n.productNotFound,
+                title: l10n.productNotFound,
+                message: l10n.productNotAvailable,
                 showRetryButton: false,
               ),
             );
@@ -386,7 +387,7 @@ class _ProductPageState extends State<ProductPage> {
                                       children: [
                                         Icon(Icons.share, color: context.colorScheme.primary),
                                         const SizedBox(width: 8),
-                                        Text('اشتراک‌گذاری کتاب', style: context.textTheme.titleLarge),
+                                        Text(l10n.shareBook, style: context.textTheme.titleLarge),
                                       ],
                                     ),
                                   ),
@@ -418,7 +419,7 @@ class _ProductPageState extends State<ProductPage> {
                                           if (product.authors?.isNotEmpty ?? false) ...[
                                             const SizedBox(height: 8),
                                             Text(
-                                              'نویسنده: ${product.authors!.join('، ')}',
+                                              l10n.authorWithValue(product.authors!.join(l10n.listSeparator)),
                                               style: context.textTheme.bodyMedium,
                                             ),
                                           ],
@@ -440,7 +441,7 @@ class _ProductPageState extends State<ProductPage> {
                                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                           child: TextButton(
                                             onPressed: () => Navigator.pop(context),
-                                            child: Text('انصراف'),
+                                            child: Text(l10n.cancel),
                                           ),
                                         ),
                                         Padding(
@@ -452,7 +453,7 @@ class _ProductPageState extends State<ProductPage> {
                                             },
                                             style: ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: 8))),
                                             icon: Icon(Icons.share),
-                                            label: Text('اشتراک‌گذاری'),
+                                            label: Text(l10n.share),
                                           ),
                                         ),
                                       ],
@@ -508,7 +509,7 @@ class _ProductPageState extends State<ProductPage> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s24),
                         child: Text(
-                          'درباره کتاب',
+                          l10n.aboutBook,
                           style: context.textTheme.titleLarge?.copyWith(
                             fontWeight: FontWeight.w700,
                             letterSpacing: -0.3,
@@ -548,7 +549,7 @@ class _ProductPageState extends State<ProductPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'برچسب‌ها',
+                                l10n.tags,
                                 style: context.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w600,
                                 ),
@@ -563,7 +564,7 @@ class _ProductPageState extends State<ProductPage> {
                                     color: Colors.transparent,
                                     child: InkWell(
                                 onTap: () {
-                                  final tagName = tag.name ?? 'تگ';
+                                  final tagName = tag.name ?? l10n.tag;
                                   TagBooksRoute(tagId: tag.id.toString(), tagName: tagName).push(context);
                                 },
                                       borderRadius: BorderRadius.circular(20),
@@ -618,7 +619,7 @@ class _ProductPageState extends State<ProductPage> {
                                 print('Error in PersonaldevelopmentbooksRoute: $e');
                                 print('Stack trace: $stackTrace');
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('خطا: $e'))
+                                  SnackBar(content: Text(l10n.errorWithMessage(e.toString())))
                                 );
                               }
                           },
@@ -651,7 +652,7 @@ class _ProductPageState extends State<ProductPage> {
                               print('Error in BookidRoute: $e');
                               print('Stack trace: $stackTrace');
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('خطا: $e'))
+                                SnackBar(content: Text(l10n.errorWithMessage(e.toString())))
                               );
                             }
                         },
@@ -675,7 +676,7 @@ class _ProductPageState extends State<ProductPage> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s24),
                           child: Text(
-                            'نظرات کاربران',
+                            l10n.userReviews,
                             style: context.textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.w700,
                               letterSpacing: -0.3,
@@ -753,7 +754,7 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       SliverToBoxAdapter(
                         child: TextAboveList(
-                          text: 'کتاب‌های دیگر این نویسنده',
+                          text: l10n.otherBooksByAuthor,
                           onPressed: () {
                             // Get the first author's ID and name
                             final firstAuthor = product.authors?.isNotEmpty == true 
@@ -806,7 +807,7 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       SliverToBoxAdapter(
                         child: TextAboveList(
-                          text: 'کتاب‌های دیگر این ناشر',
+                          text: l10n.otherBooksByPublisher,
                           onPressed: () {
                             if (product.publisher != null) {
                               // Use publisher name for search since we don't have publisher_id
@@ -855,7 +856,7 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       SliverToBoxAdapter(
                         child: TextAboveList(
-                          text: 'کتاب‌های مرتبط',
+                          text: l10n.relatedBooks,
                           onPressed: () {}, // No action needed for related books
                         ),
                       ),
@@ -1006,7 +1007,7 @@ class BookInformationSection extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: AppSpacing.s8),
                       child: Text(
-                        'نویسنده: ${authors!.map((a) => a.name).join('، ')}',
+                        l10n.authorWithValue(authors!.map((a) => a.name).join(l10n.listSeparator)),
                         textAlign: TextAlign.center,
                         style: context.textTheme.bodyLarge?.copyWith(
                           color: isDark 
@@ -1021,7 +1022,7 @@ class BookInformationSection extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(bottom: AppSpacing.s8),
                       child: Text(
-                        'مترجم: $translator',
+                        l10n.translatorWithValue(translator.toString()),
                         textAlign: TextAlign.center,
                         style: context.textTheme.bodyMedium?.copyWith(
                           color: isDark 
@@ -1033,7 +1034,7 @@ class BookInformationSection extends StatelessWidget {
                   
                   if (publisher != null && publisher!.isNotEmpty)
                     Text(
-                      'ناشر: $publisher',
+                      l10n.publisherWithValue(publisher.toString()),
                       textAlign: TextAlign.center,
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: isDark 
@@ -1210,7 +1211,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
   }
 
   String _getContentTypeText(String? type) {
-    return type == 'audio' ? 'پخش' : 'مطالعه';
+    return type == 'audio' ? l10n.play : l10n.read;
   }
 
   bool _isAudioContent(String? type) {
@@ -1327,7 +1328,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
     if (type == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('نوع محتوا نامشخص است'),
+          content: Text(l10n.contentTypeUnknown),
           backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
@@ -1348,7 +1349,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
           if (!context.mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Text('فایل صوتی در دسترس نیست'),
+              content: Text(l10n.audioFileNotAvailable),
               backgroundColor: Theme.of(context).colorScheme.error,
             ),
           );
@@ -1381,7 +1382,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
             if (!context.mounted) return;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: const Text('فایل PDF در دسترس نیست'),
+                content: Text(l10n.pdfNotAvailable),
                 backgroundColor: Theme.of(context).colorScheme.error,
               ),
             );
@@ -1389,8 +1390,8 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
         } else {
           if (!context.mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('فایل PDF در دسترس نیست'),
+            SnackBar(
+              content: Text(l10n.pdfNotAvailable),
               backgroundColor: Colors.red,
             ),
           );
@@ -1427,7 +1428,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
             if (!context.mounted) return;
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: const Text('فایل کتاب در دسترس نیست'),
+                content: Text(l10n.bookFileNotAvailable),
                 backgroundColor: Theme.of(context).colorScheme.error,
               ),
             );
@@ -1435,8 +1436,8 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
         } else {
           if (!context.mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('فایل کتاب در دسترس نیست'),
+            SnackBar(
+              content: Text(l10n.bookFileNotAvailable),
               backgroundColor: Colors.red,
             ),
           );
@@ -1468,7 +1469,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
         if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: const Text('این محصول قبلاً در سبد خرید شما وجود دارد'),
+            content: Text(l10n.productAlreadyInCart),
             backgroundColor: Theme.of(context).colorScheme.tertiary,
           ),
         );
@@ -1493,7 +1494,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  '${widget.product.name} به سبد خرید اضافه شد',
+                  l10n.addedToCartWithName(widget.product.name.toString()),
                   style: TextStyle(
                     fontSize: 14,
                     color: Theme.of(context).colorScheme.onPrimary,
@@ -1503,7 +1504,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
             ],
           ),
           action: SnackBarAction(
-            label: 'مشاهده',
+            label: l10n.view,
             textColor: Theme.of(context).colorScheme.onPrimary,
             onPressed: () => context.push('/cart'),
           ),
@@ -1511,7 +1512,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
       );
     } catch (e) {
       if (!context.mounted) return;
-      ErrorHelper.showErrorSnackBar(context, 'خطا در افزودن به سبد خرید');
+      ErrorHelper.showErrorSnackBar(context, l10n.errorAddingToCart);
     }
   }
 
@@ -1601,7 +1602,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
                         if (numOfPeopleRatesVal > 0) ...[
                           const SizedBox(height: AppSpacing.s4),
                     Text(
-                      "از ${numOfPeopleRatesVal} نظر",
+                      l10n.fromReviewsCount(numOfPeopleRatesVal.toString()),
                       style: context.textTheme.bodySmall?.copyWith(
                               color: context.colorScheme.onSurfaceVariant,
                               fontSize: 12,
@@ -1665,7 +1666,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
                               ),
                             ),
                             TextSpan(
-                              text: ' تومان',
+                              text: l10n.tomanWithSpace,
                               style: context.textTheme.bodyMedium?.copyWith(
                                 fontWeight: FontWeight.w500,
                                 color: context.colorScheme.onSurfaceVariant,
@@ -1711,7 +1712,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
                           ),
                             const SizedBox(width: AppSpacing.s6),
                           Text(
-                            'دسترسی پریمیوم',
+                            l10n.premiumAccess,
                             style: context.textTheme.bodyMedium?.copyWith(
                                 color: Colors.amber[900],
                                 fontWeight: FontWeight.w600,
@@ -1747,7 +1748,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
                                 size: 20,
                               ),
                       label: Text(
-                                'افزودن به قفسه',
+                                l10n.addToShelf,
                         style: context.textTheme.bodyLarge?.copyWith(
                                   color: context.colorScheme.primary,
                                   fontWeight: FontWeight.w600,
@@ -1796,7 +1797,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
                       print('DEBUG: Final isInCart value: $isInCart');
                       return MainButton(
                         textColor: context.colorScheme.secondary,
-                        text: isInCart ? 'مشاهده سبد خرید' : 'افزودن به سبد خرید',
+                        text: isInCart ? l10n.viewCart : l10n.addToCart,
                         backgroundColor: context.colorScheme.primary,
                         isLoading: isLoading,
                         onPressed: isLoading ? null : () {
@@ -1834,7 +1835,7 @@ class _BuyPriceSampleBoxState extends State<BuyPriceSampleBox> {
                             size: 20,
                           ),
                     label: Text(
-                      _isDownloadingEpub ? 'در حال بارگذاری...' : 'مطالعه نمونه',
+                      _isDownloadingEpub ? l10n.loading : l10n.readSample,
                       style: context.textTheme.bodyLarge?.copyWith(
                                     color: context.colorScheme.primary,
                         fontWeight: FontWeight.w600,
@@ -1928,7 +1929,7 @@ class IntroductionBox extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'ادامه مطلب',
+                      l10n.continueReading,
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: context.colorScheme.primary,
                         fontWeight: FontWeight.w600,
@@ -1994,7 +1995,7 @@ class IntroductionBox extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('توضیحات کامل', style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+                        Text(l10n.fullDescription, style: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
                         IconButton(
                           icon: const Icon(Icons.close),
                           onPressed: () => Navigator.of(context).pop(),
@@ -2087,7 +2088,7 @@ class MenuAndPersonalDevelopment extends StatelessWidget {
                         ),
                         const SizedBox(width: AppSpacing.s8),
                       Text(
-                          'فهرست مطالب',
+                          l10n.tableOfContents,
                           style: context.textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
@@ -2181,7 +2182,7 @@ void menuOfContents(BuildContext context) {
                   padding: const EdgeInsets.symmetric(
                       horizontal: AppSpacing.s20, vertical: AppSpacing.s8),
                   child: Text(
-                    'فهرست مطالب',
+                    l10n.tableOfContents,
                     style: context.textTheme.headlineMedium,
                   ),
                 ),
@@ -2299,7 +2300,7 @@ class BookIDSection extends StatelessWidget {
                 const SizedBox(width: AppSpacing.s16),
                 Expanded(
                   child: Text(
-                    'مشاهده اطلاعات کتاب',
+                    l10n.viewBookInfo,
                     style: context.textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -2500,20 +2501,20 @@ class UserOpinionsWidget extends StatelessWidget {
                 spacing: AppSpacing.s10,
                 children: [
                   UsefulOrNotUsefulContainer(
-                    text: 'مفید بود',
+                    text: l10n.helpful,
                     numOfRate: (userOpinionsModel.numOfUseful ?? 0),
-                    isSelected: state.selectedUsefulOption == 'مفید بود',
+                    isSelected: state.selectedUsefulOption == l10n.helpful,
                     onTap: () {
-                      cubit.selectUsefulOption('مفید بود');
+                      cubit.selectUsefulOption(l10n.helpful);
                     },
                   ),
                   const SizedBox(width: AppSpacing.s10),
                   UsefulOrNotUsefulContainer(
-                    text: 'مفید نبود',
+                    text: l10n.notHelpful,
                     numOfRate: (userOpinionsModel.numOfNotUseful ?? 0),
-                    isSelected: state.selectedUsefulOption == 'مفید نبود',
+                    isSelected: state.selectedUsefulOption == l10n.notHelpful,
                     onTap: () {
-                      cubit.selectUsefulOption('مفید نبود');
+                      cubit.selectUsefulOption(l10n.notHelpful);
                     },
                   ),
                 ],
@@ -2626,7 +2627,7 @@ class RecordReviewsAndScores extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'نظر شما چیست؟',
+              l10n.whatIsYourOpinion,
               style: context.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -2669,7 +2670,7 @@ class SubmitButton extends StatelessWidget {
         size: 20,
       ),
       label: Text(
-        'ثبت نظر',
+        l10n.submitComment,
         style: context.textTheme.bodyLarge?.copyWith(
           color: context.colorScheme.primary,
           fontWeight: FontWeight.w600,
@@ -2723,7 +2724,7 @@ class TextAboveList extends StatelessWidget {
                       color: context.colorScheme.primary,
                     ),
             label: Text(
-              'مشاهده همه',
+              l10n.viewAll,
               style: context.textTheme.bodyMedium?.copyWith(
                     color: context.colorScheme.primary,
                 fontWeight: FontWeight.w600,

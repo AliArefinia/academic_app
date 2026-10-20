@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,7 +25,7 @@ class MyshelvesPage extends StatelessWidget {
           onTap: () => MyAppHelper().hideKeyboard(context),
           child: Scaffold(
             appBar: CustomAppBar(
-              title: 'قفسه‌های من',
+              title: l10n.myShelvesTitle,
               icon: Icons.bookmarks_rounded,
               leading: IconButton(
                 onPressed: () => context.pop(),
@@ -39,7 +40,7 @@ class MyshelvesPage extends StatelessWidget {
                   Padding(
                     padding:
                         const EdgeInsets.symmetric(horizontal: AppSpacing.s20),
-                    child: Text("قفسه‌های من",
+                    child: Text(l10n.myShelvesTitle,
                         style: context.textTheme.titleLarge),
                   ),
                   const SizedBox(height: AppSpacing.s20),
@@ -73,7 +74,7 @@ class MyshelvesPage extends StatelessWidget {
                                 SvgPicture.asset(Assets.assetsIcPlus),
                                 const SizedBox(width: AppSpacing.s10),
                                 Text(
-                                  "ساخت قفسه جدید",
+                                  l10n.createNewShelf,
                                   style: context.textTheme.labelLarge
                                       ?.copyWith(fontWeight: FontWeight.w600),
                                 ),
@@ -100,7 +101,7 @@ class MyshelvesPage extends StatelessWidget {
                                 size: 64, color: Colors.red[300]),
                             const SizedBox(height: 16),
                             Text(
-                              "خطا در بارگذاری قفسه‌ها",
+                              l10n.errorLoadingShelves,
                               style: context.textTheme.titleMedium?.copyWith(
                                 color: Colors.red[700],
                               ),
@@ -109,7 +110,7 @@ class MyshelvesPage extends StatelessWidget {
                             Text(
                               msg,
                               style: context.textTheme.bodyMedium?.copyWith(
-                                color: Colors.grey[600],
+                                color: context.secondaryText,
                               ),
                               textAlign: TextAlign.center,
                             ),
@@ -122,7 +123,7 @@ class MyshelvesPage extends StatelessWidget {
                                 backgroundColor: context.colorScheme.primary,
                                 foregroundColor: context.colorScheme.onPrimary,
                               ),
-                              child: const Text('تلاش مجدد'),
+                              child: Text(l10n.retry),
                             ),
                           ],
                         ),
@@ -139,12 +140,12 @@ class MyshelvesPage extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 16),
                                   Text(
-                                    'شما هنوز قفسه‌ای نساخته‌اید',
+                                    l10n.noShelvesCreatedYet,
                                     style: context.textTheme.titleMedium,
                                   ),
                                   const SizedBox(height: AppSpacing.s8),
                                   Text(
-                                    'برای افزودن کتاب به قفسه، ابتدا یک قفسه جدید بسازید',
+                                    l10n.createShelfFirstToAddBooks,
                                     style:
                                         context.textTheme.bodyMedium?.copyWith(
                                       color: Colors.grey,
@@ -160,7 +161,7 @@ class MyshelvesPage extends StatelessWidget {
                                       onPressed: () =>
                                           _showAddShelfDialog(context),
                                       icon: const Icon(Icons.add),
-                                      label: const Text('ساخت قفسه جدید'),
+                                      label: Text(l10n.createNewShelf),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: context.colorScheme.primary,
                                         foregroundColor: context.colorScheme.onPrimary,
@@ -226,7 +227,7 @@ void _showAddShelfDialog(BuildContext parentContext) {
             mainAxisSize: MainAxisSize.min,
             children: [
               Center(
-                child: Text("ساخت قفسه",
+                child: Text(l10n.createShelf,
                     style: parentContext.textTheme.headlineMedium),
               ),
               const SizedBox(height: AppSpacing.s20),
@@ -236,7 +237,7 @@ void _showAddShelfDialog(BuildContext parentContext) {
                 controller: shelfController,
                 maxLines: 1,
                 decoration: InputDecoration(
-                  labelText: "نام قفسه را بنویسید",
+                  labelText: l10n.writeShelfName,
                   labelStyle: parentContext.textTheme.bodyLarge,
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   border: OutlineInputBorder(
@@ -258,7 +259,7 @@ void _showAddShelfDialog(BuildContext parentContext) {
               ),
               const SizedBox(height: AppSpacing.s24),
               MainButton(
-                text: "ثبت",
+                text: l10n.submit,
                 backgroundColor: parentContext.colorScheme.primary,
                 textColor: parentContext.colorScheme.onPrimary,
                 onPressed: () {
@@ -286,18 +287,18 @@ void _showDeleteConfirmation(BuildContext context, BookCase bookCase) {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.corner16),
       ),
-      title: const Text(
-        'حذف قفسه',
+      title: Text(
+        l10n.deleteShelf,
         textAlign: TextAlign.right,
       ),
       content: Text(
-        'آیا مطمئن هستید که می‌خواهید قفسه "${bookCase.name}" را حذف کنید؟',
+        l10n.confirmDeleteShelf(bookCase.name.toString()),
         textAlign: TextAlign.right,
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(dialogContext),
-          child: const Text('انصراف'),
+          child: Text(l10n.cancel),
         ),
         TextButton(
           onPressed: () {
@@ -307,7 +308,7 @@ void _showDeleteConfirmation(BuildContext context, BookCase bookCase) {
           style: TextButton.styleFrom(
             foregroundColor: Colors.red,
           ),
-          child: const Text('حذف'),
+          child: Text(l10n.delete),
         ),
       ],
     ),
@@ -418,7 +419,7 @@ class CustomBookWidget extends StatelessWidget {
             // Books preview - simplified
             if (bookCase.books.isNotEmpty) ...[
               Text(
-                "آخرین کتاب‌ها:",
+                l10n.latestBooks,
                 style: context.textTheme.bodySmall?.copyWith(
                   color: context.colorScheme.onSurface.withOpacity(0.6),
                   fontSize: 11,
@@ -459,7 +460,7 @@ class CustomBookWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: AppSpacing.s4),
                   child: Text(
-                    "+${bookCase.books.length - 2} کتاب دیگر",
+                    l10n.moreBooksCount(bookCase.books.length - 2),
                     style: context.textTheme.bodySmall?.copyWith(
                       color: context.colorScheme.primary,
                       fontSize: 11,
@@ -487,7 +488,7 @@ class CustomBookWidget extends StatelessWidget {
                     ),
                     const SizedBox(width: AppSpacing.s8),
                     Text(
-                      "قفسه خالی است",
+                      l10n.shelfEmpty,
                       style: context.textTheme.bodySmall?.copyWith(
                         color: context.colorScheme.onSurface.withOpacity(0.6),
                         fontSize: 12,

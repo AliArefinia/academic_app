@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -24,7 +25,7 @@ class GiftcardPage extends StatelessWidget {
         if (state.error != null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('خطا در پردازش پرداخت: ${state.error}'),
+              content: Text(l10n.errorProcessingPaymentWithMessage(state.error.toString())),
               backgroundColor: Colors.red,
             ),
           );
@@ -36,7 +37,7 @@ class GiftcardPage extends StatelessWidget {
           onTap: () => MyAppHelper().hideKeyboard(context),
           child: Scaffold(
             appBar: CustomAppBar(
-              title: 'کارت هدیه',
+              title: l10n.giftCard,
               centerTitle: true,
             ),
             body: state.isPaymentSuccessful
@@ -83,7 +84,7 @@ class GiftcardPage extends StatelessWidget {
                             BlocBuilder<GiftcardCubit, GiftcardState>(
                               builder: (context, state) {
                                 return MainButton(
-                                  text: state.isProcessingPayment ? 'در حال پردازش...' : 'تایید و پرداخت',
+                                  text: state.isProcessingPayment ? l10n.processing : l10n.confirmAndPay,
                                   backgroundColor: state.isProcessingPayment 
                                     ? context.colorScheme.outline 
                                     : context.colorScheme.primary,
@@ -116,7 +117,7 @@ class GiftcardPage extends StatelessWidget {
                                   controller:
                                       BlocProvider.of<GiftcardCubit>(context)
                                           .phoneNumberController,
-                                  hint: 'شماره موبایل مقصد*',
+                                  hint: l10n.recipientPhoneRequired,
                                   suffixIcon: Icons.phone_outlined),
                             ),
                             BlocBuilder<GiftcardCubit, GiftcardState>(
@@ -138,10 +139,10 @@ class GiftcardPage extends StatelessWidget {
                             ),
                             CustomTextField(
                                 controller: cubit.priceController,
-                                hint: 'مبلغ به ریال',
+                                hint: l10n.amountInRial,
                                 suffixIcon: Icons.credit_card),
                             MainButton(
-                              text: 'ادامه',
+                              text: l10n.continueLabel,
                               backgroundColor: context.colorScheme.secondary,
                               textColor: context.colorScheme.onSecondary,
                               onPressed: () {
@@ -179,7 +180,7 @@ class TopIconAndText extends StatelessWidget {
           ),
         ),
         Text(
-          'ارسال کارت هدیه به دیگران',
+          l10n.sendGiftCardToOthers,
           style: context.textTheme.titleMedium,
         )
       ],
@@ -204,13 +205,13 @@ class CustomTextField extends StatelessWidget {
     return TextFormField(
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'لطفا شماره تلفن را وارد کنید';
+          return l10n.pleaseEnterPhoneNumber;
         }
         if (!value.startsWith('09')) {
-          return 'شماره باید با 09 شروع شود';
+          return l10n.phoneMustStartWith09;
         }
         if (value.length < 11 && value.length > 11) {
-          return 'شماره مورد نظر معتبر نمی باشد';
+          return l10n.phoneNumberInvalid;
         }
         return null;
       },
@@ -284,7 +285,7 @@ class AmountOfMoney extends StatelessWidget {
                       : context.colorScheme.outline),
             ),
             Text(
-              'ريال',
+              l10n.rialArabic,
               style: context.textTheme.labelLarge?.copyWith(
                   color: isSelected
                       ? context.colorScheme.secondary
@@ -325,7 +326,7 @@ class PhoneNumberAndPriceSection extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  'شماره موبایل',
+                  l10n.mobileNumber,
                   style: context.textTheme.titleMedium?.copyWith(
                       color: context.colorScheme.outline),
                 ),
@@ -343,14 +344,14 @@ class PhoneNumberAndPriceSection extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  'هزینه پرداختی',
+                  l10n.paymentAmount,
                   style: context.textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: context.colorScheme.outline),
                 ),
                 const Spacer(),
                 Text(
-                  "$price ریال",
+                  l10n.amountRial(price.toString()),
                   style: context.textTheme.titleMedium
                       ?.copyWith(color: context.colorScheme.outline),
                 ),
@@ -380,7 +381,7 @@ class SuccessfulCardMessage extends StatelessWidget {
       height: context.fullHeight * 0.2,
       child: Center(
         child: Text(
-          "کارت هدیه شما با موفقیت\n برای شماره ${phoneNumber} ارسال شد! 🤩",
+          l10n.giftCardSentToNumber(phoneNumber.toString()),
           style: context.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w700,
               color: context.colorScheme.onPrimary),

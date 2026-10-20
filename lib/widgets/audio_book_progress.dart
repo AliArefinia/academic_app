@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -73,7 +74,7 @@ class AudioBookProgress extends StatelessWidget {
                     ),
                     const SizedBox(height: AppSpacing.s2),
                     Text(
-                      'نویسنده نا مشخص',
+                      l10n.unknownAuthor,
                       style: context.textTheme.labelSmall?.copyWith(fontSize: 9),
                     ),
                     const Spacer(),
@@ -87,8 +88,8 @@ class AudioBookProgress extends StatelessWidget {
                       children: [
                         Text(
                           bookType == 'audio' 
-                              ? '$progress٪ شنیده اید'
-                              : '$progress٪ خوانده اید',
+                              ? l10n.percentListenedSpaced(progress.toString())
+                              : l10n.percentRead(progress.toString()),
                           style: TextStyle(
                             fontSize: 10,
                             color: context.colorScheme.primary,

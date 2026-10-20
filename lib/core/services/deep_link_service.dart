@@ -1,3 +1,5 @@
+import 'package:academic/l10n/l10n.dart';
+import 'package:academic/core/api_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:academic/data/api/payment/model/payment_model.dart';
@@ -39,7 +41,7 @@ class DeepLinkService {
     }
 
     // Handle verification URLs (when user comes back from payment success page)
-    if (uri.host.contains('demo.halalread.ir') && uri.path.contains('/api/pay/verify')) {
+    if (uri.host.contains(ApiConstants.host) && uri.path.contains('/api/pay/verify')) {
       print('✅ Handling payment verification page');
       // Extract authority from the URL if present
       final authority = uri.queryParameters['Authority'] ?? 
@@ -55,7 +57,7 @@ class DeepLinkService {
     }
 
     // Handle callback URLs with Authority parameters
-    if ((uri.host.contains('demo.halalread.ir') || 
+    if ((uri.host.contains(ApiConstants.host) || 
          uri.host.contains('zarinpal')) && 
         uri.queryParameters.containsKey('Authority')) {
       print('✅ Handling callback with Authority');
@@ -86,7 +88,7 @@ class DeepLinkService {
     // If we can't identify the link, show a generic message
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('لینک نامشخص دریافت شد: ${uri.toString()}'),
+        content: Text(l10n.unknownLinkReceived(uri.toString())),
         backgroundColor: Colors.orange,
       ),
     );
@@ -98,8 +100,8 @@ class DeepLinkService {
       // Show loading
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('در حال تایید پرداخت...'),
+          SnackBar(
+            content: Text(l10n.verifyingPayment),
             backgroundColor: Colors.blue,
           ),
         );
@@ -110,8 +112,8 @@ class DeepLinkService {
       // Show success message
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('پرداخت با موفقیت تایید شد!'),
+          SnackBar(
+            content: Text(l10n.paymentVerifiedSuccessfully),
             backgroundColor: Colors.green,
           ),
         );
@@ -121,7 +123,7 @@ class DeepLinkService {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('خطا در تایید پرداخت: $e'),
+            content: Text(l10n.errorVerifyingPaymentWithMessage(e.toString())),
             backgroundColor: Colors.red,
           ),
         );
@@ -161,7 +163,7 @@ class DeepLinkService {
                     status: paymentStatus,
                     amount: int.tryParse(amount ?? '0') ?? 0,
                     paymentType: type ?? 'book',
-                    errorMessage: status == 'NOK' ? 'پرداخت ناموفق بود' : 'پرداخت توسط کاربر لغو شد',
+                    errorMessage: status == 'NOK' ? l10n.paymentFailedMessage : l10n.paymentCancelledByUser,
                   ),
                 ),
               );
@@ -194,14 +196,14 @@ class DeepLinkService {
     final bookIdStr = uri.queryParameters['id'];
     if (bookIdStr == null || bookIdStr.isEmpty) {
       print('❌ Book deep link missing id parameter');
-      _showErrorSnackBar(context, 'لینک کتاب نامعتبر است');
+      _showErrorSnackBar(context, l10n.invalidBookLink);
       return;
     }
 
     final bookId = int.tryParse(bookIdStr);
     if (bookId == null) {
       print('❌ Invalid book ID: $bookIdStr');
-      _showErrorSnackBar(context, 'شناسه کتاب نامعتبر است');
+      _showErrorSnackBar(context, l10n.invalidBookId);
       return;
     }
 
@@ -211,8 +213,8 @@ class DeepLinkService {
       // Show loading
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('در حال بارگذاری کتاب...'),
+          SnackBar(
+            content: Text(l10n.loadingBook),
             backgroundColor: Colors.blue,
             duration: Duration(seconds: 2),
           ),
@@ -234,14 +236,14 @@ class DeepLinkService {
             print('✅ Navigated to book with ID: $bookId');
           } catch (e) {
             print('❌ Navigation error: $e');
-            _showErrorSnackBar(context, 'خطا در باز کردن کتاب');
+            _showErrorSnackBar(context, l10n.errorOpeningBook);
           }
         });
       }
     } catch (e) {
       print('❌ Error fetching book: $e');
       if (context.mounted) {
-        _showErrorSnackBar(context, 'خطا در بارگذاری کتاب: ${e.toString()}');
+        _showErrorSnackBar(context, l10n.errorLoadingBookWithMessage(e.toString()));
       }
     }
   }
@@ -251,7 +253,7 @@ class DeepLinkService {
     final excerptIdStr = uri.queryParameters['id'];
     if (excerptIdStr == null || excerptIdStr.isEmpty) {
       print('❌ Excerpt deep link missing id parameter');
-      _showErrorSnackBar(context, 'لینک بریده نامعتبر است');
+      _showErrorSnackBar(context, l10n.invalidClippingLink);
       return;
     }
 
@@ -267,7 +269,7 @@ class DeepLinkService {
       });
     } catch (e) {
       print('❌ Navigation error: $e');
-      _showErrorSnackBar(context, 'خطا در باز کردن بریده');
+      _showErrorSnackBar(context, l10n.errorOpeningClipping);
     }
   }
 
@@ -303,7 +305,7 @@ class DeepLinkService {
                 status: PaymentStatus.failed,
                 amount: 0,
                 paymentType: 'book',
-                errorMessage: 'پرداخت ناموفق بود',
+                errorMessage: l10n.paymentFailedMessage,
               ),
             ),
           );
@@ -334,7 +336,7 @@ class DeepLinkService {
                 status: PaymentStatus.error,
                 amount: 0,
                 paymentType: 'unknown',
-                errorMessage: 'پارامترهای پرداخت نامعتبر است',
+                errorMessage: l10n.invalidPaymentParameters,
               ),
             ),
           );
@@ -350,8 +352,8 @@ class DeepLinkService {
     
     // Show success message and navigate to home or payment success page
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('پرداخت با موفقیت انجام شد!'),
+      SnackBar(
+        content: Text(l10n.paymentCompletedSuccessfully),
         backgroundColor: Colors.green,
       ),
     );
@@ -377,8 +379,8 @@ class DeepLinkService {
       // Show loading
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('در حال تایید پرداخت...'),
+          SnackBar(
+            content: Text(l10n.verifyingPayment),
             backgroundColor: Colors.blue,
           ),
         );
@@ -444,7 +446,7 @@ class DeepLinkService {
       } else {
         print('⚠️ Payment not verified, skipping cart refresh');
         // Throw error to be caught in catch block
-        throw Exception('پرداخت تایید نشد');
+        throw Exception(l10n.paymentNotVerified);
       }
 
       // Hide loading message

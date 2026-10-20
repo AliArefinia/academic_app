@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:academic/core/utils/price_parser.dart';
 
@@ -11,11 +12,11 @@ enum SubscriptionStatus {
   String get displayName {
     switch (this) {
       case SubscriptionStatus.active:
-        return 'فعال';
+        return l10n.active;
       case SubscriptionStatus.reserved:
-        return 'رزرو شده';
+        return l10n.reserved;
       case SubscriptionStatus.expired:
-        return 'منقضی شده';
+        return l10n.expiredStatus;
     }
   }
 }
@@ -57,12 +58,12 @@ class UserSubscriptionModel {
 
   /// Get duration text based on days
   String get durationText {
-    if (days == 1) return 'روزه';
-    if (days < 30) return 'روزه';
-    if (days == 30) return 'ماهانه';
-    if (days < 365) return 'ماهانه';
-    if (days == 365) return 'سالانه';
-    return 'روزه';
+    if (days == 1) return l10n.daily;
+    if (days < 30) return l10n.daily;
+    if (days == 30) return l10n.monthly;
+    if (days < 365) return l10n.monthly;
+    if (days == 365) return l10n.yearly;
+    return l10n.daily;
   }
 
   /// Get subscription status enum

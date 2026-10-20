@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -20,15 +21,15 @@ class BookmarkedBooksPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            title: 'نشان شده',
+            title: l10n.bookmarked,
             icon: Icons.bookmark_rounded,
           ),
           body: state.when(
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (msg) => Center(child: Text('خطا: $msg')),
+            error: (msg) => Center(child: Text(l10n.errorWithMessage(msg.toString()))),
             empty: () => EmptyStateWidget(
-              title: 'کتابی نشان نشده!',
-              message: 'هنوز هیچ کتابی را نشان نکرده‌اید',
+              title: l10n.noBookmarkedBooks,
+              message: l10n.noBookmarkedBooksYet,
               iconAsset: Assets.assetsIcSave,
             ),
             success: (books) {
@@ -57,7 +58,7 @@ class BookmarkedBooksPage extends StatelessWidget {
                       },
                       child: BookCard(
                         bookImagePath: buildImageUrl(book.image) ?? '',
-                        bookTitle: book.name ?? 'بدون عنوان',
+                        bookTitle: book.name ?? l10n.untitled,
                       ),
                     );
                   },

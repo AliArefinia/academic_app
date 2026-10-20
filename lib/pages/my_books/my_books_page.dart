@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,15 +24,15 @@ class MybooksPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: CustomAppBar(
-            title: 'کتاب های من',
+            title: l10n.myBooks,
             icon: Icons.book_rounded,
           ),
           body: state.when(
             loading: () => const Center(child: CircularProgressIndicator()),
-            error: (msg) => Center(child: Text('خطا: $msg')),
+            error: (msg) => Center(child: Text(l10n.errorWithMessage(msg.toString()))),
             empty: () => EmptyStateWidget(
-              title: 'کتابی پیدا نشد!',
-              message: 'هنوز هیچ کتابی به کتابخانه شما اضافه نشده است',
+              title: l10n.noBookFound,
+              message: l10n.noBooksInLibraryYet,
               iconAsset: Assets.assetsIcBooks,
             ),
             success: (data, selectedCategory) {
@@ -85,7 +86,7 @@ class MybooksPage extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(width: AppSpacing.s12),
-                                    Text("قفسه های من",
+                                    Text(l10n.myShelves,
                                         style: context.textTheme.titleMedium
                                             ?.copyWith(
                                               fontWeight: FontWeight.w400,
@@ -102,7 +103,7 @@ class MybooksPage extends StatelessWidget {
                         const SizedBox(height: AppSpacing.s24),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s0),
-                          child: Text("قفسه های دانشگاه امام صادق (ع)",
+                          child: Text(l10n.appShelves,
                               style: context.textTheme.titleLarge),
                         ),
                         const SizedBox(height: AppSpacing.s16),
@@ -121,12 +122,12 @@ class MybooksPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: AppSpacing.s20),
                       sliver: SliverToBoxAdapter(
                         child: EmptyStateWidget(
-                          title: 'کتابی پیدا نشد!',
+                          title: l10n.noBookFound,
                           message: selectedCategory == 1
-                              ? 'هیچ کتاب متنی در کتابخانه شما وجود ندارد'
+                              ? l10n.noTextBooksInLibrary
                               : selectedCategory == 2
-                                  ? 'هیچ کتاب صوتی در کتابخانه شما وجود ندارد'
-                                  : 'هیچ کتابی پیدا نشد',
+                                  ? l10n.noAudioBooksInLibrary
+                                  : l10n.noBooksFound,
                           iconAsset: Assets.assetsIcBooks,
                           compact: true,
                         ),
@@ -161,7 +162,7 @@ class MybooksPage extends StatelessWidget {
                               onTap: () {
                                 final bookModel = BookModel(
                                   id: book.id.toString(),
-                                  name: book.name ?? 'بدون عنوان',
+                                  name: book.name ?? l10n.untitled,
                                   image: book.image ?? '',
                                   type: book.type ?? 'text',
                                 );
@@ -171,7 +172,7 @@ class MybooksPage extends StatelessWidget {
                                 progress: progress.clamp(0.0, 1.0),
                                 iconPath: Assets.assetsIcDon,
                                 bookImagePath: buildImageUrl(book.image) ?? '',
-                                bookTitle: book.name ?? 'بدون عنوان',
+                                bookTitle: book.name ?? l10n.untitled,
                               ),
                             );
                           },
@@ -319,8 +320,8 @@ class BookShelvesSection extends StatelessWidget {
     // 1: "الکترونیک" -> category 1 (text)
     // 2: "صوتی" -> category 2 (audio)
     final List<Map<String, dynamic>> shelves = [
-      {'title': 'الکترونیک', 'icon': Assets.assetsIcOpenbook, 'categoryIndex': 1},
-      {'title': 'صوتی', 'icon': Assets.assetsIcHeadphones, 'categoryIndex': 2},
+      {'title': l10n.electronic, 'icon': Assets.assetsIcOpenbook, 'categoryIndex': 1},
+      {'title': l10n.audio, 'icon': Assets.assetsIcHeadphones, 'categoryIndex': 2},
     ];
 
     return SizedBox(

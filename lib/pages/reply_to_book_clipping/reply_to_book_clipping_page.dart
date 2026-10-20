@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -32,11 +33,11 @@ class ReplytobookclippingPage extends StatelessWidget {
       required this.userDescription});
 
   String _getUserFullName(UserModel? user) {
-    if (user == null) return 'کاربر';
+    if (user == null) return l10n.user;
     final name = user.name?.trim() ?? '';
     final lastName = user.lastName?.trim() ?? '';
     if (name.isEmpty && lastName.isEmpty) {
-      return user.phone ?? 'کاربر';
+      return user.phone ?? l10n.user;
     }
     return [name, lastName].where((s) => s.isNotEmpty).join(' ');
   }
@@ -50,7 +51,7 @@ class ReplytobookclippingPage extends StatelessWidget {
           onTap: () => MyAppHelper().hideKeyboard(context),
           child: Scaffold(
             appBar: AppBar(
-              title: const Text('پاسخ به بریده کتاب'),
+              title: Text(l10n.replyToBookClipping),
             ),
             body: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
@@ -70,7 +71,7 @@ class ReplytobookclippingPage extends StatelessWidget {
                     ),
                     MainButton(
                       textSize: 16,
-                      text: 'ارسال',
+                      text: l10n.send,
                       textColor: context.colorScheme.secondary,
                       backgroundColor: context.colorScheme.primary,
                       onPressed: () {
@@ -251,7 +252,7 @@ class TextFieldContainer extends StatelessWidget {
         keyboardType: TextInputType.multiline,
         style: context.textTheme.bodyMedium,
         decoration: InputDecoration(
-          hintText: 'نظر شما',
+          hintText: l10n.yourComment,
           hintStyle: context.textTheme.bodyMedium,
           border: const OutlineInputBorder(borderSide: BorderSide.none),
         ),

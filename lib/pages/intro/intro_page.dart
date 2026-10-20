@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -40,12 +41,12 @@ class _IntroPageState extends State<IntroPage> {
               pageController: pageController,
               image: Assets.intro1,
               text:
-                  'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد '),
+                  l10n.introLoremIpsum),
           IntroWidget(
               image: Assets.intro2,
               pageController: pageController,
               text:
-                  'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد '),
+                  l10n.introLoremIpsum),
         ],
       ),
     );
@@ -120,7 +121,7 @@ class IntroWidget extends StatelessWidget {
                           curve: Curves.linear);
                     }
                   },
-                  child: const Text('مرحله بعدی')),
+                  child: Text(l10n.nextStep)),
             )),
       ],
     );

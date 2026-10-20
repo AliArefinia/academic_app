@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -35,7 +36,7 @@ class MyBookExcerptCommentsPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('نظرات بریده کتاب'),
+            title: Text(l10n.bookClippingComments),
           ),
           body: Column(
             children: [
@@ -101,7 +102,7 @@ class MyBookExcerptCommentsPage extends StatelessWidget {
                                 const Icon(Icons.error, size: 48, color: Colors.red),
                                 const SizedBox(height: AppSpacing.s16),
                                 Text(
-                                  'خطا در بارگذاری نظرات',
+                                  l10n.errorLoadingComments,
                                   style: context.textTheme.titleMedium,
                                 ),
                                 const SizedBox(height: AppSpacing.s8),
@@ -113,7 +114,7 @@ class MyBookExcerptCommentsPage extends StatelessWidget {
                                 const SizedBox(height: AppSpacing.s16),
                                 ElevatedButton(
                                   onPressed: () => context.read<MyBookExcerptCommentsCubit>().fetchComments(),
-                                  child: const Text('تلاش مجدد'),
+                                  child: Text(l10n.retry),
                                 ),
                               ],
                             ),
@@ -126,12 +127,12 @@ class MyBookExcerptCommentsPage extends StatelessWidget {
                                     const Icon(Icons.comment_outlined, size: 48, color: Colors.grey),
                                     const SizedBox(height: AppSpacing.s16),
                                     Text(
-                                      'هنوز نظری ثبت نشده است',
+                                      l10n.noCommentsYet,
                                       style: context.textTheme.titleMedium,
                                     ),
                                     const SizedBox(height: AppSpacing.s8),
                                     Text(
-                                      'اولین نفری باشید که نظر می‌دهد',
+                                      l10n.beFirstToComment,
                                       style: context.textTheme.bodyMedium,
                                     ),
                                   ],

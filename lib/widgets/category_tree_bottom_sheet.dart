@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:academic/core/theme/const.dart';
@@ -310,7 +311,7 @@ class _CategoryTreeBottomSheetState extends State<CategoryTreeBottomSheet> {
                 const SizedBox(width: AppSpacing.s12),
                 Expanded(
                   child: Text(
-                    'انتخاب دسته‌بندی',
+                    l10n.selectCategory,
                     style: context.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -319,7 +320,7 @@ class _CategoryTreeBottomSheetState extends State<CategoryTreeBottomSheet> {
                 IconButton(
                   icon: const Icon(Icons.close_rounded),
                   onPressed: () => Navigator.pop(context),
-                  tooltip: 'بستن',
+                  tooltip: l10n.close,
                 ),
               ],
             ),
@@ -336,7 +337,7 @@ class _CategoryTreeBottomSheetState extends State<CategoryTreeBottomSheet> {
               child: TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
-                  hintText: 'جستجوی دسته‌بندی...',
+                  hintText: l10n.searchCategory,
                   prefixIcon: Icon(
                     Icons.search_rounded,
                     color: context.colorScheme.onSurfaceVariant,
@@ -387,7 +388,7 @@ class _CategoryTreeBottomSheetState extends State<CategoryTreeBottomSheet> {
                               ),
                               const SizedBox(height: AppSpacing.s16),
                               Text(
-                                'دسته‌بندی‌ای یافت نشد',
+                                l10n.noCategoryFound,
                                 style: context.textTheme.bodyLarge?.copyWith(
                                   color: context.colorScheme.onSurfaceVariant,
                                 ),

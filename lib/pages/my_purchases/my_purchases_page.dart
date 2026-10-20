@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +27,7 @@ class MypurchasesPage extends StatelessWidget {
               slivers: [
                 SliverToBoxAdapter(
                   child: CustomAppBar(
-                    title: 'خرید های من',
+                    title: l10n.myPurchases,
                     leading: IconButton(
                       onPressed: () => context.pop(),
                       icon: const Icon(Icons.arrow_back),
@@ -53,7 +54,7 @@ class MypurchasesPage extends StatelessWidget {
                     children: [
                       const SizedBox(height: AppSpacing.s10),
                       CustomOutlinedButton(
-                        text: "مشاهده همه",
+                        text: l10n.viewAll,
                         onPressed: () {},
                       ),
                       const SizedBox(height: AppSpacing.s48),
@@ -63,8 +64,8 @@ class MypurchasesPage extends StatelessWidget {
               ],
             ),
           ),
-          empty: () => const Center(child: Text('خریدی وجود ندارد')), 
-          error: (msg) => Center(child: Text('خطا: $msg')),
+          empty: () => Center(child: Text(l10n.noPurchases)), 
+          error: (msg) => Center(child: Text(l10n.errorWithMessage(msg.toString()))),
         );
       },
     );
@@ -120,7 +121,7 @@ class PurchaseItem extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'تومان',
+                      l10n.toman,
                       style: context.textTheme.bodySmall?.copyWith(
                         color: context.colorScheme.onSurfaceVariant,
                         fontSize: 12,
@@ -141,13 +142,13 @@ class PurchaseItem extends StatelessWidget {
             // Details Section
             _DetailRow(
               icon: Icons.receipt_long,
-              label: 'کد پیگیری',
+              label: l10n.trackingCode,
               value: purchase.trackingCode ?? '-',
             ),
             const SizedBox(height: AppSpacing.s12),
             _DetailRow(
               icon: Icons.calendar_today,
-              label: 'تاریخ خرید',
+              label: l10n.purchaseDate,
               value: purchase.date ?? '-',
             ),
             if (purchase.discountAmount != null &&
@@ -156,9 +157,9 @@ class PurchaseItem extends StatelessWidget {
               const SizedBox(height: AppSpacing.s12),
               _DetailRow(
                 icon: Icons.discount,
-                label: 'تخفیف',
+                label: l10n.discount,
                 value:
-                    '${PriceParser.formatPrice(PriceParser.parseToDouble(purchase.discountAmount))} تومان',
+                    l10n.amountToman(PriceParser.formatPrice(PriceParser.parseToDouble(purchase.discountAmount))),
                 valueColor: context.colorScheme.primary,
               ),
             ],

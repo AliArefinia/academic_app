@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -21,7 +22,7 @@ class AuthorbookPage extends StatelessWidget {
           onTap: () => MyAppHelper().hideKeyboard(context),
           child: Scaffold(
             appBar: CustomAppBar(
-              title: 'نویسنده',
+              title: l10n.author,
               icon: Icons.person_outline_rounded,
             ),
             body: Padding(
@@ -42,7 +43,7 @@ class AuthorbookPage extends StatelessWidget {
                         Expanded(
                           child: TextField(
                             decoration: InputDecoration(
-                              hintText: "جستجو در نویسنده، مترجم یا گوینده",
+                              hintText: l10n.searchAuthorTranslatorNarrator,
                               hintStyle: context.textTheme.bodyMedium,
                               border: InputBorder.none,
                             ),
@@ -127,7 +128,7 @@ class FilterButtons extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  "فیلتر کردن",
+                  l10n.filter,
                   style: context.textTheme.headlineSmall?.copyWith(
                     color: context.colorScheme.onPrimary,
                   ),
@@ -146,7 +147,7 @@ class FilterButtons extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  "لغو فیلتر",
+                  l10n.clearFilter,
                   style: context.textTheme.headlineSmall?.copyWith(
                     color: context.colorScheme.onPrimary,
                   ),

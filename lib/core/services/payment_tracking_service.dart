@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:academic/data/api/payment/model/payment_model.dart';
@@ -30,7 +31,7 @@ class PaymentTrackingService {
       // Show error and navigate back
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('خطا در تایید پرداخت: $e'),
+          content: Text(l10n.errorVerifyingPaymentWithMessage(e.toString())),
           backgroundColor: Colors.red,
         ),
       );
@@ -54,8 +55,8 @@ class PaymentTrackingService {
     } else {
       // Payment failed
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('پرداخت ناموفق بود'),
+        SnackBar(
+          content: Text(l10n.paymentFailedMessage),
           backgroundColor: Colors.red,
         ),
       );

@@ -3,7 +3,7 @@ part of 'invite_friends_cubit.dart';
 @freezed
 class InvitefriendsState with _$InvitefriendsState {
   const factory InvitefriendsState({
-    @Default('دعوت') String currentTab,
+    @Default('invite') String currentTab,
     String? inviteCode,
     @Default([]) List<InvitedFriendsModel> invitedFriends,
     @Default([]) List<GiftModel> gifts,

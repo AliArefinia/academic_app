@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,7 +24,7 @@ void showChapterDialog({
     context: context,
     builder: (context) => StatefulBuilder(
       builder: (context, setState) => AlertDialog(
-        title: Text(chapter == null ? 'ایجاد سرفصل جدید' : 'ویرایش سرفصل'),
+        title: Text(chapter == null ? l10n.createNewChapter : l10n.editChapter),
         content: Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -35,17 +36,17 @@ void showChapterDialog({
                   // Title field only for create
                   TextFormField(
                     controller: titleController,
-                    decoration: const InputDecoration(
-                      labelText: 'عنوان سرفصل',
-                      hintText: 'مثلاً: هوش مصنوعی',
+                    decoration: InputDecoration(
+                      labelText: l10n.chapterTitle,
+                      hintText: l10n.chapterTitleExample,
                       border: OutlineInputBorder(),
                     ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'عنوان الزامی است';
+                        return l10n.titleRequired;
                       }
                       if (value.trim().length < 3) {
-                        return 'عنوان باید حداقل ۳ کاراکتر باشد';
+                        return l10n.titleMinLength;
                       }
                       return null;
                     },
@@ -56,8 +57,8 @@ void showChapterDialog({
                 TextFormField(
                   controller: descriptionController,
                   decoration: InputDecoration(
-                    labelText: chapter == null ? 'توضیحات (اختیاری)' : 'توضیحات',
-                    hintText: 'توضیح کوتاه درباره این سرفصل',
+                    labelText: chapter == null ? l10n.descriptionOptional : l10n.description,
+                    hintText: l10n.chapterDescriptionHint,
                     border: const OutlineInputBorder(),
                   ),
                   maxLines: 3,
@@ -65,8 +66,8 @@ void showChapterDialog({
                 if (chapter == null) ...[
                   // Category selector only for create
                   const SizedBox(height: AppSpacing.s16),
-                  const Text(
-                    'دسته‌بندی',
+                  Text(
+                    l10n.category,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -118,7 +119,7 @@ void showChapterDialog({
                           const SizedBox(width: AppSpacing.s12),
                           Expanded(
                             child: Text(
-                              selectedCategory?.name ?? 'انتخاب دسته‌بندی',
+                              selectedCategory?.name ?? l10n.selectCategory,
                               style: context.textTheme.bodyLarge?.copyWith(
                                 color: selectedCategory != null
                                     ? context.colorScheme.primary
@@ -140,8 +141,8 @@ void showChapterDialog({
                   ),
                   // Image picker only for create
                   const SizedBox(height: AppSpacing.s16),
-                  const Text(
-                    'تصویر (اختیاری)',
+                  Text(
+                    l10n.imageOptional,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
@@ -166,7 +167,7 @@ void showChapterDialog({
                         if (context.mounted) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('خطا در انتخاب تصویر: ${e.toString()}'),
+                              content: Text(l10n.errorSelectingImageWithMessage(e.toString())),
                               backgroundColor: Colors.red,
                             ),
                           );
@@ -215,7 +216,7 @@ void showChapterDialog({
                                           if (context.mounted) {
                                             ScaffoldMessenger.of(context).showSnackBar(
                                               SnackBar(
-                                                content: Text('خطا در انتخاب تصویر: ${e.toString()}'),
+                                                content: Text(l10n.errorSelectingImageWithMessage(e.toString())),
                                                 backgroundColor: Colors.red,
                                               ),
                                             );
@@ -223,7 +224,7 @@ void showChapterDialog({
                                         }
                                       },
                                       icon: const Icon(Icons.edit),
-                                      label: const Text('تغییر تصویر'),
+                                      label: Text(l10n.changeImage),
                                     ),
                                     const SizedBox(width: AppSpacing.s16),
                                     TextButton.icon(
@@ -233,7 +234,7 @@ void showChapterDialog({
                                         });
                                       },
                                       icon: const Icon(Icons.delete),
-                                      label: const Text('حذف'),
+                                      label: Text(l10n.delete),
                                       style: TextButton.styleFrom(
                                         foregroundColor: Colors.red,
                                       ),
@@ -251,7 +252,7 @@ void showChapterDialog({
                                 ),
                                 const SizedBox(width: AppSpacing.s8),
                                 Text(
-                                  'انتخاب تصویر',
+                                  l10n.selectImage,
                                   style: TextStyle(
                                     color: context.colorScheme.onSurfaceVariant,
                                   ),
@@ -268,7 +269,7 @@ void showChapterDialog({
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('انصراف'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -277,8 +278,8 @@ void showChapterDialog({
                 if (formKey.currentState!.validate()) {
                   if (selectedCategory == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('لطفاً دسته‌بندی را انتخاب کنید'),
+                      SnackBar(
+                        content: Text(l10n.pleaseSelectCategoryFormal),
                         backgroundColor: Colors.red,
                       ),
                     );
@@ -307,7 +308,7 @@ void showChapterDialog({
                 );
               }
             },
-            child: const Text('ذخیره'),
+            child: Text(l10n.save),
           ),
         ],
       ),

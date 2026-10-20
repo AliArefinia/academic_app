@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -24,7 +25,7 @@ class ChapterDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(
-          title: 'جزئیات سرفصل',
+          title: l10n.chapterDetails,
           icon: Icons.folder_rounded,
         ),
         body: BlocBuilder<ChapterDetailCubit, ChapterDetailState>(
@@ -58,7 +59,7 @@ class ChapterDetailPage extends StatelessWidget {
                             ],
                             const SizedBox(height: AppSpacing.s16),
                             Text(
-                              '${notes.length} یادداشت',
+                              l10n.notesCount(notes.length),
                               style: context.textTheme.bodySmall?.copyWith(
                                 color: context.colorScheme.onSurfaceVariant,
                               ),
@@ -72,8 +73,8 @@ class ChapterDetailPage extends StatelessWidget {
                       SliverFillRemaining(
                         hasScrollBody: false,
                         child: EmptyStateWidget(
-                          title: 'یادداشتی وجود ندارد',
-                          message: 'هنوز هیچ یادداشتی در این سرفصل ثبت نشده است',
+                          title: l10n.noNotes,
+                          message: l10n.noNotesInChapter,
                           iconAsset: Assets.icSave,
                         ),
                       )
@@ -235,8 +236,8 @@ class NoteCard extends StatelessWidget {
                     ),
                     trimMode: TrimMode.Line,
                     trimLines: 4,
-                    trimCollapsedText: 'بیشتر بخوانید',
-                    trimExpandedText: 'کمتر',
+                    trimCollapsedText: l10n.readMore,
+                    trimExpandedText: l10n.less,
                     moreStyle: context.textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                       color: context.colorScheme.primary,
@@ -273,7 +274,7 @@ class NoteCard extends StatelessWidget {
                               ),
                               const SizedBox(width: AppSpacing.s6),
                               Text(
-                                'تحلیل',
+                                l10n.analysis,
                                 style: context.textTheme.labelMedium?.copyWith(
                                   fontWeight: FontWeight.w600,
                                   color: context.colorScheme.primary,
@@ -304,7 +305,7 @@ class NoteCard extends StatelessWidget {
                       TextButton.icon(
                         onPressed: () => _showEditNoteDialog(context, note),
                         icon: const Icon(Icons.edit_outlined, size: 18),
-                        label: const Text('ویرایش'),
+                        label: Text(l10n.edit),
                         style: TextButton.styleFrom(
                           foregroundColor: context.colorScheme.primary,
                         ),
@@ -313,7 +314,7 @@ class NoteCard extends StatelessWidget {
                       TextButton.icon(
                         onPressed: () => _showDeleteNoteDialog(context, note),
                         icon: const Icon(Icons.delete_outline, size: 18),
-                        label: const Text('حذف'),
+                        label: Text(l10n.delete),
                         style: TextButton.styleFrom(
                           foregroundColor: Colors.red,
                         ),
@@ -334,12 +335,12 @@ class NoteCard extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('ویرایش یادداشت'),
+        title: Text(l10n.editNote),
         content: TextField(
           controller: controller,
-          decoration: const InputDecoration(
-            labelText: 'یادداشت شما',
-            hintText: 'یادداشت یا توضیحی درباره این بریده...',
+          decoration: InputDecoration(
+            labelText: l10n.yourNote,
+            hintText: l10n.noteAboutClippingHint,
             border: OutlineInputBorder(),
           ),
           maxLines: 4,
@@ -348,7 +349,7 @@ class NoteCard extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('انصراف'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -359,7 +360,7 @@ class NoteCard extends StatelessWidget {
                     chapterId: chapterId,
                   );
             },
-            child: const Text('ذخیره'),
+            child: Text(l10n.save),
           ),
         ],
       ),
@@ -370,12 +371,12 @@ class NoteCard extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('حذف یادداشت'),
-        content: const Text('آیا از حذف این یادداشت اطمینان دارید؟'),
+        title: Text(l10n.deleteNote),
+        content: Text(l10n.confirmDeleteNote),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('انصراف'),
+            child: Text(l10n.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -389,7 +390,7 @@ class NoteCard extends StatelessWidget {
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
             ),
-            child: const Text('حذف'),
+            child: Text(l10n.delete),
           ),
         ],
       ),

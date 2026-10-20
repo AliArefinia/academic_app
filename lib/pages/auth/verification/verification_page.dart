@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -152,11 +153,11 @@ class _VerificationPageState extends State<VerificationPage>
           authHeaderWidget(context),
           const SizedBox(height: AppSpacing.s12),
           Text(
-            'ورود به دانشگاه امام صادق (ع)',
+            l10n.loginToApp,
             style: context.textTheme.titleLarge,
           ).addVerticalSpacing(AppSpacing.s12),
           Text(
-            'کد یکبار مصرف ارسال شده به شماره زیر را وارد کنید:',
+            l10n.enterOtpSentToNumber,
             style: context.textTheme.bodyLarge,
           ).addVerticalSpacing(AppSpacing.s12),
           // Phone number display with edit button
@@ -164,7 +165,7 @@ class _VerificationPageState extends State<VerificationPage>
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'شماره: ${widget.phone}',
+                l10n.phoneNumberLabel(widget.phone.toString()),
                 style: context.textTheme.bodyLarge,
               ),
               const SizedBox(width: AppSpacing.s16),
@@ -173,7 +174,7 @@ class _VerificationPageState extends State<VerificationPage>
                   const LoginRoute().go(context);
                 },
                 child: Text(
-                  'ویرایش شماره همراه',
+                  l10n.editPhoneNumber,
                   style: context.textTheme.bodySmall?.copyWith(
                     color: context.colorScheme.primary,
                   ),
@@ -198,12 +199,12 @@ class _VerificationPageState extends State<VerificationPage>
                 onPressed: () {
                   PasswordRoute(widget.phone, widget.isInvited).go(context);
                 },
-                child: const Text('ورود با رمز عبور'),
+                child: Text(l10n.loginWithPassword),
               ).addVerticalSpacing(AppSpacing.s32),
             ),
           CustomButton(
             child: Text(
-              state.maybeWhen(loading: () => 'در حال بررسی...', orElse: () => 'ادامه'),
+              state.maybeWhen(loading: () => l10n.checking, orElse: () => l10n.continueLabel),
             ),
             onPressed: state.maybeWhen(
               loading: () => null,
@@ -224,7 +225,7 @@ class _VerificationPageState extends State<VerificationPage>
                 } else {
                   if (mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("کد ۵ رقمی را وارد کنید")),
+                      SnackBar(content: Text(l10n.enterFiveDigitCode)),
                     );
                   }
                 }
@@ -233,12 +234,12 @@ class _VerificationPageState extends State<VerificationPage>
           ).addVerticalSpacing(AppSpacing.s32),
           Text.rich(
             TextSpan(
-              text: 'قوانین',
+              text: l10n.terms,
               style: context.textTheme.bodyMedium
                   ?.copyWith(color: context.colorScheme.tertiary),
               children: [
                 TextSpan(
-                  text: ' استفاده از دانشگاه امام صادق (ع)',
+                  text: l10n.ofUsingApp,
                   style: context.textTheme.bodyMedium,
                 )
               ],
@@ -275,13 +276,13 @@ class _VerificationPageState extends State<VerificationPage>
                 ],
               ).addVerticalSpacing(AppSpacing.s32),
               Text(
-                'تکمیل اطلاعات',
+                l10n.completeInformation,
                 style: context.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ).addVerticalSpacing(AppSpacing.s8),
               Text(
-                'لطفاً نقش و دسته‌بندی خود را انتخاب کنید',
+                l10n.pleaseSelectRoleAndCategory,
                 style: context.textTheme.bodyMedium?.copyWith(
                   color: context.colorScheme.onSurface.withOpacity(0.7),
                 ),
@@ -291,7 +292,7 @@ class _VerificationPageState extends State<VerificationPage>
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  'نقش شما:',
+                  l10n.yourRole,
                   style: context.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: context.colorScheme.onSurface.withOpacity(0.8),
@@ -303,7 +304,7 @@ class _VerificationPageState extends State<VerificationPage>
                   Expanded(
                     child: _buildTypeCard(
                       context,
-                      title: 'دانشجو',
+                      title: l10n.student,
                       subtitle: 'Student',
                       icon: Icons.school_outlined,
                       value: '1',
@@ -320,7 +321,7 @@ class _VerificationPageState extends State<VerificationPage>
                   Expanded(
                     child: _buildTypeCard(
                       context,
-                      title: 'استاد',
+                      title: l10n.professor,
                       subtitle: 'Master',
                       icon: Icons.person_outline,
                       value: '2',
@@ -340,7 +341,7 @@ class _VerificationPageState extends State<VerificationPage>
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  'دسته‌بندی:',
+                  l10n.categoryLabel,
                   style: context.textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w600,
                     color: context.colorScheme.onSurface.withOpacity(0.8),
@@ -390,8 +391,8 @@ class _VerificationPageState extends State<VerificationPage>
               CustomButton(
                 child: Text(
                   state.maybeWhen(
-                    loading: () => 'در حال ورود...',
-                    orElse: () => 'تأیید و ورود',
+                    loading: () => l10n.loggingIn,
+                    orElse: () => l10n.confirmAndLogin,
                   ),
                 ),
                 onPressed: (_selectedType != null && _selectedCategory != null &&
@@ -557,7 +558,7 @@ class _VerificationPageState extends State<VerificationPage>
             const SizedBox(width: AppSpacing.s12),
             Expanded(
               child: Text(
-                _selectedCategory?.name ?? 'انتخاب دسته‌بندی',
+                _selectedCategory?.name ?? l10n.selectCategory,
                 style: context.textTheme.bodyMedium?.copyWith(
                   color: _selectedCategory != null
                       ? context.colorScheme.onSurface
@@ -641,7 +642,7 @@ class _VerificationPageState extends State<VerificationPage>
                     ),
                     const SizedBox(width: AppSpacing.s8),
                     Text(
-                      'کد دعوت دارم (اختیاری)',
+                      l10n.haveInviteCodeOptional,
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: _showInviteCode
                             ? context.colorScheme.primary
@@ -677,7 +678,7 @@ class _VerificationPageState extends State<VerificationPage>
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        'کد دعوت ۶ رقمی',
+                        l10n.sixDigitInviteCode,
                         style: context.textTheme.bodySmall?.copyWith(
                           color: context.colorScheme.onSurface.withOpacity(0.7),
                           fontWeight: FontWeight.w500,
@@ -886,7 +887,7 @@ class _CategoryBottomSheetState extends State<CategoryBottomSheet> {
                   children: [
                     Expanded(
                       child: Text(
-                        'انتخاب دسته‌بندی',
+                        l10n.selectCategory,
                         style: context.textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -899,7 +900,7 @@ class _CategoryBottomSheetState extends State<CategoryBottomSheet> {
                 TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    hintText: 'جستجوی دسته‌بندی...',
+                    hintText: l10n.searchCategory,
                     prefixIcon: const Icon(Icons.search),
                     suffixIcon: _searchController.text.isNotEmpty
                         ? IconButton(
@@ -924,7 +925,7 @@ class _CategoryBottomSheetState extends State<CategoryBottomSheet> {
                     padding: const EdgeInsets.all(AppSpacing.s32),
                     child: Center(
                       child: Text(
-                        'دسته‌بندی یافت نشد',
+                        l10n.categoryNotFound,
                         style: context.textTheme.bodyMedium?.copyWith(
                           color: context.colorScheme.onSurface.withOpacity(0.5),
                         ),

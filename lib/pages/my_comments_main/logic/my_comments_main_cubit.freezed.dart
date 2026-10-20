@@ -147,7 +147,7 @@ class __$$MycommentsmainStateImplCopyWithImpl<$Res>
 
 class _$MycommentsmainStateImpl implements _MycommentsmainState {
   const _$MycommentsmainStateImpl(
-      {this.currentTab = 'ثبت نظر جدید',
+      {this.currentTab = 'new',
       this.isLoading = false,
       this.isError = false,
       this.errorMessage = '',

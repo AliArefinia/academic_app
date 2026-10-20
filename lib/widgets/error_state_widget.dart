@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:academic/core/error/error_message_mapper.dart';
@@ -103,23 +104,23 @@ class _ErrorStateWidgetState extends State<ErrorStateWidget>
     
     switch (_errorType) {
       case ErrorType.network:
-        return 'مشکل در اتصال';
+        return l10n.connectionProblem;
       case ErrorType.server:
-        return 'خطای سرور';
+        return l10n.serverError;
       case ErrorType.timeout:
-        return 'زمان اتصال تمام شد';
+        return l10n.connectionTimedOut;
       case ErrorType.notFound:
-        return 'یافت نشد';
+        return l10n.notFound;
       case ErrorType.unauthorized:
-        return 'دسترسی غیرمجاز';
+        return l10n.errorUnauthorized;
       case ErrorType.forbidden:
-        return 'دسترسی ممنوع';
+        return l10n.accessDenied;
       case ErrorType.validation:
-        return 'اطلاعات نامعتبر';
+        return l10n.invalidData;
       case ErrorType.parse:
-        return 'خطا در پردازش';
+        return l10n.processingError;
       case ErrorType.unknown:
-        return 'خطا رخ داده است';
+        return l10n.errorOccurred;
     }
   }
 
@@ -285,7 +286,7 @@ class _ErrorStateWidgetState extends State<ErrorStateWidget>
               onPressed: widget.onRetry,
               icon: const Icon(Icons.refresh_rounded, size: 24),
               label: Text(
-                widget.retryButtonText ?? 'تلاش مجدد',
+                widget.retryButtonText ?? l10n.retry,
                 style: context.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,

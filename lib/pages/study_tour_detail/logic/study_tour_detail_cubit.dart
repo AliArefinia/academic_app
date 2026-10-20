@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -71,7 +72,7 @@ class StudyTourDetailCubit extends Cubit<StudyTourDetailState> {
       }
       
       if (studyTourData == null) {
-        emit(const StudyTourDetailState.error('سیر مطالعاتی مورد نظر یافت نشد'));
+        emit(StudyTourDetailState.error(l10n.studyTourNotFound));
         return;
       }
       
@@ -91,7 +92,7 @@ class StudyTourDetailCubit extends Cubit<StudyTourDetailState> {
             
             final bookModel = StudyTourBookModel(
               id: bookMap['id']?.toString() ?? '0',
-              title: bookMap['name']?.toString() ?? 'بدون عنوان',
+              title: bookMap['name']?.toString() ?? l10n.untitled,
               image: bookMap['image']?.toString() ?? '',
               author: null,
               translator: null,
@@ -149,15 +150,15 @@ class StudyTourDetailCubit extends Cubit<StudyTourDetailState> {
     } catch (e, stackTrace) {
       print('❌ Error in loadStudyTourDetail: $e');
       print('📋 Stack trace: $stackTrace');
-      emit(StudyTourDetailState.error('خطا در بارگذاری جزئیات سیر مطالعاتی: ${e.toString()}'));
+      emit(StudyTourDetailState.error(l10n.errorLoadingStudyTourDetailsWithMessage(e.toString())));
     }
   }
 
 
   String _getEstimatedDuration(int bookCount) {
-    if (bookCount <= 3) return '۲ ماه';
-    if (bookCount <= 5) return '۴ ماه';
-    if (bookCount <= 8) return '۶ ماه';
-    return '۸ ماه';
+    if (bookCount <= 3) return l10n.twoMonths;
+    if (bookCount <= 5) return l10n.fourMonths;
+    if (bookCount <= 8) return l10n.sixMonths;
+    return l10n.eightMonths;
   }
 }

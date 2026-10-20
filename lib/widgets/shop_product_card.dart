@@ -1,3 +1,4 @@
+import 'package:academic/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:academic/core/helper/image_ur_handler.dart';
 import 'package:academic/core/helper/ui_extention.dart';
@@ -250,7 +251,7 @@ class ShopProductCard extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'تومان',
+                                l10n.toman,
                                 style: context.textTheme.labelSmall?.copyWith(
                                   color: context.colorScheme.onSurface
                                       .withOpacity(0.6),
