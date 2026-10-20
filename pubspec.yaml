@@ -40,7 +40,8 @@ dependencies:
   injectable: ^2.3.2
   get_it: ^7.6.4
   dio: ^5.4.0
-  retrofit: ^4.0.3
+  # Pinned: retrofit_generator 8.x does not compile against retrofit >= 4.3.
+  retrofit: 4.2.0
   shimmer: ^3.0.0
   connectivity_plus: ^6.1.0
   share_plus: ^11.0.0
@@ -118,7 +119,8 @@ dev_dependencies:
   freezed: ^2.5.2
   json_serializable: ^6.7.1
   retrofit_generator: ^8.0.6
-  flutter_gen_runner: ^5.4.0
+  # Pinned: flutter_gen_core 5.9.0 needs dart_style >= 2.3.7 (project resolves 2.3.6).
+  flutter_gen_runner: 5.8.0
   go_router_builder:
   auto_route_generator: ^7.3.2
 
